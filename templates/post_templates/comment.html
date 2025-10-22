@@ -1,0 +1,12 @@
+{% load crispy_forms_tags %}
+<div class="container">
+    <div class="row">
+        <div class="col-md-10 img-thumbnail" style="margin: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);">
+            <form method="POST" >
+                {% csrf_token %}
+                {{ form|crispy }}
+                <input class="btn btn-primary"type="submit" value="comment">
+            </form>
+        </div>
+    </div>
+</div>

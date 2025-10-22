@@ -1,0 +1,18 @@
+
+{% extends 'base.html'%}
+{% block body %}
+    <div class="container">
+        <div class="row">
+            
+            <h1>You are Signed in as {{account.name}}</h1>
+            <h4>Top 3 popular posts</h4>
+
+            {% for post in popular_posts %}
+                <div class="col">
+                    {% include 'home_templates/popular_post.html' with post=post %}
+                </div>
+            {% endfor %}
+
+        </div>
+    </div>
+{% endblock %}

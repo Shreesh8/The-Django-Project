@@ -1,0 +1,49 @@
+
+{% extends 'base.html' %}
+
+{% block body %}
+
+    <div class="container"> 
+        <div class="row justify-content-center">
+            <div class="col-md-10 mx-auto">
+                <div class="img-thumbnail" style="margin: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);">
+                    <div class="caption">
+
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail">
+                        {% endif %}
+
+                        {% if messages %}
+                        <ul class="messages">
+
+                            <h3>{{ post.title }}<small>{{ post.date }}</small></h3>
+
+                            {% for message in messages %}
+                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+                            {% endfor %}
+
+                        </ul>
+                        {% endif %}
+
+                        <h3>{{post.title}}</h3>
+                        <h6>Yazar: {{ post.user.username }}</h4>
+                        <h4 style="overflow-wrap: break-word;">{{post.desc|safe}}</h4>
+                        <h6>{{post.date}}</h6>
+
+                    </div>
+                </div>
+                <div>
+                <hr>
+                <br>
+                <h3>Comment: </h3>
+                {% include 'post_templates/comment.html' %}
+
+                {% for comment in post.comments.all%}
+                    <hr>
+                    <h4> {{ comment.name }} <span style="font-size: 0.8rem;">{{ comment.created_date|timesince}} ago</span></h4>
+                    <p>> {{ comment.content }}</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}
