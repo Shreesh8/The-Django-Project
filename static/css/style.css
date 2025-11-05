@@ -10,3 +10,15 @@ body{
     margin: 5px; 
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);
 }
+
+.button_shadow{
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.449);
+}
+
+.btn-primary{
+    background-color: rgb(50, 50, 50);
+}
+
+.btn-primary:hover{
+    background-color: rgb(88, 88, 88);
+}
