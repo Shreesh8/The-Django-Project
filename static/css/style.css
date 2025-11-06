@@ -9,6 +9,15 @@ body{
 .post_body{
     margin: 5px; 
     box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);
+    transition: all 100ms ease-out;
+    transform: scale(1.00);
+}
+
+.post_body:hover{
+    margin: 5px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);
+    transition: all 100ms ease-out;
+    transform: scale(1.02);
 }
 
 .button_shadow{
@@ -18,11 +27,25 @@ body{
 .btn-primary{
     background-color: rgb(50, 50, 50);
     border-color: rgb(88, 88, 88);
+    transition: all 100ms ease-out;
+    transform: scale(1.00);
 }
 
 .btn-primary:hover{
     background-color: rgb(88, 88, 88);
     border-color: rgb(100, 100, 100);
+    transition: all 100ms ease-out;
+    transform: scale(1.03);
+}
+
+.btn-danger{
+    transition: all 100ms ease-out;
+    transform: scale(1.00);
+}
+
+.btn-danger:hover{
+    transition: all 100ms ease-out;
+    transform: scale(1.03);
 }
 
 .btn-primary:active{
