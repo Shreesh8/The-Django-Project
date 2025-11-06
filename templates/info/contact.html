@@ -1,35 +1,23 @@
 {% extends 'base.html'%}
-{% load crispy_forms_tags  %}
 {% load static %}
 
-{% block body%}
+{% block body %}
 
-<div class="container justify-content-center mt-5">
+<div class="container justify-content-center mt-2">
     <h1 style="text-align: center;">Contact Us</h1>
     <h5 style="text-align: center;">Lorem ipsum dolor +90 999 999 9999 amet consectetur @whatsapp elit. Ad, beatae!</h3>
-
+    <!--
     <div class="container mt-5">
         <div class="d-flex align-items-start">
             
             <div class="container img-thumbnail post_body">
                 <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Nemo, autem. Culpa nostrum laudantium cupiditate odio odit dolor sapiente animi commodi sit dolores maxime eveniet saepe labore a voluptates magni, laborum at omnis suscipit officiis. At quasi quis perspiciatis excepturi accusamus.</h4>
                 <img style="max-height: 10rem;" src="{% static '/img/heart.svg' %}" alt="">
-            </div>
-        
-            <div class="container img-thumbnail post_body">
-                <div class="row">
-                    <div class="col-md-10 col-md-offset-3">
-                        <form method="POST"enctype="multipart/form-data">
-                            {% csrf_token %}
-                            <h1>Enter Email</h1>
-                            {{form|crispy}}
-                            <input class="btn btn-primary"type="submit" value="send">
-                        </form>
-                    </div>
-                </div>
-            </div>
+            </div>-->
+
+            {% include 'info/form.html'%}
+
         </div>
     </div>
 </div>
-
 {% endblock %}

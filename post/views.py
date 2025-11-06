@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect,Http404
 from .models import Post
-from .forms import PostForm, CommentForm
+from .forms import PostForm, CommentForm, ContactusForm
 from django.contrib import messages
 from django.db.models import Q
 
@@ -102,3 +102,10 @@ def post_delete(request, id):
     deleted_post = get_object_or_404(Post, id = id)
     deleted_post.delete()
     return redirect('post:index')
+
+def contact_us(request):
+    form = ContactusForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return redirect('/')
+    return render(request, "info/contact.html", {'form':form, 'title':'Info'})
