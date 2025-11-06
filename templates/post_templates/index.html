@@ -4,7 +4,7 @@
 
 {% block body%}
     <div class="container">             
-        <div class="row row-cols-1 row-cols-md-3">
+        <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
             {% for post in posts %}
             <div class="col">
                 <div class="img-thumbnail post_body">
@@ -40,7 +40,7 @@
                 </div>
             </div>
 
-            <!-- Modal -->
+            <!-- Modal post delete -->
             <div class="modal fade" id="modal_{{ post.id }}" tabindex="-1" aria-labelledby="modalLabel_{{ post.id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
