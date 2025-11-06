@@ -45,9 +45,9 @@
                             Are you sure you want to logout on user? <!--{{user.username}}-->
                         </div>
                         <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">No</button>
+                            <button type="button" class="btn btn-primary button_shadow" data-bs-dismiss="modal">No</button>
                             {% if request.user.is_authenticated %}
-                                <a href="{% url 'accounts:logout' %}" class="btn btn-danger" role="button">Logout</a>
+                                <a href="{% url 'accounts:logout' %}" class="btn btn-danger button_shadow" role="button">Logout</a>
                             {% endif %}
                         </div>
                     </div>
