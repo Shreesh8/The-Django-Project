@@ -51,7 +51,7 @@ class Comment(models.Model):
     post = models.ForeignKey('post.Post', related_name='comments', on_delete=models.CASCADE)
 
     name = models.CharField(max_length=200,verbose_name="Name ")
-    content = RichTextField(verbose_name="Comment ")
+    content = RichTextField(verbose_name="")
     created_date = models.DateTimeField(verbose_name="Created Date ", auto_now_add=True)
     
 
