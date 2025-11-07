@@ -7,7 +7,7 @@ from ckeditor.fields import RichTextField
 class Post(models.Model):
     user = models.ForeignKey('auth.User', verbose_name="Yazar", related_name="posts", on_delete=models.CASCADE)
     title = models.CharField(max_length=200,verbose_name="Title ")
-    desc = RichTextField(verbose_name="Description ")
+    desc = RichTextField(verbose_name="")
     date = models.DateTimeField(verbose_name="Date/Time ", auto_now_add=True)
     image = models.ImageField(null=True, blank=True)
 
