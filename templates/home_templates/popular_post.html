@@ -13,14 +13,19 @@
                 <hr>
                 <p>{{ post.desc|safe|linebreaks|truncatechars:150 }}</p>
 
-                
-                <hr>
             </div>
 
-          <p style="margin: 0.2rem;">
-            <a href="{{ post.get_absolute_url }}" class="btn btn-primary button_shadow" role="button">More</a>
-            <small>{{ post.date }}</small>  
-        </p>
+            <div class="mt-auto">
+                <hr>
+                <a href="{{ post.get_absolute_url }}" class="btn btn-primary button_shadow" role="button">More</a>
+                {% if request.user.is_authenticated %}
+                    {% if post.user == request.user %}
+                        <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
+                        <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">Delete</button>
+                    {% endif %}
+                    <small>{{ post.date }}</small>
+                {% endif %}
+            </div>
     </div>
 </div>
 
