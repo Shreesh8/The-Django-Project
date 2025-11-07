@@ -3,42 +3,42 @@
 
 
 {% block body%}
-    <div class="container">             
-        <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
-            {% for post in posts %}
-            <div class="col">
-                <div class="img-thumbnail post_body">
+<div class="container">             
+    <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
+        {% for post in posts %}
+        <div class="col d-flex mt-3">
+            <div class="img-thumbnail post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;">
+                <div class="caption flex-grow-1 d-flex flex-column">
+                    <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
+                        <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
-                    <div class="caption " style="height: 100%; overflow: hidden;">
-                        <div style="position: relative;">
-                             <a href="{{ post.get_absolute_url }}" ><span class="div_link" ></span></a>
+                        {% if post.image %}
+                            <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 100px;">
+                        {% endif %}
 
-                            {% if post.image %}
-                                <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 100px;">
-                            {% endif %}
+                        <h3 class="post_title">
+                            {{ post.title }}
+                            <h6 class="post_title">Yazar: {{ post.user.username }}</h6>
+                        </h3>
+                        <hr>
+                        <p>{{ post.desc|safe|linebreaks|truncatechars:150 }}</p>
+                        
+                    </div>
 
-                            <h3 class="post_title">{{ post.title }}<h6 class="post_title">Yazar: {{ post.user.username }}</h6></h3>
-                            <hr>
-                            <p>{{ post.desc|safe|linebreaks|truncatechars:150 }}</p>
-
-
-                            <hr>
-                        </div>
-
-                        <p style="margin: 0.2rem;">
-                            <a href="{{ post.get_absolute_url }}" class="btn btn-primary button_shadow" role="button">More</a>
-                            {% if request.user.is_authenticated %}
-                                <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
-                                <!-- Trigger unique modal -->
-                                <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">
-                                    Delete
-                                </button>
-                                <small>{{ post.date }}</small>
-                            {% endif %}
-                        </p>
+                    <div class="mt-auto" style="margin: 0.2rem;">
+                        <hr>
+                        <a href="{{ post.get_absolute_url }}" class="btn btn-primary button_shadow" role="button">More</a>
+                        {% if request.user.is_authenticated %}
+                            <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
+                            <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">
+                                Delete
+                            </button>
+                            <small>{{ post.date }}</small>
+                        {% endif %}
                     </div>
                 </div>
             </div>
+        </div>
 
             <!-- Modal post delete -->
             <div class="modal fade" id="modal_{{ post.id }}" tabindex="-1" aria-labelledby="modalLabel_{{ post.id }}" aria-hidden="true">
@@ -64,7 +64,7 @@
         </div>
     </div>
 
-        <div class="pagination justify-content-center">
+        <div class="pagination justify-content-center mt-3">
             <span class="step-links">
                 {% if posts.has_previous %}
                     <a href="?page=1">&laquo; first</a>
