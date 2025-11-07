@@ -71,6 +71,7 @@ def post_create(request):
         return HttpResponseRedirect(updated_post.get_absolute_url())
 
     context = {
+        "title" : "Create Post",
         "form" : form
     }
 
@@ -90,7 +91,8 @@ def post_update(request, id):
         return HttpResponseRedirect(updated_post.get_absolute_url())
     
     context = {
-        "form" : form
+        "title" : "Update Post",
+        "form" : form,
     }
     return render(request, "post_templates/form.html", context)
 
