@@ -53,7 +53,7 @@ def post_detail(request, id):
 def post_create(request):
 
     if not request.user.is_authenticated:
-        return Http404()
+        raise Http404("not_athenticated")
 
 #    if request.method == "POST":
 #        form = postForm(request.POST)
@@ -80,30 +80,37 @@ def post_create(request):
 def post_update(request, id):
 
     if not request.user.is_authenticated:
-        return Http404()
+        raise Http404("not_athenticated")
 
     post = get_object_or_404(Post, id = id)
-    form = PostForm(request.POST or None, request.FILES or None, instance=post)
 
-    if form.is_valid():
-        form.save()
-        updated_post = form.save()
-        return HttpResponseRedirect(updated_post.get_absolute_url())
-    
-    context = {
-        "title" : "Update Post",
-        "form" : form,
-    }
-    return render(request, "post_templates/form.html", context)
+    if post.user == request.user: # cant update posts if its a different user
+        form = PostForm(request.POST or None, request.FILES or None, instance=post)
+        if form.is_valid():
+            form.save()
+            updated_post = form.save()
+            return HttpResponseRedirect(updated_post.get_absolute_url())
+        
+        context = {
+            "title" : "Update Post",
+            "form" : form,
+        }
+        return render(request, "post_templates/form.html", context)
+    else:
+        raise Http404("cant update wrong user")
 
 def post_delete(request, id):
 
     if not request.user.is_authenticated:
-        return Http404()
+        raise Http404()
 
     deleted_post = get_object_or_404(Post, id = id)
-    deleted_post.delete()
-    return redirect('post:index')
+
+    if deleted_post.user == request.user:
+        deleted_post.delete()
+        return redirect('post:index')
+    else:
+        raise Http404("cant delete wrong user")
 
 def contact_us(request):
     form = ContactusForm(request.POST or None)
