@@ -13,4 +13,5 @@ urlpatterns = [
     path("create/", views.post_create, name = "create"),
     re_path(r'^(?P<id>\d+)/update/$', views.post_update, name = "update"),
     re_path(r'^(?P<id>\d+)/delete/$', views.post_delete, name = "delete"),
+    re_path(r'^(?P<id>\d+)/upvote/$', views.upvote_post, name = "upvote_post"),
 ]

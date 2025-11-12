@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect,Http404
-from .models import Post
+from .models import Post, UserUpvote
 from .forms import PostForm, CommentForm, ContactusForm
 from django.contrib import messages
 from django.db.models import Q
+from django.db.models import F
 
 from django.core.paginator import Paginator
 #from django.utils.text import slugify
@@ -13,9 +14,32 @@ def contact_us(request):
 def about_us(request):
     return render(request, "info/about.html")
 
+def upvote_post(request, id):
+    
+    post = get_object_or_404(Post, id = id)
+
+    if not request.user.is_authenticated:
+        raise Http404()
+
+    already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
+
+    if already_upvoted.exists():
+        already_upvoted.delete()
+        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
+    else:
+        UserUpvote.objects.create(user = request.user,post=post)
+        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
+    return redirect("post:index")
+
 def post_index(request):
 
     post_list = Post.objects.all()
+
+    post_ids = post_list.values_list('id', flat=True)
+
+    upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+    upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+
 
     query = request.GET.get("q")
 
@@ -30,7 +54,13 @@ def post_index(request):
 
     page = request.GET.get("page")
     posts = paginator.get_page(page)
-    return render(request, "post_templates/index.html", {"posts": posts})
+
+    context = {
+        "posts" : posts,
+        "upvoted_posts" : upvoted_posts,
+    }
+
+    return render(request, "post_templates/index.html", context)
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id = id)

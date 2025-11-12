@@ -20,6 +20,15 @@ body{
     transform: scale(1.02);
 }
 
+.scale-hover{
+    transform: scale(1.00);
+    transition: all 100ms ease-out;
+}
+
+.scale-hover:hover{
+    transform: scale(1.2);
+}
+
 .paginator-arrows{
     transform: scale(1.00);
     transition: all 100ms ease-out;

@@ -10,6 +10,7 @@ class Post(models.Model):
     desc = RichTextField(verbose_name="")
     date = models.DateTimeField(verbose_name="Date/Time ", auto_now_add=True)
     image = models.ImageField(null=True, blank=True)
+    upvotes = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
@@ -46,6 +47,13 @@ class Post(models.Model):
     class Meta:
         ordering = ["-date","id"]
 
+
+class UserUpvote(models.Model):
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name="upvotes")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="user_upvotes")
+
+    class Meta:
+        unique_together = ("user","post")
 
 class Comment(models.Model):
     post = models.ForeignKey('post.Post', related_name='comments', on_delete=models.CASCADE)
