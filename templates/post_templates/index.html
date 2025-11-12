@@ -31,12 +31,14 @@
                         <hr>
                         
                         {% if request.user.is_authenticated %}
+
+                            {% if post.id in upvoted_posts %}
+                                <a href="/post/{{post.id}}/upvote" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} |
+                            {% else %}
+                                <a href="/post/{{post.id}}/upvote" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} |
+                            {% endif %}
+
                             {% if post.user == request.user %}
-                                {% if post.id in upvoted_posts %}
-                                    <a href="/post/{{post.id}}/upvote" role="button"><img class="scale-hover" src="{% static 'img/test.png' %}" alt=""></a>{{post.upvotes}} |
-                                {% else %}
-                                    <a href="/post/{{post.id}}/upvote" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} |
-                                {% endif %}
                                 <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
                                 <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">Delete</button>
                             {% endif %}
