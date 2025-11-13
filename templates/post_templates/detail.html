@@ -44,7 +44,7 @@
                                     <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
                                     <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">Delete</button>
                                 {% endif %}
-                                <small>{{ post.date|timesince}}</small>
+                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince}}</small>
                             {% endif %}
                         </div>
 
@@ -58,7 +58,7 @@
 
                 {% for comment in post.comments.all%}
                     <hr>
-                    <h4> {{ comment.name }} <span style="font-size: 0.8rem;">{{ comment.created_date|timesince}} ago</span></h4>
+                    <h4> {{ comment.name }} <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ comment.created_date|timesince}} Ago</span></h4>
                     <p>> {{ comment.content }}</p>
                 {% endfor %}
             </div>
