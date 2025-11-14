@@ -1,4 +1,5 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect,Http404, reverse
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404
+from django.urls import reverse
 from .models import Post, UserUpvote
 from .forms import PostForm, CommentForm, ContactusForm
 from django.contrib import messages
@@ -32,7 +33,9 @@ def upvote_post(request, id):
 
     #page = request.GET.get("page",1)
     #return redirect(f'{reverse('posts')}?page={page}') #page number
-    return redirect("post:index")
+
+    page = request.GET.get("page", 1)
+    return redirect(f"{reverse('post:index')}?page={page}")
 
 def upvote_post_detail(request, id):
     

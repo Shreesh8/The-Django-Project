@@ -33,9 +33,9 @@
                         {% if request.user.is_authenticated %}
 
                             {% if post.id in upvoted_posts %}
-                                <a href="/post/{{post.id}}/upvote" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} |
+                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} |
                             {% else %}
-                                <a href="/post/{{post.id}}/upvote" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} |
+                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} |
                             {% endif %}
 
                             <img src="{% static '/img/eye.svg' %}" alt="">{{ post.post_views }} |
