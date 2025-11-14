@@ -11,18 +11,20 @@
 
         <!-- Temel Sayfalar -->
         <div class="collapse navbar-collapse" id="navbarLinks">
-            <ul class="nav d-flex justify-content-center">
-                {% if request.user.is_authenticated %}
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
-                {% else %}
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
-                {% endif %}
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}">Blog</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}">About us</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}">Contact</a></li>
-            </ul>
+            <div class="d-flex justify-content-end w-100">
+                <ul class="nav">
+                    {% if request.user.is_authenticated %}
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
+                    {% else %}
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
+                    {% endif %}
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}">Blog</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}">About us</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}">Contact</a></li>
+                </ul>
+            </div>
         </div>
 
                         <!-- Modal user logout -->
