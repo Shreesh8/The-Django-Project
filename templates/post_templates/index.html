@@ -44,7 +44,7 @@
                                 <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
                                 <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">Delete</button>
                             {% endif %}
-                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince}}</small>             
+                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince}} Ago</small>             
                         {% endif %}
                     </div>
                 </div>
