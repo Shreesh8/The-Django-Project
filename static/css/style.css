@@ -39,11 +39,13 @@ body{
 }
 
 .nav-link{
+    padding: 0.6rem;
     transform: scale(1.00);
     transition: all 100ms ease-out;
 }
 
 .nav-link:hover{
+    padding: 0.6rem;
     transform: scale(1.2);
 }
 

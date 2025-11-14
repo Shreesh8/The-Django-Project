@@ -11,18 +11,19 @@
 
         <!-- Temel Sayfalar -->
         <div class="collapse navbar-collapse" id="navbarLinks">
-            <ul class="navbar-nav ms-auto">
-            {% if request.user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}"  data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
-            {% else %}
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
-            {% endif %}
-            <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}">Blog</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}">About us</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}">Contacts</a></li>
+            <ul class="nav d-flex justify-content-center">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}">Blog</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}">About us</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}">Contact</a></li>
             </ul>
+        </div>
 
                         <!-- Modal user logout -->
             <div class="modal fade" id="modal_1" tabindex="-1" aria-labelledby="modalLabel_1" aria-hidden="true">

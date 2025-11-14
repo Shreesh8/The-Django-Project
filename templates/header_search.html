@@ -6,7 +6,7 @@
 
             <!-- Arama Çubuğu -->
         
-            <form  role="search" method="GET" action="">
+            <form class="mt-2" role="search" method="GET" action="">
                 <div class="input-group">
                 <input class="form-control" type="text" name="q" placeholder="Search on posts" value="{{ request.GET.q }}">
                 <button class="btn btn-outline-light text-dark" style="background-color: rgb(224, 224, 224);" type="submit">Search</button>
@@ -14,24 +14,24 @@
             </form>
         
 
-            <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
+            <button class="navbar-toggler text-light" style="margin-left: 1rem;" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
                     aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
         </div>
         <!-- Temel Sayfalar -->
         <div class="collapse navbar-collapse" id="navbarLinks">
-            <ul class="navbar-nav ms-auto">
-            {% if request.user.is_authenticated %}
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
-            {% else %}
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
-                <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
-            {% endif %}
-            <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}">Blog</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}">About us</a></li>
-            <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}">Contacts</a></li>
+            <ul class="nav d-flex justify-content-center">
+                {% if request.user.is_authenticated %}
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}">Blog</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}">About us</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}">Contact</a></li>
             </ul>
         </div>
 
