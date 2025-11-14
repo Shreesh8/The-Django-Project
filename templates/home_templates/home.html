@@ -8,7 +8,7 @@
             <h4>Top 3 popular posts</h4>
 
             {% for post in popular_posts %}
-                <div class="col">
+                <div class="col d-flex mt-3">
                     {% include 'home_templates/popular_post.html' with post=post %}
                 </div>
             {% endfor %}

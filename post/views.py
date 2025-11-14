@@ -31,9 +31,6 @@ def upvote_post(request, id):
         UserUpvote.objects.create(user = request.user,post=post)
         Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
 
-    #page = request.GET.get("page",1)
-    #return redirect(f'{reverse('posts')}?page={page}') #page number
-
     page = request.GET.get("page", 1)
     return redirect(f"{reverse('post:index')}?page={page}")
 

@@ -1,20 +1,26 @@
-{% block body%}
-<div class="img-thumbnail post_body" style="margin: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449); position: relative;">
+{% block body%}{% load static %}
 
-        <div class="caption " style="height: 100%; overflow: hidden;">
-            <div style="position: relative;">
-                    <a href="{{ post.get_absolute_url }}" ><span class="div_link" ></span></a>
+<div class="img-thumbnail post_body w-100 d-flex flex-column justify-content-between" style="margin: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);">
+        <div class="caption flex-grow-1 d-flex flex-column">
+            <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
+
+                <a href="{{ post.get_absolute_url }}" ><span class="div_link" ></span></a>
 
                 {% if post.image %}
                     <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 100px;">
                 {% endif %}
 
-                <h3 class="post_title">{{ post.title }}<h6 class="post_title">Yazar: {{ post.user.username }}</h6></h3>
+                <h3 class="post_title">
+                    {{ post.title }}
+                </h3>
+                <h6 class="post_title">
+                    Yazar: {{ post.user.username }}
+                </h6>
                 <hr>
                 <p>{{ post.desc|safe|linebreaks|truncatechars:150 }}</p>
 
             </div>
-            {% load static %}
+            
             <div class="mt-auto">
                 <hr>
 
