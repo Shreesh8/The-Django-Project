@@ -10,7 +10,7 @@ class Post(models.Model):
     desc = RichTextField(verbose_name="")
     date = models.DateTimeField(verbose_name="Date/Time ", auto_now_add=True)
     image = models.ImageField(upload_to='images_uploaded', null=True, blank=True)
-    video = models.FileField(upload_to='videos_uploaded',null=True,
+    video = models.FileField(upload_to='videos_uploaded',null=True, blank=True,
     validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
     upvotes = models.PositiveIntegerField(default=0)
     post_views = models.PositiveIntegerField(default=0)
@@ -64,7 +64,7 @@ class UserUpvote(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('post.Post', related_name='comments', on_delete=models.CASCADE)
-
+    user = models.ForeignKey('auth.User' ,null=True,blank=True,verbose_name="Yazar", on_delete=models.SET_NULL)
     name = models.CharField(max_length=200,verbose_name="Name ")
     content = RichTextField(verbose_name="")
     created_date = models.DateTimeField(verbose_name="Created Date ", auto_now_add=True)
