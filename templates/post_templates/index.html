@@ -12,6 +12,12 @@
                     <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
                         <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
+
+                        
+                        {% if post.video %}
+                            <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls>
+                        {% endif %}
+
                         {% if post.image %}
                             <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 100px;">
                         {% endif %}

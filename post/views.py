@@ -98,6 +98,7 @@ def post_detail(request, id):
     if form.is_valid():
         comment = form.save(commit=False)
         comment.post = post
+        comment.user = request.user
         comment.save()
         print("commented")
         return HttpResponseRedirect(post.get_absolute_url())

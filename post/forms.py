@@ -13,13 +13,13 @@ class PostForm(forms.ModelForm):
             "title",
             "desc",
             "image",
+            "video",
         ]
 
 class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = [
-            'name',
             'content',
         ]
 

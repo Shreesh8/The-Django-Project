@@ -9,6 +9,12 @@
                 <div class="img-thumbnail" style="margin: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);">
                     <div class="caption " style="overflow: hidden;">
 
+                        {% if post.video %}
+                            <div class="img-thumbnail d-flex">
+                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="1080"controls>
+                            </div>
+                        {% endif %}
+
                         {% if post.image %}
                             <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail">
                         {% endif %}
@@ -60,7 +66,11 @@
 
                 {% for comment in post.comments.all%}
                     <hr>
-                    <h4> {{ comment.name }} <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ comment.created_date|timesince}} Ago</span></h4>
+                    {% if comment.user %}
+                        <h4> {{ comment.user }} <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ comment.created_date|timesince}} Ago</span></h4>
+                    {% else %}
+                        <h4> Unknown <span style="font-size: 0.8rem;" data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ comment.created_date|timesince}} Ago</span></h4>
+                    {% endif %}
                     <p>> {{ comment.content }}</p>
                 {% endfor %}
             </div>
