@@ -147,7 +147,7 @@ def post_update(request, id):
 
     post = get_object_or_404(Post, id = id)
 
-    if post.user == request.user: # cant update posts if its a different user
+    if post.user == request.user or request.user.is_staff: # cant update posts if its a different user
         form = PostForm(request.POST or None, request.FILES or None, instance=post)
         if form.is_valid():
             form.save()
