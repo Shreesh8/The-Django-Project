@@ -69,11 +69,8 @@
 
                                 <td> 
                                     <a href="{{ admin_data.get_update_url }}" class="btn btn-primary-success button_shadow" role="button">Staff</a>
-                                    <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ admin_data.id }}">Delete</button>
                                 </td>
                             </tr>
-
-                            {% include 'modal.html' %}
 
                         {% endfor %}
                     {% elif data_category == "posts" %}
@@ -92,10 +89,10 @@
                                 </td>
                             </tr>
 
-                            {% include 'account_templates/modal.html' %}
+                            {% include 'account_templates/modal_post.html' %}
                         {% endfor %}
                     {% elif data_category == "contacts" %}
-                        {% for admin_data in admin_datas%} <!-- Posts -->
+                        {% for admin_data in admin_datas%} <!-- Contact -->
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
                                 <td>{{admin_data.name}}</td>
@@ -111,7 +108,7 @@
                                 </td>
                             </tr>
 
-                            {% include 'account_templates/modal.html' %}
+                            {% include 'account_templates/modal_contact.html' %}
                         {% endfor %}
                     {% endif %}
                 </tbody>

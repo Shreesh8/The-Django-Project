@@ -34,8 +34,14 @@ class Post(models.Model):
         return reverse('post:delete', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
 
-    def get_delete_admin_url(self):
-        return reverse('post:delete_admin', kwargs={'id': self.id})
+    def get_delete_post_adminpanel_url(self):
+        return reverse('post:delete_post_adminpanel', kwargs={'id': self.id})
+        #return "/user/{}".format(self.id)
+
+
+
+    def get_delete_user_adminpanel_url(self):
+        return reverse('post:delete_user_adminpanel', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
 
     def get_delete_url_home(self):
@@ -87,4 +93,8 @@ class ContactInfo(models.Model):
     user_gender = models.CharField(max_length=8, choices=select_gender, default="other")
 
     adress = models.CharField(max_length=200,verbose_name="Adress")
-    email = models.EmailField(verbose_name="Email")    
+    email = models.EmailField(verbose_name="Email")        
+    
+    def get_delete_contact_adminpanel_url(self):
+        return reverse('post:delete_contact_adminpanel', kwargs={'id': self.id})
+        #return "/user/{}".format(self.id)

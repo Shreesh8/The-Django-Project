@@ -1,6 +1,7 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404
 from django.urls import reverse
-from .models import Post, UserUpvote
+from .models import Post, UserUpvote, ContactInfo
+from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm, ContactusForm
 from django.contrib import messages
 from django.db.models import Q
@@ -174,7 +175,7 @@ def post_delete(request, id):
     else:
         raise Http404("cant delete wrong user")
 
-def post_delete_admin(request, id):
+def delete_post_adminpanel(request, id):
 
     if not request.user.is_authenticated:
         raise Http404()
@@ -185,6 +186,16 @@ def post_delete_admin(request, id):
         deleted_post.delete()
         return redirect('/accounts/admin_panel/posts')
 
+def delete_contact_adminpanel(request, id):
+
+    if not request.user.is_authenticated:
+        raise Http404()
+
+    deleted_contact = get_object_or_404(ContactInfo, id = id)
+
+    if request.user.is_staff:
+        deleted_contact.delete()
+        return redirect('/accounts/admin_panel/contacts')
 
 def contact_us(request):
     form = ContactusForm(request.POST or None)
