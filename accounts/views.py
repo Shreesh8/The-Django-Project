@@ -54,6 +54,13 @@ def admin_panel_users(request):
     else:
         name = {"name" : "Guest",}
 
+    query = request.GET.get("q")
+
+    if query:
+        users = users.filter(
+            Q(username__icontains=query)).distinct()
+        
+
     context = {"account": name, "admin_datas":users, "data_category":"users",}
 
     return render(request, "account_templates/admin_panel.html", context)
@@ -89,6 +96,15 @@ def admin_panel_contact(request):
     else:
         name = {"name" : "Guest",}
 
+    query = request.GET.get("q")
+
+    if query:
+        contacts = contacts.filter(
+            Q(adress__icontains=query) |
+            Q(email__icontains=query)|
+            Q(name__icontains=query)|
+            Q(surname__icontains=query)).distinct()
+        
     context = {"account": name, "admin_datas":contacts, "data_category":"contacts",}
 
     return render(request, "account_templates/admin_panel.html", context)
