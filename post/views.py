@@ -174,6 +174,18 @@ def post_delete(request, id):
     else:
         raise Http404("cant delete wrong user")
 
+def post_delete_admin(request, id):
+
+    if not request.user.is_authenticated:
+        raise Http404()
+
+    deleted_post = get_object_or_404(Post, id = id)
+
+    if request.user.is_staff:
+        deleted_post.delete()
+        return redirect('/accounts/admin_panel/posts')
+
+
 def contact_us(request):
     form = ContactusForm(request.POST or None)
     if form.is_valid():

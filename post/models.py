@@ -34,6 +34,10 @@ class Post(models.Model):
         return reverse('post:delete', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
 
+    def get_delete_admin_url(self):
+        return reverse('post:delete_admin', kwargs={'id': self.id})
+        #return "/user/{}".format(self.id)
+
     def get_delete_url_home(self):
         return reverse('home:delete_home', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
