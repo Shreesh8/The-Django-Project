@@ -8,7 +8,7 @@ from django.contrib.auth.models import AbstractUser
 AUTH_USER_MODEL = 'post.User'
 
 class Post(models.Model):
-    user = models.ForeignKey('auth.User', verbose_name="Yazar", related_name="posts", on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User', verbose_name="OP", related_name="posts", on_delete=models.CASCADE)
     title = models.CharField(max_length=200,verbose_name="Title ")
     desc = RichTextField(verbose_name="")
     date = models.DateTimeField(verbose_name="Date/Time ", auto_now_add=True)
@@ -80,14 +80,14 @@ class UserUpvote(models.Model):
 
 class Comment(models.Model):
     post = models.ForeignKey('post.Post', related_name='comments', on_delete=models.CASCADE)
-    user = models.ForeignKey('auth.User' ,null=True,blank=True,verbose_name="Yazar", on_delete=models.SET_NULL)
+    user = models.ForeignKey('auth.User' ,null=True,blank=True,verbose_name="OP", on_delete=models.SET_NULL)
     name = models.CharField(max_length=200,verbose_name="Name ")
     content = RichTextField(verbose_name="")
     created_date = models.DateTimeField(verbose_name="Created Date ", auto_now_add=True)
     
 
 class ContactInfo(models.Model):
-    user = models.ForeignKey('auth.User' ,null=True,blank=True,verbose_name="Yazar", on_delete=models.CASCADE)
+    user = models.ForeignKey('auth.User' ,null=True,blank=True,verbose_name="OP", on_delete=models.CASCADE)
     
     name = models.CharField(max_length=200,verbose_name="Name")
     surname = models.CharField(max_length=200,verbose_name="Surname")
