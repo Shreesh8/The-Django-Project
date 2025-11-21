@@ -4,7 +4,7 @@
     <div class="container">
         <div class="row">
             
-            <h1>You are Signed in as {{account.name}}</h1>
+            <h1>You are Signed in as {{request.user}}</h1>
             <h3>You have {% if request.user.is_staff %} Admin {% else %} User {% endif %} access</h3>
 
             <hr class="mt-3">
