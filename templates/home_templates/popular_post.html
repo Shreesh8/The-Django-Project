@@ -14,7 +14,7 @@
                     {{ post.title }}
                 </h3>
                 <h6 class="post_title">
-                    Yazar: {{ post.user.username }}
+                    OP: {{ post.user.username }}
                 </h6>
                 <hr>
                 <p>{{ post.desc|safe|linebreaks|truncatechars:150 }}</p>
