@@ -2,7 +2,10 @@ from django.db import models
 from django.urls import reverse
 from ckeditor.fields import RichTextField
 from django.core.validators import FileExtensionValidator
+from django.contrib.auth.models import AbstractUser
 #from django.utils.text import slugify
+
+AUTH_USER_MODEL = 'post.User'
 
 class Post(models.Model):
     user = models.ForeignKey('auth.User', verbose_name="Yazar", related_name="posts", on_delete=models.CASCADE)
@@ -34,9 +37,22 @@ class Post(models.Model):
         return reverse('post:delete', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
 
-    def get_delete_url_home(self):
-        return reverse('home:delete_home', kwargs={'id': self.id})
+    def get_delete_post_adminpanel_url(self):
+        return reverse('post:delete_post_adminpanel', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
+
+    def get_delete_url_home(self):
+        return reverse('home:delete_home', kwargs={'id': self.id})       # worst naming i have ever seen ... FIX IT
+        #return "/user/{}".format(self.id)
+
+    #def set_user_perms_staff_adminpanel(self):
+    #    print("working2")
+    #    return reverse('post:change_user_staff_perms', kwargs={'id': self.id})
+    #    #return "/user/{}".format(self.id)
+
+    #def set_user_perms_superusr_adminpanel(self):
+    #    return reverse('post:change_user_superusr_perms', kwargs={'id': self.id})
+    #    #return "/user/{}".format(self.id)
     
     #def get_unique_slug(self):
     #    slug = slugify(self.title.replace('ı', 'i'))
@@ -71,6 +87,8 @@ class Comment(models.Model):
     
 
 class ContactInfo(models.Model):
+    user = models.ForeignKey('auth.User' ,null=True,blank=True,verbose_name="Yazar", on_delete=models.CASCADE)
+    
     name = models.CharField(max_length=200,verbose_name="Name")
     surname = models.CharField(max_length=200,verbose_name="Surname")
     
@@ -83,4 +101,12 @@ class ContactInfo(models.Model):
     user_gender = models.CharField(max_length=8, choices=select_gender, default="other")
 
     adress = models.CharField(max_length=200,verbose_name="Adress")
-    email = models.EmailField(verbose_name="Email")    
+    email = models.EmailField(verbose_name="Email")        
+    
+    def get_delete_contact_adminpanel_url(self):
+        return reverse('post:delete_contact_adminpanel', kwargs={'id': self.id})
+        #return "/user/{}".format(self.id)
+
+    def get_modify_contact_adminpanel_url(self):
+        return reverse('post:modify_contact_adminpanel', kwargs={'id': self.id})
+        #return "/user/{}".format(self.id)

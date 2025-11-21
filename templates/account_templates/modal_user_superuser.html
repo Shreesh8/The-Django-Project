@@ -1,0 +1,20 @@
+<!-- Modal post delete -->
+<div class="modal fade" id="modal_superuser{{ admin_data.id }}" tabindex="-1" aria-labelledby="modalLabel_{{ admin_data.id }}" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="modalLabel_{{ admin_data.id }}">Super User Permission</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body">
+                Are you sure you want to change this?
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary button_shadow" data-bs-dismiss="modal">No</button>
+                {% if request.user.is_authenticated %}
+                    <a href="{% url 'accounts:set_user_perms_superuser_adminpanel' admin_data.id %}" class="btn btn-danger button_shadow" role="button">Yes</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>

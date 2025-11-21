@@ -8,7 +8,7 @@
         
             <form class="mt-2" role="search" method="GET" action="">
                 <div class="input-group">
-                <input class="form-control" type="text" name="q" placeholder="Search on posts" value="{{ request.GET.q }}">
+                <input class="form-control" type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
                 <button class="btn btn-outline-light text-dark" style="background-color: rgb(224, 224, 224);" type="submit">Search</button>
                 </div>
             </form>
@@ -27,6 +27,9 @@
                 {% if request.user.is_authenticated %}
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
+                    {% if request.user.is_staff %}
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:admin_panel' %}">Admin Panel</a></li>
+                    {% endif %}
                 {% else %}
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}">Login</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}">Sign in</a></li>
