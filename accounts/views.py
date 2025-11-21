@@ -1,4 +1,4 @@
-from django.shortcuts import render, redirect , get_object_or_404
+from django.shortcuts import render, redirect , get_object_or_404, Http404
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
 from post.models import Post , ContactInfo
@@ -37,93 +37,84 @@ def logout_view(request):
 
 def admin_panel(request):
 
-    if request.user.is_authenticated:
-        name = {"name" : request.user.username}
+    if request.user.is_staff or request.user.is_superuser:
+
+        context = {"data_category":"default",}
+
+        return render(request, "account_templates/admin_panel.html", context)
     else:
-        name = {"name" : "Guest",}
-
-    context = {"account": name, "data_category":"default",}
-
-    return render(request, "account_templates/admin_panel.html", context)
+        raise Http404()
 
 def admin_panel_users(request):
-    users = User.objects.all()
+    if request.user.is_staff or request.user.is_superuser:
 
-    if request.user.is_authenticated:
-        name = {"name" : request.user.username}
+        users = User.objects.all()
+
+        query = request.GET.get("q")
+
+        if query:
+            users = users.filter(
+                Q(username__icontains=query)).distinct()
+            
+        context = {"admin_datas":users, "data_category":"users",}
+
+        return render(request, "account_templates/admin_panel.html", context)
     else:
-        name = {"name" : "Guest",}
-
-    query = request.GET.get("q")
-
-    if query:
-        users = users.filter(
-            Q(username__icontains=query)).distinct()
-        
-
-    context = {"account": name, "admin_datas":users, "data_category":"users",}
-
-    return render(request, "account_templates/admin_panel.html", context)
+        raise Http404()
 
 def admin_panel_posts(request):
-    posts = Post.objects.all()
 
-    if request.user.is_authenticated:
-        name = {"name" : request.user.username}
+    if request.user.is_staff or request.user.is_superuser:
+
+        posts = Post.objects.all()
+
+        query = request.GET.get("q")
+
+        if query:
+            posts = posts.filter(
+                Q(title__icontains=query) |
+                Q(desc__icontains=query)|
+                Q(user__first_name__icontains=query)|
+                Q(user__last_name__icontains=query)).distinct()
+            
+        context = {"admin_datas":posts, "data_category":"posts",}
+
+        return render(request, "account_templates/admin_panel.html", context)
     else:
-        name = {"name" : "Guest",}
-
-
-    query = request.GET.get("q")
-
-    if query:
-        posts = posts.filter(
-            Q(title__icontains=query) |
-            Q(desc__icontains=query)|
-            Q(user__first_name__icontains=query)|
-            Q(user__last_name__icontains=query)).distinct()
-        
-    context = {"account": name, "admin_datas":posts, "data_category":"posts",}
-
-    return render(request, "account_templates/admin_panel.html", context)
-
+        raise Http404()
 
 def admin_panel_contact(request):
-    contacts = ContactInfo.objects.all()
 
-    if request.user.is_authenticated:
-        name = {"name" : request.user.username}
+    if request.user.is_staff or request.user.is_superuser:
+
+        contacts = ContactInfo.objects.all()
+
+        query = request.GET.get("q")
+
+        if query:
+            contacts = contacts.filter(
+                Q(adress__icontains=query) |
+                Q(email__icontains=query)|
+                Q(name__icontains=query)|
+                Q(surname__icontains=query)).distinct()
+            
+        context = {"admin_datas":contacts, "data_category":"contacts",}
+
+        return render(request, "account_templates/admin_panel.html", context)
     else:
-        name = {"name" : "Guest",}
-
-    query = request.GET.get("q")
-
-    if query:
-        contacts = contacts.filter(
-            Q(adress__icontains=query) |
-            Q(email__icontains=query)|
-            Q(name__icontains=query)|
-            Q(surname__icontains=query)).distinct()
-        
-    context = {"account": name, "admin_datas":contacts, "data_category":"contacts",}
-
-    return render(request, "account_templates/admin_panel.html", context)
-
+        raise Http404()
 
 
 def set_user_perms_staff_adminpanel(request, id):
     if request.user.is_staff:
         user = get_object_or_404(User, id = id)
         user.is_staff = not user.is_staff
-        print("works")
         user.save()
     return redirect('/accounts/admin_panel/users')
 
 def set_user_perms_superuser_adminpanel(request, id):
-    if request.user.is_staff:
-        if request.user.is_superuser:
-            user = get_object_or_404(User, id = id)
-            user.is_superuser = not user.is_superuser
-            print("works")
-            user.save()
+    if request.user.is_staff and request.user.is_superuser:
+        user = get_object_or_404(User, id = id)
+        user.is_superuser = not user.is_superuser
+        user.save()
     return redirect('/accounts/admin_panel/users')
