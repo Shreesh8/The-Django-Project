@@ -1,10 +1,21 @@
 {% extends 'base.html' %}
+{% load crispy_forms_tags  %}
 {% load static %}
 {% block body %}
 
     <div class="container">
-        <div class="row">
-            <p>{{title}}</p>
+        <div class="row">            
+            <h1>You are Signed in as {{request.user}}</h1>
+            <h3>You have {% if request.user.is_staff %} Admin {% else %} User {% endif %} access</h3>
+
+            <div class="col-md-10 col-md-offset-3">
+                <form method="POST"enctype="multipart/form-data">
+                    {% csrf_token %}
+                    {{user_form|crispy}}
+                    {{user_form.media}}
+                    <input class="btn btn-primary button_shadow"type="submit" value="send">
+                </form>
+            </div>
         </div>
     </div>
 {% endblock %}

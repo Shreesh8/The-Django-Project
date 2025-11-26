@@ -4,7 +4,8 @@
     <div class="container">
         <div class="row">
             
-            <h1>You are Signed in as {{account.name}} | {% if request.user.is_staff %} Admin {% else %} User {% endif %}</h1>
+            <h1>You are Signed in as {{request.user}}</h1>
+            <h3>You have {% if request.user.is_staff %} Admin {% else %} User {% endif %} access</h3>
             <h3>Top 3 popular posts</h3>
 
             {% for post in popular_posts %}
