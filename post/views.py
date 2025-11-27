@@ -54,35 +54,37 @@ def upvote_post_detail(request, id):
     return redirect(post.get_absolute_url())
 
 def post_index(request):
+    if request.user.is_authenticated:
+        post_list = Post.objects.all()
 
-    post_list = Post.objects.all()
+        post_ids = post_list.values_list('id', flat=True)
 
-    post_ids = post_list.values_list('id', flat=True)
-
-    upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
-    upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+        upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+        upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
 
 
-    query = request.GET.get("q")
+        query = request.GET.get("q")
 
-    if query:
-        post_list = post_list.filter(
-            Q(title__icontains=query) |
-            Q(desc__icontains=query)|
-            Q(user__first_name__icontains=query)|
-            Q(user__last_name__icontains=query)).distinct()
+        if query:
+            post_list = post_list.filter(
+                Q(title__icontains=query) |
+                Q(desc__icontains=query)|
+                Q(user__first_name__icontains=query)|
+                Q(user__last_name__icontains=query)).distinct()
 
-    paginator = Paginator(post_list, 9)  # Show 9 posts per page.
+        paginator = Paginator(post_list, 9)  # Show 9 posts per page.
 
-    page = request.GET.get("page")
-    posts = paginator.get_page(page)
+        page = request.GET.get("page")
+        posts = paginator.get_page(page)
 
-    context = {
-        "posts" : posts,
-        "upvoted_posts" : upvoted_posts,
-    }
+        context = {
+            "posts" : posts,
+            "upvoted_posts" : upvoted_posts,
+        }
 
-    return render(request, "post_templates/index.html", context)
+        return render(request, "post_templates/index.html", context)
+    else:
+        return redirect('/accounts/login')
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id = id)

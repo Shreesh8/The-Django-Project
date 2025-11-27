@@ -7,14 +7,17 @@ from django.db.models import Q
 # Create your views here.
 
 def login_view(request):
-    form = LoginForm(request.POST or None)
-    if form.is_valid():
-        username = form.cleaned_data.get('username')
-        password = form.cleaned_data.get('password')
-        user = authenticate(username = username, password = password)
-        login(request,user)
+    if request.user.is_authenticated:
         return redirect('/')
-    return render(request, "account_templates/form.html", {'form':form, 'title':'Login'})
+    else:
+        form = LoginForm(request.POST or None)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username = username, password = password)
+            login(request,user)
+            return redirect('/')
+        return render(request, "account_templates/form.html", {'form':form, 'title':'Login'})
 
 def signin_view(request):
     form = RegisterForm(request.POST or None)

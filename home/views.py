@@ -6,30 +6,30 @@ from django.db.models import F
 
 # Create your views here.
 def home_view(request):
-
-    
-    post_list = Post.objects.all()
-
-    post_ids = post_list.values_list('id', flat=True)
-
-    upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
-    upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
-
     if request.user.is_authenticated:
-        name = {"name" : request.user.username}
+        post_list = Post.objects.all()
+
+        post_ids = post_list.values_list('id', flat=True)
+
+        upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+        upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+
+        if request.user.is_authenticated:
+            name = {"name" : request.user.username}
+        else:
+            name = {"name" : "Guest",}
+
+        popular_posts = Post.objects.annotate(num_comments=Count('post_views')).order_by('-post_views')[:3]
+
+        context = {
+            "popular_posts": popular_posts,
+            "account": name,
+            "upvoted_posts": upvoted_posts,
+        }
+
+        return render(request, "home_templates/home.html",context)
     else:
-        name = {"name" : "Guest",}
-
-    popular_posts = Post.objects.annotate(num_comments=Count('post_views')).order_by('-post_views')[:3]
-
-    context = {
-        "popular_posts": popular_posts,
-        "account": name,
-        "upvoted_posts": upvoted_posts,
-    }
-
-
-    return render(request, "home_templates/home.html",context)
+        return redirect('accounts/login')
 
 def upvote_post(request, id):
     
