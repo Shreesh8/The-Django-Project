@@ -11,9 +11,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary button_shadow" data-bs-dismiss="modal">No</button>
-                {% if request.user.is_authenticated %}
-                    <a href="{{ admin_data.get_delete_contact_adminpanel_url }}" class="btn btn-danger button_shadow" role="button">Delete</a>
-                {% endif %}
+                <a href="{{ admin_data.get_delete_contact_adminpanel_url }}" class="btn btn-danger button_shadow" role="button">Delete</a>
             </div>
         </div>
     </div>

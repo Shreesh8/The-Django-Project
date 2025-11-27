@@ -12,6 +12,9 @@ urlpatterns = [
     path("admin_panel/posts", views.admin_panel_posts, name = "admin_panel_posts"),
     path("admin_panel/contacts", views.admin_panel_contact, name = "admin_panel_contact"),
 
+    re_path(r'^(?P<id>\d+)/active_state_user_account/$', views.active_state_user_account, name = "active_state_user_account"),
+    re_path(r'^(?P<id>\d+)/password_change_user_account/$', views.password_change_user_account, name = "password_change_user_account"),
+
     re_path(r'^(?P<id>\d+)/set_user_perms_staff_adminpanel/$', views.set_user_perms_staff_adminpanel, name = "set_user_perms_staff_adminpanel"),
     re_path(r'^(?P<id>\d+)/set_user_perms_superuser_adminpanel/$', views.set_user_perms_superuser_adminpanel, name = "set_user_perms_superuser_adminpanel"),
 ]

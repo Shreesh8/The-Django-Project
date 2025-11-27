@@ -1,6 +1,7 @@
 from django.shortcuts import render, redirect , get_object_or_404, Http404
 from .forms import LoginForm, RegisterForm
 from django.contrib.auth.models import User
+from .forms import AdminUsersPasswords
 from post.models import Post , ContactInfo
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
@@ -49,6 +50,7 @@ def admin_panel(request):
         raise Http404()
 
 def admin_panel_users(request):
+
     if request.user.is_staff or request.user.is_superuser:
 
         users = User.objects.all()
@@ -58,7 +60,7 @@ def admin_panel_users(request):
         if query:
             users = users.filter(
                 Q(username__icontains=query)).distinct()
-            
+        
         context = {"admin_datas":users, "data_category":"users",}
 
         return render(request, "account_templates/admin_panel.html", context)
@@ -121,3 +123,34 @@ def set_user_perms_superuser_adminpanel(request, id):
         user.is_superuser = not user.is_superuser
         user.save()
     return redirect('/accounts/admin_panel/users')
+
+def active_state_user_account(request, id):
+    if request.user.is_staff and request.user.is_superuser:
+        user = get_object_or_404(User, id = id)
+        user.is_active = not user.is_active
+        user.save()
+    return redirect('/accounts/admin_panel/users')
+
+def password_change_user_account(request, id):
+    user_id = get_object_or_404(User, id = id)
+    user_form = AdminUsersPasswords(request.POST or None, instance=user_id) 
+
+    if request.user.is_staff and request.user.is_superuser and user_form.is_valid():
+        user = user_form.save(commit=False)
+        new_password = user_form.cleaned_data.get("password")
+        confirm = user_form.cleaned_data.get("confirm_password")
+
+        if new_password and confirm and new_password == confirm:
+            print(new_password)
+            user.set_password(new_password)
+
+        user.save()
+
+        return redirect('/accounts/admin_panel/users')
+
+    context = {
+        "user_form" : user_form,
+        "said_user" : user_id,
+    }
+            
+    return render(request,'account_templates/change_user_password.html', context)
