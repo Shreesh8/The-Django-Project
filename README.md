@@ -1,9 +1,16 @@
 <h1>The Django Project</h1>
 
-<h5>PASSWORDS:</h5>
+<h3>PASSWORDS:</h3>
 i forgot that people need to know the password for them to checkout the site with admin access
 <br>
-the password is probably the username or 123
+<br>
+Pwd:
+<br>
+1.eko / eko
+<br>
+2.ekola / ekola
+<br>
+3.admin_user / 123
 
 <img width="1342" height="453" alt="image" src="https://github.com/user-attachments/assets/d11b8500-96f1-4c34-94d2-73ec5012030c" />
 
