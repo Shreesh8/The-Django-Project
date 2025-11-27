@@ -1,4 +1,8 @@
 <h1>The Django Project</h1>
+
+<h5>PASSWORDS:</h5>
+i forgot that people need to know the password for accounts to checkout the site but the password is probably the username or 123
+
 <h3>1.What it can do</h3>
 
 you can create, update, delete posts
@@ -24,10 +28,8 @@ you need these in your enviorment/virtual enviorment
 <h5>sqlparse==0.5.3</h5>
 <h5>tzdata==2025.2</h5>
 
-NOTE:
+<h5>NOTE:</h5>
 When i was creating a new repo because my commit history was messed up, for some reason it didnt clone the issues.
 So if you want to look at the old issues you have to look at the old repo (its private, you have to ask me).
 11/19/2025
 
-PASSWORDS:
-i forgot that people need to know the password for accounts to checkout the site but the password is probably the username or 123
