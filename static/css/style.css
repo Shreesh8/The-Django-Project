@@ -90,15 +90,15 @@ body{
 }
 
 .btn-primary-success{
-    background-color: #8de4ff;
-    border-color: rgb(90, 217, 255);
+    background-color: #8dff8d;
+    border-color: #6ee06e;
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
 
 .btn-primary-success:hover{
-    background-color: rgb(67, 202, 255);    
-    border-color: rgb(90, 217, 255);
+    background-color: #70e470;
+    border-color: #55c555;
     transition: all 100ms ease-out;
     transform: scale(1.03);
 }
@@ -113,6 +113,17 @@ body{
     background-color: #7c7c7c;
     border-color: rgb(73, 73, 73);
 }
+
+.btn-primary-disabled-light{
+    background-color: #b3b3b3;
+    border-color: rgb(155, 155, 155);
+}
+
+.btn-primary-disabled-light:hover{
+    background-color: rgb(134, 134, 134);
+    border-color: rgb(155, 155, 155);
+}
+
 .btn-primary-disabled:active{
     background-color: #505050 !important;
     border-color: rgb(73, 73, 73);

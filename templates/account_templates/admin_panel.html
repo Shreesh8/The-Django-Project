@@ -74,15 +74,36 @@
                                 {% include 'account_templates/modal_password.html' %}
 
                                 {% if request.user.is_staff %}
-                                    <td><a data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_staff}}</a></td>
                                     {% if request.user.is_superuser %}
-                                        <td><a data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+
+                                        {% if admin_data.is_staff %}
+                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_staff}}</a></td>
+                                        {% else %}
+                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}" class="btn btn-primary-disabled-light button_shadow" role="button">{{admin_data.is_staff}}</a></td>
+                                        {% endif %}
                                         
+                                        <!-- ####### this is for styling when its false or true -->
+
+                                        {% if admin_data.is_superuser %}
+                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+                                        {% else %}
+                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}" class="btn btn-primary-disabled-light button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+                                        {% endif %}
+
+
                                         <td><a data-bs-toggle="modal" data-bs-target="#modal_password{{ admin_data.id }}" class="btn btn-primary button_shadow" role="button">Change</a></td>
 
-                                        <td><a data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}" class="btn btn-danger button_shadow" role="button">{{admin_data.is_active}}</a></td>
-                                    {% else %}  
+
+                                        {% if admin_data.is_active %}
+                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_active}}</a></td>
+                                        {% else %}
+                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}" class="btn btn-primary-disabled-light button_shadow" role="button">{{admin_data.is_active}}</a></td>
+                                        {% endif %}
+                                    {% else %} 
+                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_staff}}</a></td>
                                         <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">Change</a></td>   
+                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_active}}</a></td>
                                     {% endif %}
                                 {% else %}
                                     <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_staff}}</a></td>
