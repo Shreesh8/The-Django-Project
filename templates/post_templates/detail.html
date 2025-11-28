@@ -6,7 +6,7 @@
     <div class="container"> 
             <div class="col-md-10 mt-4">
                 <div class="card post_body_noscale d-inline-block" >
-                    <div class="caption ">
+                    <div class="caption">
                         <div style="position: relative; overflow: hidden; overflow-wrap: break-word;">
                             <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
@@ -27,13 +27,13 @@
                                 <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail mt-2" style="width: 600px;">
                             {% endif %}
 
-                            <div class="card-header mt-2">
+                            <div class="card-header mt-2 mb-2">
                                 {{ post.desc|safe|linebreaks|truncatechars:150 }}
                             </div>
                             
                         </div>
 
-                        <div class="d-flex mt-auto card-header mt-2" style="margin: 0.2rem;">
+                        <div class="d-flex mt-auto card-header">
                             
                             {% if request.user.is_authenticated %}
 
