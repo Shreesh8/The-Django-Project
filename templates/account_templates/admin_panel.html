@@ -78,37 +78,35 @@
                                     {% if request.user.is_superuser %}
 
                                         {% if admin_data.is_staff %}
-                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_staff}}</a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_true.svg' %}" alt="Is Staff"></a></td>
                                         {% else %}
-                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}" class="btn btn-primary-disabled-light button_shadow" role="button">{{admin_data.is_staff}}</a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_false.svg' %}" alt="Not Staff"></a></td>
                                         {% endif %}
                                         
                                         <!-- ####### this is for styling when its false or true -->
 
                                         {% if admin_data.is_superuser %}
-                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_true.svg' %}" alt="Is SuperUser"></a></td>
                                         {% else %}
-                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}" class="btn btn-primary-disabled-light button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_false.svg' %}" alt="Not SuperUser"></a></td>
                                         {% endif %}
 
-
-                                        <td><a data-bs-toggle="modal" data-bs-target="#modal_password{{ admin_data.id }}" class="btn btn-primary button_shadow" role="button">Change</a></td>
-
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_password{{ admin_data.id }}"><img src="{% static 'img/admin_perms/edit_normal.svg' %}" alt="Edit Password"></a></td>
 
                                         {% if admin_data.is_active %}
-                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_active}}</a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}"><img src="{% static 'img/admin_perms/account_activation_true.svg' %}" alt="Activated"></a></td>
                                         {% else %}
-                                            <td><a data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}" class="btn btn-primary-disabled-light button_shadow" role="button">{{admin_data.is_active}}</a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}"><img src="{% static 'img/admin_perms/account_activation_false.svg' %}" alt="Deactive"></a></td>
                                         {% endif %}
-                                    {% else %} 
-                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_staff}}</a></td>
-                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
-                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">Change</a></td>   
-                                        <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_active}}</a></td>
+                                    {% else %}
+                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
+                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
+                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td> 
+                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
                                     {% endif %}
                                 {% else %}
-                                    <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_staff}}</a></td>
-                                    <td><a class="btn btn-primary-disabled button_shadow" role="button">{{admin_data.is_superuser}}</a></td>
+                                    <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
+                                    <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
                                 {% endif %}
                             </tr>
 
