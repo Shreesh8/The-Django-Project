@@ -11,7 +11,7 @@
 
             <hr class="mt-3">
 
-                <div class="card">
+            <div class="card">
                 <ul class="nav d-flex">
                     <li class="nav-item">
                         <a class="nav-link text-black" href="/accounts/admin_panel/posts">Posts</a>
@@ -116,13 +116,13 @@
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
                                 <td>{{admin_data}}</td>
-                                <td>{{admin_data.upvotes}}</td>
-                                <td>{{admin_data.post_views}}</td>
+                                <td><img src="{% static 'img/upvote.svg' %}" alt="Views">{{admin_data.upvotes}}</td>
+                                <td><img src="{% static 'img/eye.svg' %}" alt="Views">{{admin_data.post_views}}</td>
                                 <td>#{{admin_data.user.id}} {{admin_data.user.username}}</td>
                                 <td>
-                                    <a href="{{ admin_data.get_absolute_url }}" class="btn btn-primary-2 button_shadow" role="button">Detail</a>
-                                    <a href="{{ admin_data.get_update_url }}" class="btn btn-primary-2 button_shadow" role="button">Modify</a>
-                                    <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ admin_data.id }}">Delete</button>
+                                    <a href="{{ admin_data.get_absolute_url }}"><img src="{% static 'img/eye.svg' %}" alt="View Post"></a>
+                                    <a href="{{ admin_data.get_absolute_url }}"><img src="{% static 'img/post_action/edit.svg' %}" alt="Edit Post"></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ admin_data.id }}"><img src="{% static 'img/post_action/delete.svg' %}" alt="Delete Post"></a>
                                 </td>
                             </tr>
 
