@@ -1,27 +1,23 @@
 <h1>The Django Project</h1>
 
-<h3>PASSWORDS:</h3>
-i forgot that people need to know the password for them to checkout the site with admin access
+<h3>Admin Passwords:</h3>
+1. eko / eko
 <br>
+2. ekola / ekola
 <br>
-Pwd:
-<br>
-1.eko / eko
-<br>
-2.ekola / ekola
-<br>
-3.admin_user / 123
+3. admin_user / 123
 
 <img width="1342" height="453" alt="image" src="https://github.com/user-attachments/assets/d11b8500-96f1-4c34-94d2-73ec5012030c" />
 
 
 <h3>1.What it can do</h3>
 
-you can create, update, delete posts
-and upvote them to increase viewership and view the post.
+you can create, update, delete posts, comment
+and upvote posts to increase viewership.
 You can also comment on posts
+and moderate the posts from the admin-panel
 
-<img width="1158" height="878" alt="django-website" src="https://github.com/user-attachments/assets/30505684-3f47-42c0-8fc6-d4701c67b5df" />
+<img width="876" height="859" alt="image" src="https://github.com/user-attachments/assets/1871f03f-d3d3-4402-ad80-569a3d1f3c8c" />
 
 <h3>1.How  to run it</h3>
 
