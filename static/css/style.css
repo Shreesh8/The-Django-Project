@@ -5,7 +5,7 @@ body{
 .card{
     margin: 10px;
     padding: 10px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
 }
 
 .post_title{
@@ -14,16 +14,23 @@ body{
 }
 .post_body{
     margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
 
 .post_body:hover{
     margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
     transition: all 100ms ease-out;
     transform: scale(1.02);
+}
+
+.post_body_noscale{
+    margin: 5px; 
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    transition: all 100ms ease-out;
+    transform: scale(1.00);
 }
 
 .scale-hover{
@@ -164,6 +171,10 @@ body{
 .btn-primary:active{
     background-color: rgb(123, 123, 123) !important;
     border-color: rgb(145, 145, 145) !important; 
+}
+
+.card-header{
+    border-radius: 5px;
 }
 
 

@@ -2,63 +2,65 @@
 {% extends 'base.html' %}
 {% load static %}
 {% block body %}
-
+{% load timesince_shortner %}
     <div class="container"> 
-        <div class="row justify-content-center">
-            <div class="col-md-10 mx-auto">
-                <div class="img-thumbnail" style="margin: 15px; box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.449);">
-                    <div class="caption " style="overflow: hidden;">
+            <div class="col-md-10 mt-4">
+                <div class="card post_body_noscale d-inline-block" >
+                    <div class="caption ">
+                        <div style="position: relative; overflow: hidden; overflow-wrap: break-word;">
+                            <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
-                        {% if post.video %}
-                            <div class="img-thumbnail d-flex">
-                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="1080"controls>
+                            <div class="card-header">
+                                <h3 class="post_title">
+                                    {{ post.title }}
+                                </h3>
+                                <h6 class="post_title">
+                                    OP: {{ post.user.username }}
+                                </h6>
+                            </div>  
+
+                            {% if post.video %}
+                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail mt-2" width="800" controls></video>                          
+                            {% endif %}
+
+                            {% if post.image%}
+                                <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail mt-2" style="width: 600px;">
+                            {% endif %}
+
+                            <div class="card-header mt-2">
+                                {{ post.desc|safe|linebreaks|truncatechars:150 }}
                             </div>
-                        {% endif %}
+                            
+                        </div>
 
-                        {% if post.image %}
-                            <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail">
-                        {% endif %}
-
-                        {% if messages %}
-                        <ul class="messages">
-
-                            <h3>{{ post.title }}<small>{{ post.date }}</small></h3>
-
-                            {% for message in messages %}
-                            <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
-                            {% endfor %}
-
-                        </ul>
-                        {% endif %}
-
-                        <h3>{{post.title}}</h3>
-                        <h6>OP: {{ post.user.username }}</h4>
-                        <h4 style="overflow-wrap: break-word;">{{post.desc|safe}}</h4>
-
-                        <div class="mt-auto" style="margin: 0.2rem;">
-                            <hr>
+                        <div class="d-flex mt-auto card-header mt-2" style="margin: 0.2rem;">
                             
                             {% if request.user.is_authenticated %}
 
                                 {% if post.id in upvoted_posts %}
-                                    <a href="upvote/detail" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} |
+                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} 
                                 {% else %}
-                                    <a href="upvote/detail" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} |
+                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} 
                                 {% endif %}
 
-                                <img src="{% static '/img/eye.svg' %}" alt="">{{ post.post_views }} |
+                                <img class="ms-2" src="{% static '/img/eye.svg' %}" alt="">{{ post.post_views }} 
 
                                 {% if post.user == request.user %}
-                                    <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
-                                    <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">Delete</button>
+                                    <div class="ms-auto">
+                                        <a href="{{ post.get_update_url }}"><img class="paginator-arrows" src="{% static '/img/post_action/edit.svg' %}" alt="Edit Post"></a>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}"><img class="paginator-arrows" src="{% static '/img/post_action/delete.svg' %}" alt="Delete Post"></a>
+                                    </div>
                                 {% endif %}
-                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince}}</small>
+                                <div class="ms-auto">
+                                    <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince_single_unit }} Ago</small>
+                                </div>             
                             {% endif %}
                         </div>
-
                     </div>
                 </div>
-                <div>
+            </div>
+            <div>
+                <br>
                 <hr>
                 <br>
                 <h3>Comment: </h3>
@@ -74,6 +76,5 @@
                     <p>> {{ comment.content }}</p>
                 {% endfor %}
             </div>
-        </div>
-    </div>
+        </div>   
 {% endblock %}

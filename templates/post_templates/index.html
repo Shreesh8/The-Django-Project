@@ -1,64 +1,70 @@
 
 {% extends 'base_search.html'%}
 {% load static %}
-
+{% load timesince_shortner %}
 {% block body%}
 <div class="container">             
     <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
         {% for post in posts %}
         <div class="col d-flex mt-3">
-            <div class="img-thumbnail post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;">
+            <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;">
                 <div class="caption flex-grow-1 d-flex flex-column">
                     <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
                         <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
 
                         
-
-                        <h3 class="post_title">
-                            {{ post.title }}
-                        </h3>
-                        <h6 class="post_title">
-                            OP: {{ post.user.username }}
-                        </h6>
-                        <hr>                        
+                        <div class="card-header">
+                            <h3 class="post_title">
+                                {{ post.title }}
+                            </h3>
+                            <h6 class="post_title">
+                                OP: {{ post.user.username }}
+                            </h6>
+                        </div>                      
                         <div>
 
                             {% if post.video %}
-                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls></video>
-                                {% if post.image%}
-                                    <small>Show More</small>
-                                {% endif %}
+                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail mt-2" width="500" controls></video>
                             {% else %}                            
                                 {% if post.image%}
-                                    <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 200px;">
+                                    <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail mt-2" style="max-height: 200px;">
                                 {% endif %}
                             {% endif %}
 
-                            <p>{{ post.desc|safe|linebreaks|truncatechars:150 }}</p>
-                        
+                            <div class="card-header mt-2 ">
+                                {{ post.desc|safe|linebreaks|truncatechars:150 }}
+                            
+                                {% if post.video %}
+                                    {% if post.image%}
+                                        <small>Show More</small>
+                                    {% endif %}
+                                {% endif %}
+                            </div>
                         </div>
-                        
                     </div>
 
-                    <div class="mt-auto" style="margin: 0.2rem;">
-                        <hr>
+                    <div class="d-flex mt-auto card-header" style="margin: 0.2rem;">
                         
                         {% if request.user.is_authenticated %}
 
                             {% if post.id in upvoted_posts %}
-                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} |
+                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} 
                             {% else %}
-                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} |
+                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} 
                             {% endif %}
 
-                            <img src="{% static '/img/eye.svg' %}" alt="">{{ post.post_views }} |
+                            <img class="ms-2" src="{% static '/img/eye.svg' %}" alt="">{{ post.post_views }} 
 
                             {% if post.user == request.user %}
-                                <a href="{{ post.get_update_url }}" class="btn btn-primary button_shadow" role="button">Update</a>
-                                <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}">Delete</button>
+                                <div class="ms-auto">
+                                    <a href="{{ post.get_update_url }}"><img class="paginator-arrows" src="{% static '/img/post_action/edit.svg' %}" alt="Edit Post"></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}"><img class="paginator-arrows" src="{% static '/img/post_action/delete.svg' %}" alt="Delete Post"></a>
+                                </div>
                             {% endif %}
-                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince}} Ago</small>             
+                            <div class="ms-auto">
+                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince_single_unit }} Ago</small>
+                            </div>             
                         {% endif %}
                     </div>
                 </div>
