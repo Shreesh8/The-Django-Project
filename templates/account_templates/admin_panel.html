@@ -139,8 +139,8 @@
                                 <td>{{admin_data.email}}</td>
                                 <td>#{{admin_data.user.id}} {{admin_data.user}}</td>
                                 <td>
-                                    <a href="{{ admin_data.get_modify_contact_adminpanel_url }}" class="btn btn-primary-2 button_shadow" role="button">Modify</a>
-                                    <button type="button" class="btn btn-danger button_shadow" data-bs-toggle="modal" data-bs-target="#modal_contact{{ admin_data.id }}">Delete</button>
+                                    <a href="{{ admin_data.get_modify_contact_adminpanel_url }}"><img src="{% static 'img/post_action/edit.svg' %}" alt="Edit Contact"></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_contact{{ admin_data.id }}"><img src="{% static 'img/post_action/delete.svg' %}" alt="Delete Post"></a>
                                 </td>
                             </tr>
 
