@@ -1,6 +1,7 @@
 
 {% extends 'base_search.html'%}
 {% load crispy_forms_tags  %}
+{% load static %}
 {% block body %}
     <div class="container">
         <div class="row">
@@ -75,7 +76,7 @@
 
                                 {% if request.user.is_staff %}
                                     {% if request.user.is_superuser %}
-                                        
+
                                         {% if admin_data.is_staff %}
                                             <td><a data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}" class="btn btn-primary-success button_shadow" role="button">{{admin_data.is_staff}}</a></td>
                                         {% else %}
@@ -151,9 +152,51 @@
                 </tbody>
                 </table>
             </div>
-            <div class="card">
-                <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde rerum eveniet, a ut quas quae reiciendis odit cumque ipsum, necessitatibus ex aliquam animi nostrum, doloribus nulla excepturi aliquid perferendis? Nemo, id! Mollitia inventore minima asperiores soluta! Quam officia, ex consectetur eum, excepturi nisi commodi possimus iure molestias tenetur perferendis facere assumenda veniam vel, sed id. Deleniti accusamus quos aliquid unde velit aperiam facilis praesentium cupiditate itaque totam, animi voluptas sunt quae consectetur! Fugit, quibusdam, iure magni est numquam perferendis repellat ducimus dolorem amet praesentium ut. Quibusdam adipisci nihil recusandae? Ullam doloremque harum enim incidunt aliquam ipsam alias atque, laboriosam doloribus!</h4>
+
+            <div class="paginator-fixed">
+                <div class="pagination justify-content-center mt-5 m-4">
+                    <span class="step-links">
+
+                        {% if admin_datas.has_previous and admin_datas.has_next %}
+                            <a  href="?page=1"><img class="paginator-arrows" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
+                            <a  href="?page={{ admin_datas.previous_page_number }}"><img class="paginator-arrows"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                            
+                            <span class="current">
+                                Page {{ admin_datas.number }} of {{ admin_datas.paginator.num_pages }}
+                            </span>
+
+                            <a  href="?page={{ admin_datas.next_page_number }}"><img class="paginator-arrows" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
+                            <a   href="?page={{ admin_datas.paginator.num_pages }}"><img class="paginator-arrows" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                        {% elif admin_datas.has_previous %}
+
+                            <a  href="?page=1"><img class="paginator-arrows" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
+                            <a  href="?page={{ admin_datas.previous_page_number }}"><img class="paginator-arrows"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                           
+                            <span class="current">
+                                Page {{ admin_datas.number }} of {{ admin_datas.paginator.num_pages }}
+                            </span>
+
+                            <a><img class="paginator-arrows-disabled" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
+                            <a><img class="paginator-arrows-disabled" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+
+                        {% elif admin_datas.has_next %}
+
+                            <a><img class="paginator-arrows-disabled" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
+                            <a><img class="paginator-arrows-disabled"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+
+                            <span class="current">
+                                Page {{ admin_datas.number }} of {{ admin_datas.paginator.num_pages }}
+                            </span>
+
+                            <a  href="?page={{ admin_datas.next_page_number }}"><img class="paginator-arrows" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
+                            <a   href="?page={{ admin_datas.paginator.num_pages }}"><img class="paginator-arrows" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+
+
+                        {% endif %}
+                    </span>
+                </div>
             </div>
+
         </div>
     </div>
 {% endblock %}

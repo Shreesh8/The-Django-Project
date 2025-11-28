@@ -44,6 +44,29 @@ body{
     transform: scale(1.3);
 }
 
+.paginator-arrows-disabled{
+    filter: opacity(25%);
+}
+
+.paginator-fixed{
+    height: 5rem;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    background: linear-gradient(#ffffff00, #00000065);
+    width: 100%;
+    text-align: center;
+}
+
+.paginator-blog{
+    height: 5rem;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    text-align: center;
+}
+
+
 .nav-link{
     padding: 0.6rem;
     transform: scale(1.00);
@@ -103,7 +126,6 @@ body{
     transform: scale(1.03);
 }
 
-
 .btn-primary-disabled{
     background-color: #8a8a8a;
     border-color: rgb(73, 73, 73);
@@ -143,6 +165,7 @@ body{
     background-color: rgb(123, 123, 123) !important;
     border-color: rgb(145, 145, 145) !important; 
 }
+
 
 .div_link{ 
   position:absolute; 

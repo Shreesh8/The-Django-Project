@@ -5,6 +5,7 @@ from .forms import AdminUsersPasswords
 from post.models import Post , ContactInfo
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
+from django.core.paginator import Paginator
 # Create your views here.
 
 def login_view(request):
@@ -53,13 +54,18 @@ def admin_panel_users(request):
 
     if request.user.is_staff or request.user.is_superuser:
 
-        users = User.objects.all()
+        users_list = User.objects.all()
 
         query = request.GET.get("q")
 
         if query:
-            users = users.filter(
+            users_list = users_list.filter(
                 Q(username__icontains=query)).distinct()
+        
+        paginator = Paginator(users_list, 8)  # Show 8 per page.
+
+        page = request.GET.get("page")
+        users = paginator.get_page(page)
         
         context = {"admin_datas":users, "data_category":"users",}
 
@@ -71,17 +77,22 @@ def admin_panel_posts(request):
 
     if request.user.is_staff or request.user.is_superuser:
 
-        posts = Post.objects.all()
+        post_list = Post.objects.all()
 
         query = request.GET.get("q")
 
         if query:
-            posts = posts.filter(
+            post_list = post_list.filter(
                 Q(title__icontains=query) |
                 Q(desc__icontains=query)|
                 Q(user__first_name__icontains=query)|
                 Q(user__last_name__icontains=query)).distinct()
-            
+    
+        paginator = Paginator(post_list, 8)  # Show 8 per page.
+
+        page = request.GET.get("page")
+        posts = paginator.get_page(page)
+
         context = {"admin_datas":posts, "data_category":"posts",}
 
         return render(request, "account_templates/admin_panel.html", context)
@@ -92,16 +103,21 @@ def admin_panel_contact(request):
 
     if request.user.is_staff or request.user.is_superuser:
 
-        contacts = ContactInfo.objects.all()
+        contacts_list = ContactInfo.objects.all()
 
         query = request.GET.get("q")
 
         if query:
-            contacts = contacts.filter(
+            contacts_list = contacts_list.filter(
                 Q(adress__icontains=query) |
                 Q(email__icontains=query)|
                 Q(name__icontains=query)|
                 Q(surname__icontains=query)).distinct()
+        
+        paginator = Paginator(contacts_list, 8)  # Show 8 per page.
+
+        page = request.GET.get("page")
+        contacts = paginator.get_page(page)
             
         context = {"admin_datas":contacts, "data_category":"contacts",}
 
