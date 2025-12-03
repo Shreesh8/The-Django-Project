@@ -5,16 +5,18 @@
 {% block body%}
 
 
+
 <div class="container">             
     <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
         {% for post in posts %}
         <div class="col d-flex mt-3">
             <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;"> 
                 <div class="caption flex-grow-1 d-flex flex-column">
+                    <div class="cloud_container"></div> <!-- creates card clouds -->
                     <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
                         <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
-
+                        
                         
                         <div class="card-header mb-2">
                             <h3 class="post_title">
@@ -44,7 +46,7 @@
                                     {% endif %}
                                 </div>
                                     
-                                <div class="cloud_container"></div> <!-- creates card clouds -->
+                                 
                             
                         </div>
                     </div>
@@ -150,8 +152,8 @@
 <script>
     document.querySelectorAll('.cloud_container').forEach(function(container) {
         const cloud_image = [
-            "{% static '/img/wallpaper/cloud1.png' %}'",
-            "{% static '/img/wallpaper/cloud2.png' %}",
+            "{% static '/img/wallpaper/cloud1.png' %}",
+            //"{% static '/img/wallpaper/cloud2.png' %}",
             "{% static '/img/wallpaper/cloud3.png' %}",
             "{% static '/img/wallpaper/cloud4.png' %}",
         ];
@@ -164,8 +166,8 @@
 
             cloud.className = "cloud";
 
-            cloud.style.left = Math.random() * 30 + "px";
-            cloud.style.top = Math.random() * 30 + "px";
+            cloud.style.left = Math.random() * 30 + "%";
+            cloud.style.top = Math.random() * 30 + "%";
 
             cloud.style.scale = (Math.random() + 1) * 0.3;
 
