@@ -201,7 +201,7 @@ def post_delete(request, id):
         return redirect('post:index')
     else:
         raise Http404("cant delete wrong user")
-
+  
 def delete_post_adminpanel(request, id):
 
     if not request.user.is_authenticated:
