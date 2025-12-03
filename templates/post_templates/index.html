@@ -3,11 +3,13 @@
 {% load static %}
 {% load timesince_shortner %}
 {% block body%}
+
+
 <div class="container">             
     <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
         {% for post in posts %}
         <div class="col d-flex mt-3">
-            <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;">
+            <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;"> 
                 <div class="caption flex-grow-1 d-flex flex-column">
                     <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
                         <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
@@ -22,7 +24,7 @@
                                 OP: {{ post.user.username }}
                             </h6>
                         </div>                      
-                        <div>
+                        <div>     
 
                             {% if post.video %}
                                 <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls></video>
@@ -32,15 +34,18 @@
                                 {% endif %}
                             {% endif %}
 
-                            <div class="card-header mt-2 ">
-                                {{ post.desc|safe|linebreaks|truncatechars:150 }}
-                            
-                                {% if post.video %}
-                                    {% if post.image%}
-                                        <small>Show More</small>
+                                <div class="card-header mt-2">
+                                    {{ post.desc|safe|linebreaks|truncatechars:150 }}
+                                
+                                    {% if post.video %}
+                                        {% if post.image%}
+                                            <small>Show More</small>
+                                        {% endif %}
                                     {% endif %}
-                                {% endif %}
-                            </div>
+                                </div>
+                                    
+                                <div class="cloud_container"></div> <!-- creates card clouds -->
+                            
                         </div>
                     </div>
 
@@ -68,6 +73,7 @@
                         {% endif %}
                     </div>
                 </div>
+                
             </div>
         </div>
 
@@ -138,6 +144,36 @@
                 </span>
             </div>
         </div>
-
     </div>
+
+
+<script>
+    document.querySelectorAll('.cloud_container').forEach(function(container) {
+        const cloud_image = [
+            "{% static '/img/wallpaper/cloud1.png' %}'",
+            "{% static '/img/wallpaper/cloud2.png' %}",
+            "{% static '/img/wallpaper/cloud3.png' %}",
+            "{% static '/img/wallpaper/cloud4.png' %}",
+        ];
+
+        const cloud_count = 1;
+
+        for(let i = 0; i < cloud_count; i++){
+            const cloud = document.createElement("img");
+            cloud.src = cloud_image[Math.floor(Math.random() * cloud_image.length)];
+
+            cloud.className = "cloud";
+
+            cloud.style.left = Math.random() * 30 + "px";
+            cloud.style.top = Math.random() * 30 + "px";
+
+            cloud.style.scale = (Math.random() + 1) * 0.3;
+
+            cloud.style.position = "absolute";
+
+            container.appendChild(cloud);
+        }
+    });
+</script>
+
 {% endblock%}
