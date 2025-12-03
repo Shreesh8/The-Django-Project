@@ -41,3 +41,7 @@ When i was creating a new repo because my commit history was messed up, for some
 So if you want to look at the old issues you have to look at the old repo (its private, you have to ask me).
 11/19/2025
 
+Images:
+clouds: https://www.dreamstime.com/oriental-cloud-japanese-chinese-doodle-hand-drawing-style-set-object-clip-art-white-background-image163025723
+<br>
+bg: https://www.dreamstime.com/japanese-traditional-waves-black-white-vector-art-great-wave-kanagawa-wallpaper-featuring-simplified-line-work-background-image289132540  
