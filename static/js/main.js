@@ -1,5 +1,5 @@
 $.ajax({
-    url: '127.0.0.1:8000/hello',
+    url: '127.0.0.1:8000/hello', // testing ajax
     type: 'get', // This is the default though, you don't actually need to always mention it
     success: function(data) {
         alert(data);
