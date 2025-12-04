@@ -12,7 +12,7 @@
 
         <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
                 aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <img src="{% static 'img/header/compas.png' %}" alt="">
         </button>
 
         <!-- Temel Sayfalar -->
@@ -21,7 +21,6 @@
                 <ul class="nav">
                     {% if request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
-                        
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'user_profile:test' %}">Profile</a></li>
                         {% if request.user.is_staff %}
@@ -79,17 +78,7 @@
 
         bubble.className = "bubble";
 
-        const parent_rect = container.getBoundingClientRect();
-        const child_rect = bubble.getBoundingClientRect();
-
-        left_pos = Math.random() * 100;
-        top_pos = Math.random() * 100;
-
-        left_pos = Math.min(left_pos, 100 - (child_rect.width/parent_rect.width)*100);
-        top_pos = Math.min(top_pos, 100 - (child_rect.height/parent_rect.height)*100);
-
-        bubble.style.left = left_pos + "%";
-        bubble.style.top = top_pos + "%";
+        bubble.style.left = Math.random() * 100 + "%";
 
         bubble.style.scale = (Math.random() + 0.5) * 0.2;
 
