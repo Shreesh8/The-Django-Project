@@ -3,9 +3,17 @@ from post.models import Post, UserUpvote
 from django.db.models import Count
 from accounts.forms import LoginForm
 from django.db.models import F
+from django.utils import timezone
+from datetime import timedelta
+from calendar import monthrange
 
-# Create your views here.
-def home_view(request):
+def popular_post_filter_top_month(request):
+    return home_view(request, "top_month")
+
+def popular_post_filter_top_day(request):
+    return home_view(request, "top_day")
+
+def home_view(request,filter_option = "default"): # Top of all time filter is default
     if request.user.is_authenticated:
         post_list = Post.objects.all()
 
@@ -19,10 +27,18 @@ def home_view(request):
         else:
             name = {"name" : "Guest",}
 
-        popular_posts = Post.objects.annotate(num_comments=Count('post_views')).order_by('-post_views')[:3]
+        if filter_option == "top_day":
+            last_24_hours = timezone.now() - timedelta(days=1)
+            popular_posts = Post.objects.filter(date__gte=last_24_hours).annotate(Count('post_views')).order_by('-post_views')[:3]
+        elif filter_option == "top_month":
+            last_30_days = timezone.now() - timedelta(days=30)
+            popular_posts = Post.objects.filter(date__gte=last_30_days).annotate(Count('post_views')).order_by('-post_views')[:3]
+        else: # Top of All Time
+            popular_posts = Post.objects.annotate(Count('post_views')).order_by('-post_views')[:3]
 
         context = {
             "popular_posts": popular_posts,
+            "filter_option": filter_option,
             "account": name,
             "upvoted_posts": upvoted_posts,
         }

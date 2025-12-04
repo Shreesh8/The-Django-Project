@@ -22,13 +22,25 @@
                     </li>
                     <div class=" d-flex ms-auto">
                         <li class="nav-item">
-                            <a class="nav-link text-black">Top Day</a> <!-- Add actions to these -->
+                            {% if filter_option == "top_day" %}
+                                <a href="{% url 'home:top_day' %}" class="nav-link text-black"><b>Top Day</b></a>
+                            {% else %}
+                                <a href="{% url 'home:top_day' %}" class="nav-link text-black">Top Day</a>
+                            {% endif %}
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black">Top Month</a>
+                            {% if filter_option == "top_month" %}
+                                <a href="{% url 'home:top_month' %}" class="nav-link text-black"><b>Top Month</b></a>
+                            {% else %}
+                                <a href="{% url 'home:top_month' %}" class="nav-link text-black">Top Month</a>
+                            {% endif %}
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link text-black">Top Of All Time</a>
+                            {% if filter_option == "default" %}
+                                <a href="/" class="nav-link text-black"><b>Top Of All Time</b></a>
+                            {% else %}
+                                <a href="/" class="nav-link text-black">Top Of All Time</a>
+                            {% endif %}
                         </li>
                     </div>
                 </ul>
