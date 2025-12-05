@@ -12,7 +12,7 @@
         <div class="col d-flex mt-3">
             <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;"> 
                 <div class="caption flex-grow-1 d-flex flex-column">
-                    <div class="cloud_container"></div> <!-- creates card clouds -->
+                    
                     <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
                         <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
 
@@ -26,29 +26,25 @@
                                 OP: {{ post.user.username }}
                             </h6>
                         </div>                      
-                        <div>     
+                        {% if post.video %}
+                            <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls></video>
+                        {% else %}                            
+                            {% if post.image%}
+                                <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 200px;">
+                            {% endif %}
+                        {% endif %}
 
+                        <div class="card-header mt-2" style="position: relative;">
+                            {{ post.desc|safe|linebreaks|truncatechars:150 }}
+                        
                             {% if post.video %}
-                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls></video>
-                            {% else %}                            
                                 {% if post.image%}
-                                    <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 200px;">
+                                    <small>Show More</small>
                                 {% endif %}
                             {% endif %}
-
-                                <div class="card-header mt-2">
-                                    {{ post.desc|safe|linebreaks|truncatechars:150 }}
-                                
-                                    {% if post.video %}
-                                        {% if post.image%}
-                                            <small>Show More</small>
-                                        {% endif %}
-                                    {% endif %}
-                                </div>
-                                    
-                                 
-                            
                         </div>
+                        
+                        <div class="cloud_container"></div> <!-- creates card clouds -->
                     </div>
 
                     <div class="d-flex mt-auto card-header" style="margin: 0.2rem;">

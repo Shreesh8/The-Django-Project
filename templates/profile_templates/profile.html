@@ -6,11 +6,8 @@
     <div class="container">
         <div class="row"> 
                        
-            <div class="d-flex mt-2">
-            <h1>Welcome {{request.user}}</h1>
-            <h5 class="ms-auto"> {% if request.user.is_staff %} Admin {% else %} User {% endif %}<img src="{% static 'img/admin_perms/account_activation_true.svg'%}" alt=""></h5>
-            </div>
-
+            {% include 'user_welcome_title.html' %}
+            
             <h6>Last Login {{request.user.last_login}}</h6>
 
             <hr>

@@ -1,12 +1,18 @@
 <!-- Navbar Start -->
-<nav class="navbar navbar-expand-lg navbar-dark bg-dark" role="banner">
+
+{% load static %}
+<nav class="navbar navbar-expand-lg" role="banner">
+
+    <div class="bubble_container"></div>
+
     <div class="container">
 
-        <a href="/" class="nav-link navbar-brand text-light">Home</a>
+        <img src="{% static 'img/header/boat_sail_white.png'%}" alt="Home">
+        <a href="/" class="nav-link navbar-brand text-light"> Home</a>
 
         <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
                 aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
+            <img src="{% static 'img/header/compas.png' %}" alt="">
         </button>
 
         <!-- Temel Sayfalar -->
@@ -15,7 +21,6 @@
                 <ul class="nav">
                     {% if request.user.is_authenticated %}
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}">Create</a></li>
-                        
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'user_profile:test' %}">Profile</a></li>
                         {% if request.user.is_staff %}
@@ -55,3 +60,35 @@
         </div>
     </div>
 </nav>
+
+<!-- I cant seem to make this script into a file because static stops working -->
+
+<script>/*
+    parent = document.querySelectorAll('.bubble_container')
+    parent.forEach(function(container) {
+    const bubble_image = [
+        "{% static '/img/header/bubble.png' %}",
+    ];
+
+    const bubble_count = 18;
+
+    for(let i = 0; i < bubble_count; i++){
+    
+        const bubble = document.createElement("img");
+        bubble.src = bubble_image[Math.floor(Math.random() * bubble_image.length)];
+
+        bubble.className = "bubble";
+
+        bubble.style.left = Math.random() * 100 + "%";
+
+        bubble.style.scale = (Math.random() + 0.5) * 0.2;
+
+        buuble.style.transform = "scale()"
+        bubble.style.animation = 
+
+        
+
+        container.appendChild(bubble);
+    }
+});*/
+</script>
