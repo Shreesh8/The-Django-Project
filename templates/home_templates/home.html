@@ -1,65 +1,95 @@
+{% extends 'base.html'%} {% load static %} {% block body %}
+<div class="container">
+  <div class="row">
+    {% include 'user_welcome_title.html' %}
 
-{% extends 'base.html'%}
-{% load static %}
-{% block body %}
-    <div class="container">
-        <div class="row">
-            
-            {% include 'user_welcome_title.html' %}
+    <h6>Last Login {{request.user.last_login}}</h6>
 
-            <h6>Last Login {{request.user.last_login}}</h6>
+    <hr />
 
-            <hr>
-
-            
-            <div class="card">
-                <ul class="nav d-flex">
-                    <li class="nav-item">
-                        <a class="nav-link text-black"><b>Top 3 popular posts</b></a>
-                    </li>
-                    <div class=" d-flex ms-auto">
-                        <li class="nav-item">
-                            {% if filter_option == "top_day" %}
-                                <a href="{% url 'home:top_day' %}" class="nav-link text-black"><b>Top Day</b></a>
-                            {% else %}
-                                <a href="{% url 'home:top_day' %}" class="nav-link text-black">Top Day</a>
-                            {% endif %}
-                        </li>
-                        <li class="nav-item">
-                            {% if filter_option == "top_month" %}
-                                <a href="{% url 'home:top_month' %}" class="nav-link text-black"><b>Top Month</b></a>
-                            {% else %}
-                                <a href="{% url 'home:top_month' %}" class="nav-link text-black">Top Month</a>
-                            {% endif %}
-                        </li>
-                        <li class="nav-item">
-                            {% if filter_option == "default" %}
-                                <a href="/" class="nav-link text-black"><b>Top Of All Time</b></a>
-                            {% else %}
-                                <a href="/" class="nav-link text-black">Top Of All Time</a>
-                            {% endif %}
-                        </li>
-                    </div>
-                </ul>
-            </div>
-
-            {% for post in popular_posts %}
-                <div class="col d-flex mt-3">
-                    {% include 'home_templates/popular_post.html' with post=post %}
-                </div>
-            {% endfor %}
-
-            <div class="container justify-content-center">
-                <!--<h3 style="text-align: center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, beatae!</h3>-->
-
-                <div class="mt-4">
-                    <div class="img-thumbnail post_body">
-                        <h4>Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde rerum eveniet, a ut quas quae reiciendis odit cumque ipsum, necessitatibus ex aliquam animi nostrum, doloribus nulla excepturi aliquid perferendis? Nemo, id! Mollitia inventore minima asperiores soluta! Quam officia, ex consectetur eum, excepturi nisi commodi possimus iure molestias tenetur perferendis facere assumenda veniam vel, sed id. Deleniti accusamus quos aliquid unde velit aperiam facilis praesentium cupiditate itaque totam, animi voluptas sunt quae consectetur! Fugit, quibusdam, iure magni est numquam perferendis repellat ducimus dolorem amet praesentium ut.</h4>
-                    </div>
-                </div>
-            </div>
+    <div class="card">
+      <ul class="nav d-flex">
+        <li class="nav-item">
+          <a class="nav-link text-black"><b>Top 3 popular posts</b></a>
+        </li>
+        <div class="d-flex ms-auto">
+          <li class="nav-item">
+            {% if filter_option == "top_day" %}
+            <a href="{% url 'home:top_day' %}" class="nav-link text-black"
+              ><b>Top Day</b></a
+            >
+            {% else %}
+            <a href="{% url 'home:top_day' %}" class="nav-link text-black"
+              >Top Day</a
+            >
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if filter_option == "top_month" %}
+            <a href="{% url 'home:top_month' %}" class="nav-link text-black"
+              ><b>Top Month</b></a
+            >
+            {% else %}
+            <a href="{% url 'home:top_month' %}" class="nav-link text-black"
+              >Top Month</a
+            >
+            {% endif %}
+          </li>
+          <li class="nav-item">
+            {% if filter_option == "default" %}
+            <a href="/" class="nav-link text-black"><b>Top Of All Time</b></a>
+            {% else %}
+            <a href="/" class="nav-link text-black">Top Of All Time</a>
+            {% endif %}
+          </li>
         </div>
-
-        <footer></footer>
+      </ul>
     </div>
+
+    {% for post in popular_posts %}
+    <div class="col d-flex mt-3">
+      {% include 'home_templates/popular_post.html' with post=post %}
+    </div>
+    {% endfor %}
+
+    <div class="container justify-content-center">
+      <!--<h3 style="text-align: center;">Lorem ipsum dolor sit amet consectetur adipisicing elit. Ad, beatae!</h3>-->
+
+      <div class="mt-4">
+        <div class="img-thumbnail post_body">
+          <h4>
+            Lorem ipsum dolor sit amet consectetur adipisicing elit. Unde rerum
+            eveniet, a ut quas quae reiciendis odit cumque ipsum, necessitatibus
+            ex aliquam animi nostrum, doloribus nulla excepturi aliquid
+            perferendis? Nemo, id! Mollitia inventore minima asperiores soluta!
+            Quam officia, ex consectetur eum, excepturi nisi commodi possimus
+            iure molestias tenetur perferendis facere assumenda veniam vel, sed
+            id. Deleniti accusamus quos aliquid unde velit aperiam facilis
+            praesentium cupiditate itaque totam, animi voluptas sunt quae
+            consectetur! Fugit, quibusdam, iure magni est numquam perferendis
+            repellat ducimus dolorem amet praesentium ut.
+          </h4>
+        </div>
+        <!-- btn more-->
+        <button class="more-btn" data-target="post1">More</button>
+          <!-- js example, modify-->
+        <script>
+          const moreBtn = document.querySelector(".more-btn");
+          const postBody = document.querySelector(".post_body");
+
+          moreBtn.addEventListener("click", () => {
+            postBody.classList.toggle("expanded");
+
+            // Change button text depending on state
+            moreBtn.textContent = postBody.classList.contains("expanded")
+              ? "Less"
+              : "More";
+          });
+        </script>
+      </div>
+    </div>
+  </div>
+
+  <footer></footer>
+</div>
 {% endblock %}
