@@ -123,7 +123,7 @@
                                 <td>#{{admin_data.user.id}} {{admin_data.user.username}}</td>
                                 <td>
                                     <a href="{{ admin_data.get_absolute_url }}"><img src="{% static 'img/eye.svg' %}" alt="View Post"></a>
-                                    <a href="{{ admin_data.get_absolute_url }}"><img src="{% static 'img/post_action/edit.svg' %}" alt="Edit Post"></a>
+                                    <a href="{{ admin_data.get_update_url }}"><img src="{% static 'img/post_action/edit.svg' %}" alt="Edit Post"></a>
                                     <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ admin_data.id }}"><img src="{% static 'img/post_action/delete.svg' %}" alt="Delete Post"></a>
                                 </td>
                             </tr>
