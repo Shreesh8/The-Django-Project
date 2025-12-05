@@ -4,17 +4,21 @@ from . import views
 app_name = "accounts"
 
 urlpatterns = [
+
+    # Main Account logic
     path("login/", views.login_view, name = "login"),
     path("logout/", views.logout_view, name = "logout"),
     path("signin/", views.signin_view, name = "signin"),
+
+    # Displays Admin Panel Category Information
     path("admin_panel/", views.admin_panel_posts, name = "admin_panel"), # this is default admin panel function but since there is no authentication it will just go to post
     path("admin_panel/users", views.admin_panel_users, name = "admin_panel_users"),
     path("admin_panel/posts", views.admin_panel_posts, name = "admin_panel_posts"),
     path("admin_panel/contacts", views.admin_panel_contact, name = "admin_panel_contact"),
 
+    # Admin Panel User Action logic
     re_path(r'^(?P<id>\d+)/active_state_user_account/$', views.active_state_user_account, name = "active_state_user_account"),
     re_path(r'^(?P<id>\d+)/password_change_user_account/$', views.password_change_user_account, name = "password_change_user_account"),
-
     re_path(r'^(?P<id>\d+)/set_user_perms_staff_adminpanel/$', views.set_user_perms_staff_adminpanel, name = "set_user_perms_staff_adminpanel"),
     re_path(r'^(?P<id>\d+)/set_user_perms_superuser_adminpanel/$', views.set_user_perms_superuser_adminpanel, name = "set_user_perms_superuser_adminpanel"),
 ]

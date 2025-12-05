@@ -6,8 +6,8 @@ from post.models import Post , ContactInfo
 from django.contrib.auth import authenticate, login, logout
 from django.db.models import Q
 from django.core.paginator import Paginator
-# Create your views here.
 
+# ----- Main Account logic -----
 def login_view(request):
     if request.user.is_authenticated:
         return redirect('/')
@@ -39,6 +39,7 @@ def logout_view(request):
     logout(request)
     return redirect('/accounts/login/')
 
+# ----- Displays Admin Panel Category Information -----
 
 def admin_panel(request):
 
@@ -125,6 +126,7 @@ def admin_panel_contact(request):
     else:
         raise Http404()
 
+# ----- Admin Panel User Action logic -----
 
 def set_user_perms_staff_adminpanel(request, id):
     if request.user.is_staff:
