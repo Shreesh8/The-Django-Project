@@ -1,4 +1,25 @@
 
+:root{
+    --main-black: rgb(0, 0, 0);
+    --main-white: rgb(255, 255, 255);
+
+    --shadow-color-04: rgba(0, 0, 0, 0.4);
+    --shadow-color-02: rgba(0, 0, 0, 0.2);
+
+    --transparent: rgba(0, 0, 0, 0);
+
+    --main-button-disabled: #8a8a8a;
+    --main-button-disabled-hover: #7c7c7c;
+    --main-button-disabled-active: #505050;
+
+    --main-button-color: rgb(50, 50, 50);
+    --main-button-border-color: rgb(73, 73, 73);
+
+    --button-border-color: rgb(88, 88, 88);
+    --button-border-color-hover: rgb(100, 100, 100);
+
+}
+
 .cloud_container{
     filter: opacity(25%);
     position: absolute;
@@ -37,7 +58,7 @@
 .card{
     margin: 10px;
     padding: 10px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
 }
     
 .post_title{
@@ -123,75 +144,36 @@
 
 
 .button_shadow{
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.449);
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
 }
 
 .btn-primary{
-    background-color: rgb(50, 50, 50);
-    border-color: rgb(88, 88, 88);
+    background-color: var(--button-main-color);
+    border-color: var(--button-border-color);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
 
 .btn-primary:hover{
-    background-color: rgb(88, 88, 88);
-    border-color: rgb(100, 100, 100);
-    transition: all 100ms ease-out;
-    transform: scale(1.03);
-}
-
-
-.btn-primary-2{
-    background-color: rgb(255, 210, 112);
-    border-color: rgb(255, 211, 90);
-    transition: all 100ms ease-out;
-    transform: scale(1.00);
-}
-
-.btn-primary-2:hover{
-    background-color: rgb(255, 140, 64);
-    border-color: rgb(255, 211, 90);
-    transition: all 100ms ease-out;
-    transform: scale(1.03);
-}
-
-.btn-primary-success{
-    background-color: #8dff8d;
-    border-color: #6ee06e;
-    transition: all 100ms ease-out;
-    transform: scale(1.00);
-}
-
-.btn-primary-success:hover{
-    background-color: #70e470;
-    border-color: #55c555;
+    background-color: var(--button-border-color);
+    border-color: var(--button-border-color-hover);
     transition: all 100ms ease-out;
     transform: scale(1.03);
 }
 
 .btn-primary-disabled{
-    background-color: #8a8a8a;
+    background-color: var(--main-button-disabled);
     border-color: rgb(73, 73, 73);
 }
 
 .btn-primary-disabled:hover{
-    background-color: #7c7c7c;
+    background-color: var(--main-button-disabled-hover);
     border-color: rgb(73, 73, 73);
-}
-
-.btn-primary-disabled-light{
-    background-color: #b3b3b3;
-    border-color: rgb(155, 155, 155);
-}
-
-.btn-primary-disabled-light:hover{
-    background-color: rgb(134, 134, 134);
-    border-color: rgb(155, 155, 155);
 }
 
 .btn-primary-disabled:active{
-    background-color: #505050 !important;
-    border-color: rgb(73, 73, 73);
+    background-color: var(--main-button-disabled-active) !important;
+    border-color: var(--main-button-border-color);
 }
 
 .btn-danger{
