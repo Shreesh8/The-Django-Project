@@ -9,8 +9,20 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <style>
+
+/* Root is done here because static only works in html files */
+/* it will apply a different wallpaper if system prefers dark mode*/
+
+:root{
+    --bg-image: url("{% static '/img/wallpaper/waves_white.jpg' %}");
+}
+@media (prefers-color-scheme: dark) {
+    :root{
+        --bg-image: url("{% static '/img/wallpaper/waves_black2.jpg' %}");
+    }
+}
 body{
-    background-image: url("{% static '/img/wallpaper/waves4.jpg' %}");
+    background-image: var(--bg-image);
     background-size: cover;
     background-repeat: no-repeat;   
     background-position: center 1rem;

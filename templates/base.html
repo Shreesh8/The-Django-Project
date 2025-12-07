@@ -9,11 +9,39 @@
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
 </head>
 <style>
+
+/* Root is done here because static only works in html files */
+/* it will apply a different wallpaper if system prefers dark mode*/
+
+:root{
+    --bg-image: url("{% static '/img/wallpaper/waves_white.jpg' %}");
+}
+@media (prefers-color-scheme: dark) {
+    :root{
+        --bg-image: url("{% static '/img/wallpaper/waves_gray.jpg' %}");
+    }
+}
 body{
-    background-image: url("{% static '/img/wallpaper/waves4.jpg' %}");
+    background-image: var(--bg-image);
     background-size: cover;
     background-repeat: no-repeat; 
     background-attachment: fixed;
+}
+
+.card { /* to override bootstrap for some reason only inline style works? */
+    margin: 10px !important;
+    padding: 10px !important;
+    box-shadow: 5px 5px 10px var(--shadow-color-02) !important;
+    background-color: var(--bg-color) !important;
+}
+
+.nav-link {
+    color: var(--text-color) !important;
+}
+
+.img-thumbnail{
+    border-color: var(--bg-border-color);
+    background-color: var(--bg-color) !important;
 }
 </style>
 <body>

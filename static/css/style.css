@@ -1,23 +1,65 @@
 
-:root{
-    --main-black: rgb(0, 0, 0);
-    --main-white: rgb(255, 255, 255);
+:root{ /*Handles dark and light mode*/
+    --bg-color: rgb(255, 255, 255);
+    --bg-border-color: rgb(200, 200, 200);
+    --text-color: rgb(5, 5, 5);
 
     --shadow-color-04: rgba(0, 0, 0, 0.4);
     --shadow-color-02: rgba(0, 0, 0, 0.2);
 
     --transparent: rgba(0, 0, 0, 0);
 
-    --main-button-disabled: #8a8a8a;
-    --main-button-disabled-hover: #7c7c7c;
-    --main-button-disabled-active: #505050;
-
-    --main-button-color: rgb(50, 50, 50);
-    --main-button-border-color: rgb(73, 73, 73);
+    --button-disabled: #8a8a8a;
+    --button-disabled-hover: #7c7c7c;
+    --button-disabled-active: #505050;
+    --button-color: rgb(50, 50, 50);
+    --button-border-color: rgb(73, 73, 73);
 
     --button-border-color: rgb(88, 88, 88);
     --button-border-color-hover: rgb(100, 100, 100);
 
+    --button-primary-color: rgb(123, 123, 123);
+    --button-primary-border-color: rgb(145, 145, 145);
+
+    --navbar-gradient: linear-gradient(rgb(45, 45, 45) 70%, #ffffff 80%);
+    --paginator-gradient: linear-gradient(#ffffff00, #ffffff);
+}
+@media (prefers-color-scheme: dark) {
+    :root{
+        --bg-color: rgb(25, 25, 25);
+        --bg-border-color: rgb(45, 45, 45);
+        --text-color: rgb(255, 255, 255);
+        
+        --shadow-color-04: rgb(0, 0, 0);
+        --shadow-color-02: rgba(0, 0, 0, 0.5);
+
+        --transparent: rgba(0, 0, 0, 0);
+        
+        --button-disabled: #4a4a4a;
+        --button-disabled-hover: #5a5a5a;
+        --button-disabled-active: #707070;
+        
+        --button-color: rgb(30, 30, 30);
+        --button-border-color: rgb(60, 60, 60);
+        --button-border-color-hover: rgb(80, 80, 80);
+        
+        --button-primary-color: rgb(200, 200, 200);
+        --button-primary-border-color: rgb(220, 220, 220);
+
+        --navbar-gradient: linear-gradient(rgb(25, 25, 25) 70%, rgba(0, 0, 0, 0) 80%);
+        --paginator-gradient: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+    }
+}
+
+
+
+body {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+div{
+    color: var(--text-color);
 }
 
 .cloud_container{
@@ -55,33 +97,27 @@
     pointer-events: none;
 }
 
-.card{
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
-}
-    
 .post_title{
     display: inline-block;
     margin-left: 0.5rem;
 }
 .post_body{
     margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 10px var(--shadow-color-02);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
 
 .post_body:hover{
     margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 5px 5px 10px var(--shadow-color-04);
     transition: all 100ms ease-out;
     transform: scale(1.02);
 }
 
 .post_body_noscale{
     margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    box-shadow: 5px 5px 10px var(--shadow-color-02);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
@@ -113,7 +149,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    background: linear-gradient(#ffffff00, #ffffff);
+    background: var(--paginator-gradient);
     width: 100%;
     text-align: center;
 }
@@ -127,7 +163,7 @@
 }
 
 .navbar{
-    background: linear-gradient(#00000083 70%, #ffffff 80%);
+    background: var(--navbar-gradient);
     padding-bottom: 2rem;
 }
 
@@ -144,7 +180,7 @@
 
 
 .button_shadow{
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.4);
+    box-shadow: 2px 2px 5px var(--shadow-color-04);
 }
 
 .btn-primary{
@@ -162,17 +198,17 @@
 }
 
 .btn-primary-disabled{
-    background-color: var(--main-button-disabled);
-    border-color: rgb(73, 73, 73);
+    background-color: var(--button-disabled);
+    border-color: var(--main-button-border-color);
 }
 
 .btn-primary-disabled:hover{
-    background-color: var(--main-button-disabled-hover);
-    border-color: rgb(73, 73, 73);
+    background-color: var(--button-disabled-hover);
+    border-color: var(--button-border-color-hover);
 }
 
 .btn-primary-disabled:active{
-    background-color: var(--main-button-disabled-active) !important;
+    background-color: var(--button-disabled-active) !important;
     border-color: var(--main-button-border-color);
 }
 
@@ -187,8 +223,8 @@
 }
 
 .btn-primary:active{
-    background-color: rgb(123, 123, 123) !important;
-    border-color: rgb(145, 145, 145) !important; 
+    background-color: var(--button-primary-color) !important;
+    border-color: var(--button-primary-border-color) !important; 
 }
 
 .card-header{
