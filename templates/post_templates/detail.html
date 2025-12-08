@@ -37,17 +37,17 @@
                             {% if request.user.is_authenticated %}
 
                                 {% if post.id in upvoted_posts %}
-                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote_fill.png' %}" alt=""></a>{{post.upvotes}} 
+                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover arrow_fill_upvote" alt=""></a>{{post.upvotes}} 
                                 {% else %}
-                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover" src="{% static 'img/upvote.svg' %}" alt=""></a>{{post.upvotes}} 
+                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover arrow_upvote" alt=""></a>{{post.upvotes}} 
                                 {% endif %}
 
-                                <img class="ms-2" src="{% static '/img/eye.svg' %}" alt="">{{ post.post_views }} 
+                                <img class="ms-2 eye" alt="">{{ post.post_views }} 
 
                                 {% if post.user == request.user %}
                                     <div class="ms-auto">
-                                        <a href="{{ post.get_update_url }}"><img class="paginator-arrows" src="{% static '/img/post_action/edit.svg' %}" alt="Edit Post"></a>
-                                        <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}"><img class="paginator-arrows" src="{% static '/img/post_action/delete.svg' %}" alt="Delete Post"></a>
+                                        <a href="{{ post.get_update_url }}"><img class="paginator-arrows edit" alt="Edit Post"></a>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}"><img class="paginator-arrows delete" alt="Delete Post"></a>
                                     </div>
                                 {% endif %}
                                 <div class="ms-auto">
@@ -62,9 +62,11 @@
                 <br>
                 <hr>
                 <br>
-                <h3>Comment: </h3>
-                {% include 'post_templates/comment.html' %}
-
+                <div class="card post_body_noscale">
+                    <h3>Comment: </h3>
+                    
+                    {% include 'post_templates/comment.html' %}
+                </div>
                 {% for comment in post.comments.all%}
                     <hr>
                     <div class="card post_body_noscale">

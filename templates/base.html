@@ -10,40 +10,45 @@
 </head>
 <style>
 
-/* Root is done here because static only works in html files */
-/* it will apply a different wallpaper if system prefers dark mode*/
+
+/* ##############################################################*/
+/* Root is done here because load static only works in html files */
+/* You must provide a dark and light version of an icon!! */
+/* ##############################################################*/
 
 :root{
-    --bg-image: url("{% static '/img/wallpaper/waves_white.jpg' %}");
+    --bg-image: url("{% static '/img/wallpaper/waves_white2.jpg' %}");
+    
+    --arrow: url("{% static 'img/arrow_dark.svg' %}");
+    --arrow-fill: url("{% static 'img/arrow_fill_dark.svg' %}");
+
+    --eye: url("{% static 'img/eye_dark.svg' %}");
+
+    --edit: url("{% static '/img/post/edit_dark.svg' %}");
+    --delete: url("{% static '/img/post/delete_dark.svg' %}");
 }
 @media (prefers-color-scheme: dark) {
     :root{
         --bg-image: url("{% static '/img/wallpaper/waves_gray.jpg' %}");
+
+        --arrow: url("{% static 'img/arrow_light.svg' %}");
+        --arrow-fill: url("{% static 'img/arrow_fill_light.svg' %}");
+
+        --eye: url("{% static 'img/eye_light.svg' %}");
+
+        --edit: url("{% static '/img/post/edit_light.svg' %}");
+        --delete: url("{% static '/img/post/delete_light.svg' %}");
     }
 }
-body{
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-repeat: no-repeat; 
-    background-attachment: fixed;
-}
 
-.card { /* to override bootstrap for some reason only inline style works? */
-    margin: 10px !important;
-    padding: 10px !important;
-    box-shadow: 5px 5px 10px var(--shadow-color-02) !important;
-    background-color: var(--bg-color) !important;
-}
+/* ######################################################################*/
+/* All related dark and light mode colors are in theme.css and style.css */
+/* ######################################################################*/
 
-.nav-link {
-    color: var(--text-color) !important;
-}
-
-.img-thumbnail{
-    border-color: var(--bg-border-color);
-    background-color: var(--bg-color) !important;
-}
 </style>
+
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+
 <body>
     {% include "header.html" %}
     {% include 'messages.html' %}

@@ -7,7 +7,7 @@
 
     <div class="container">
 
-        <img src="{% static 'img/header/boat_sail_white.png'%}" alt="Home">
+        <img src="{% static 'img/header/boat_sail.svg'%}" alt="Home">
         <a href="/" class="nav-link navbar-brand text-light" style="color: white !important;"> Home</a>
 
         <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
@@ -19,7 +19,7 @@
         <div class="collapse navbar-collapse" id="navbarLinks">
             <div class="d-flex justify-content-end w-100">
                 <ul class="nav" >
-                    {% if request.user.is_authenticated %} <!-- it will always be white -->
+                    {% if request.user.is_authenticated %} <!-- Header is always Dark -->
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}" style="color: white !important;">Create</a></li>
                         <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" style="color: white !important;"
                              data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
@@ -36,7 +36,7 @@
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}" style="color: white !important;">Contact</a></li>
 
                     <!-- Light and Dark mode -->
-                    <li class="nav-item"><a href=""><img style="margin-top: 50%;" src="{% static '/img/header/moon_white.png'%}" alt=""></a></li> 
+                    <li class="nav-item"><a href=""><img style="margin-top: 50%;" src="{% static '/img/header/moon.svg'%}" alt=""></a></li> 
                 </ul>
             </div>
         </div>

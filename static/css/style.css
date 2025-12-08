@@ -1,6 +1,7 @@
 
 :root{ /*Handles dark and light mode*/
     --bg-color: rgb(255, 255, 255);
+    --bg-secondary-color: rgba(230, 230, 230, 0.3);
     --bg-border-color: rgb(200, 200, 200);
     --text-color: rgb(5, 5, 5);
 
@@ -21,12 +22,13 @@
     --button-primary-color: rgb(123, 123, 123);
     --button-primary-border-color: rgb(145, 145, 145);
 
-    --navbar-gradient: linear-gradient(rgb(45, 45, 45) 70%, #ffffff 80%);
+    --navbar-gradient: linear-gradient(rgb(45, 45, 45) 70%, #ffffff00 80%);
     --paginator-gradient: linear-gradient(#ffffff00, #ffffff);
 }
 @media (prefers-color-scheme: dark) {
     :root{
         --bg-color: rgb(25, 25, 25);
+        --bg-secondary-color: rgb(35, 35, 35,0.3);
         --bg-border-color: rgb(45, 45, 45);
         --text-color: rgb(255, 255, 255);
         
@@ -116,7 +118,8 @@ div{
 }
 
 .post_body_noscale{
-    margin: 5px; 
+    margin: 5px;
+    color: var(--text-color);
     box-shadow: 5px 5px 10px var(--shadow-color-02);
     transition: all 100ms ease-out;
     transform: scale(1.00);
@@ -184,7 +187,8 @@ div{
 }
 
 .btn-primary{
-    background-color: var(--button-main-color);
+    color: var(--text-color);
+    background-color: var(--button-color);
     border-color: var(--button-border-color);
     transition: all 100ms ease-out;
     transform: scale(1.00);
@@ -228,6 +232,8 @@ div{
 }
 
 .card-header{
+    background-color: var(--bg-secondary-color);
+    border-bottom: var(--bs-card-border-width) solid var(--bg-border-color);
     position: relative;
     border-radius: 5px;
 }

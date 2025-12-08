@@ -14,22 +14,52 @@
 /* it will apply a different wallpaper if system prefers dark mode*/
 
 :root{
-    --bg-image: url("{% static '/img/wallpaper/waves_white.jpg' %}");
+    --bg-image: url("{% static '/img/wallpaper/waves_white2.jpg' %}");
+    
+    --arrow: url("{% static 'img/arrow_dark.svg' %}");
+    --arrow-fill: url("{% static 'img/arrow_fill_dark.svg' %}");
+
+    --eye: url("{% static 'img/eye_dark.svg' %}");
+    --disabled-eye: url("{% static 'img/admin_perms/disabled_visible_dark.svg' %}");
+
+    --edit: url("{% static '/img/post/edit_dark.svg' %}");
+    --delete: url("{% static '/img/post//delete_dark.svg' %}");
+
+    --edit-normal: url("{% static 'img/admin_perms/edit_normal_dark.svg' %}");
+
+    --account: url("{% static 'img/admin_perms/account_dark.svg' %}");
+    --account-false: url("{% static 'img/admin_perms/account_false_dark.svg' %}");
+
+    --admin-true: url("{% static 'img/admin_perms/admin_true_dark.svg' %}");
+    --admin-false: url("{% static 'img/admin_perms/admin_false_dark.svg' %}");
 }
 @media (prefers-color-scheme: dark) {
     :root{
-        --bg-image: url("{% static '/img/wallpaper/waves_black2.jpg' %}");
+        --bg-image: url("{% static '/img/wallpaper/waves_gray.jpg' %}");
+
+        --arrow: url("{% static 'img/arrow_light.svg' %}");
+        --arrow-fill: url("{% static 'img/arrow_fill_light.svg' %}");
+
+        --eye: url("{% static 'img/eye_light.svg' %}");
+        --disabled-eye: url("{% static 'img/admin_perms/disabled_visible_light.svg' %}");
+
+        --edit: url("{% static '/img/post/edit_light.svg' %}");
+        --delete: url("{% static '/img/post/delete_light.svg' %}");
+
+        --edit-normal: url("{% static 'img/admin_perms/edit_normal_light.svg' %}");
+
+        --account: url("{% static 'img/admin_perms/account_light.svg' %}");
+        --account-false: url("{% static 'img/admin_perms/account_false_light.svg' %}");
+
+        --admin-true: url("{% static 'img/admin_perms/admin_true_light.svg' %}");
+        --admin-false: url("{% static 'img/admin_perms/admin_false_light.svg' %}");
+        
     }
 }
-body{
-    background-image: var(--bg-image);
-    background-size: cover;
-    background-repeat: no-repeat;   
-    background-position: center 1rem;
-    background-attachment: fixed;
-    padding-bottom: 3rem;
-}
 </style>
+
+<link rel="stylesheet" href="{% static 'css/theme.css' %}">
+
 <body>
     {% include "header_search.html" %}
     {% include 'messages.html' %}
