@@ -105,38 +105,38 @@
                 <span class="step-links">
 
                     {% if posts.has_previous and posts.has_next %}
-                        <a  href="?page=1"><img class="paginator-arrows" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
-                        <a  href="?page={{ posts.previous_page_number }}"><img class="paginator-arrows"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                        <a  href="?page=1"><img class="paginator-arrows paginator-arrow-double-left" alt=""></a>
+                        <a  href="?page={{ posts.previous_page_number }}"><img class="paginator-arrows paginator-arrow-left" alt=""></a>
                         
                         <span class="current">
                             Page {{ posts.number }} of {{ posts.paginator.num_pages }}
                         </span>
 
-                        <a  href="?page={{ posts.next_page_number }}"><img class="paginator-arrows" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
-                        <a   href="?page={{ posts.paginator.num_pages }}"><img class="paginator-arrows" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                        <a  href="?page={{ posts.next_page_number }}"><img class="paginator-arrows paginator-arrow-right" alt=""></a>
+                        <a   href="?page={{ posts.paginator.num_pages }}"><img class="paginator-arrows paginator-arrow-double-right" alt=""></a>
                     {% elif posts.has_previous %}
 
-                        <a  href="?page=1"><img class="paginator-arrows" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
-                        <a  href="?page={{ posts.previous_page_number }}"><img class="paginator-arrows"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                        <a  href="?page=1"><img class="paginator-arrows paginator-arrow-double-left" alt=""></a>
+                        <a  href="?page={{ posts.previous_page_number }}"><img class="paginator-arrows paginator-arrow-left" alt=""></a>
                         
                         <span class="current">
                             Page {{ posts.number }} of {{ posts.paginator.num_pages }}
                         </span>
 
-                        <a><img class="paginator-arrows-disabled" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
-                        <a><img class="paginator-arrows-disabled" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                        <a><img class="paginator-arrows-disabled paginator-arrow-right" alt=""></a>
+                        <a><img class="paginator-arrows-disabled paginator-arrow-double-right" alt=""></a>
 
                     {% elif posts.has_next %}
 
-                        <a><img class="paginator-arrows-disabled" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
-                        <a><img class="paginator-arrows-disabled"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                        <a><img class="paginator-arrows-disabled paginator-arrow-double-left"  alt=""></a>
+                        <a><img class="paginator-arrows-disabled paginator-arrow-left"alt=""></a>
 
                         <span class="current">
                             Page {{ posts.number }} of {{ posts.paginator.num_pages }}
                         </span>
 
-                        <a  href="?page={{ posts.next_page_number }}"><img class="paginator-arrows" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
-                        <a   href="?page={{ posts.paginator.num_pages }}"><img class="paginator-arrows" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                        <a  href="?page={{ posts.next_page_number }}"><img class="paginator-arrows paginator-arrow-right" alt=""></a>
+                        <a   href="?page={{ posts.paginator.num_pages }}"><img class="paginator-arrows paginator-arrow-double-right" alt=""></a>
 
 
                     {% endif %}
