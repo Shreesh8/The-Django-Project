@@ -36,7 +36,7 @@
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}" style="color: white !important;">Contact</a></li>
 
                     <!-- Light and Dark mode -->
-                    <li class="nav-item"><a href=""><img style="margin-top: 50%;" src="{% static '/img/header/moon.svg'%}" alt=""></a></li> 
+                    <li class="nav-item"><a href=""><img style="margin-top: 50%;" id="theme-toggle" class="scale-hover theme_toggle_icon" alt=""></a></li> 
                 </ul>
             </div>
         </div>
@@ -64,6 +64,8 @@
         </div>
     </div>
 </nav>
+
+<script src="{% static 'js/theme.js'%}"></script>
 
 <!-- I cant seem to make this script into a file because static stops working -->
 

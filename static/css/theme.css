@@ -88,3 +88,7 @@ body{
 .disabled_eye{
     content: var(--disabled-eye);
 }
+
+.theme_toggle_icon{
+    content: var(--theme_toggle_icon);
+}

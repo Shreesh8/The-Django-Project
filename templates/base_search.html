@@ -3,6 +3,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    
     <meta charset="UTF-8" name="viewport" content="width=device-width, initial-scale=1">
     <title>{% block title %}Django Dersleri{% endblock %}</title>
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
@@ -13,7 +14,7 @@
 /* Root is done here because static only works in html files */
 /* it will apply a different wallpaper if system prefers dark mode*/
 
-:root{
+:root[data-theme="light"]{
     --bg-image: url("{% static '/img/wallpaper/waves_white2.jpg' %}");
     
     --arrow: url("{% static 'img/arrow_dark.svg' %}");
@@ -32,29 +33,31 @@
 
     --admin-true: url("{% static 'img/admin_perms/admin_true_dark.svg' %}");
     --admin-false: url("{% static 'img/admin_perms/admin_false_dark.svg' %}");
+
+    --theme_toggle_icon: url("{% static '/img/header/moon.svg'%}")
 }
-@media (prefers-color-scheme: dark) {
-    :root{
-        --bg-image: url("{% static '/img/wallpaper/waves_gray.jpg' %}");
 
-        --arrow: url("{% static 'img/arrow_light.svg' %}");
-        --arrow-fill: url("{% static 'img/arrow_fill_light.svg' %}");
+:root[data-theme="dark"]{
+    --bg-image: url("{% static '/img/wallpaper/waves_gray.jpg' %}");
 
-        --eye: url("{% static 'img/eye_light.svg' %}");
-        --disabled-eye: url("{% static 'img/admin_perms/disabled_visible_light.svg' %}");
+    --arrow: url("{% static 'img/arrow_light.svg' %}");
+    --arrow-fill: url("{% static 'img/arrow_fill_light.svg' %}");
 
-        --edit: url("{% static '/img/post/edit_light.svg' %}");
-        --delete: url("{% static '/img/post/delete_light.svg' %}");
+    --eye: url("{% static 'img/eye_light.svg' %}");
+    --disabled-eye: url("{% static 'img/admin_perms/disabled_visible_light.svg' %}");
 
-        --edit-normal: url("{% static 'img/admin_perms/edit_normal_light.svg' %}");
+    --edit: url("{% static '/img/post/edit_light.svg' %}");
+    --delete: url("{% static '/img/post/delete_light.svg' %}");
 
-        --account: url("{% static 'img/admin_perms/account_light.svg' %}");
-        --account-false: url("{% static 'img/admin_perms/account_false_light.svg' %}");
+    --edit-normal: url("{% static 'img/admin_perms/edit_normal_light.svg' %}");
 
-        --admin-true: url("{% static 'img/admin_perms/admin_true_light.svg' %}");
-        --admin-false: url("{% static 'img/admin_perms/admin_false_light.svg' %}");
-        
-    }
+    --account: url("{% static 'img/admin_perms/account_light.svg' %}");
+    --account-false: url("{% static 'img/admin_perms/account_false_light.svg' %}");
+
+    --admin-true: url("{% static 'img/admin_perms/admin_true_light.svg' %}");
+    --admin-false: url("{% static 'img/admin_perms/admin_false_light.svg' %}");
+
+    --theme_toggle_icon: url("{% static '/img/header/sun.svg'%}")
 }
 </style>
 
