@@ -10,7 +10,7 @@ The website has a Contact feature, where you can send details for an admin to se
 
 <h3>2.App Contents</h3>
 I will try to describe what each app does and contains, This is usefull if you want to understand or contribute to some part of the project.
-You can find the Contents <a href = "/docs/Contents">here</a>.
+You can find the Contents <a href = "/docs/Contents.md">here</a>.
 
 <hr>
 

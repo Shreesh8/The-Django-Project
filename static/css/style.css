@@ -116,7 +116,18 @@ div{
     box-shadow: 5px 5px 10px var(--shadow-color-02);
     transition: all 100ms ease-out;
     transform: scale(1.00);
+
+    /* Limit text to 3 lines with ellipsis */
+    display: -webkit-box;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    -webkit-line-clamp: 3; /* Max visible lines */
 }
+
+.post_body.expanded {
+    -webkit-line-clamp: unset; /* Show full text */
+}
+
 
 .post_body:hover{
     margin: 5px; 
