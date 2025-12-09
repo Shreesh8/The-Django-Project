@@ -24,8 +24,10 @@
     --navbar-gradient: linear-gradient(rgb(45, 45, 45) 70%, #ffffff00 80%);
     --paginator-gradient: linear-gradient(#ffffff00, #ffffff);
 
-    --bg-txtbox-color: rgb(255, 255, 255);
+    --bg-txtbox-color: rgb(245, 245, 245);
     --txtbox-border-color: rgb(220, 220, 220);
+    --bg-txtbox-color-focused: rgb(255, 255, 255);
+    --txtbox-border-color-focused: rgb(240, 240, 240);
 }
 :root[data-theme="dark"]{
     --bg-color: rgb(25, 25, 25);
