@@ -5,7 +5,7 @@
     <div class="container">
 
             <img src="{% static 'img/header/boat_sail.svg'%}" alt="Home">
-            <a href="/" class="nav-link navbar-brand text-light" style="color: white !important;"> Home</a>
+            <a href="/" class="nav-link navbar-brand " style="color: white !important;"> Home</a>
 
         <div class="d-flex sm-auto me-3">
 
@@ -13,12 +13,12 @@
         
             <form class="mt-2" role="search" method="GET" action="">
                 <div class="input-group">
-                <input class="form-control" type="text" name="q" placeholder="Search" value="{{ request.GET.q }}">
-                <button class="btn btn-outline-light text-dark" style="background-color: rgb(224, 224, 224);" type="submit">Search</button>
+                <input class="form-control" type="text" name="q" value="{{ request.GET.q }}">
+                <button class="btn btn-primary" type="submit">Search</button>
                 </div>
             </form>
 
-            <button class="navbar-toggler text-light ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
+            <button class="navbar-toggler text_color ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
                 aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
                 <img src="{% static 'img/header/compas.png' %}" alt="">
             </button>
