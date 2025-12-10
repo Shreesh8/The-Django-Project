@@ -5,7 +5,7 @@ __pycache__/
 
 # django
 *.pyc
-
+*.sqlite3
 # C extensions
 *.so
 
