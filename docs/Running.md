@@ -18,10 +18,25 @@ And Activate the Virtual Enviorment by running <b>"venv\Scripts\activate"</b>.
 pip install -r /path/to/requirements.txt
 ```
 
-Once it is done you can run, and it will be avaliable on your browser at "http://127.0.0.1:8000".
+Apply database migrations.
+
+```
+python manage.py migrate
+```
+
+Create a superuser. (optional)
+
+```
+python manage.py createsuperuser
+```
+
+When your finished you can run.
 
 ```
 python manage.py runserver
 ```
+
+and it will be avaliable on your browser at "http://127.0.0.1:8000".
+
 <hr>
 For more Information about the Contents you can find it <a href="/docs/Contents.md">here</a>.
