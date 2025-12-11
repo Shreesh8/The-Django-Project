@@ -21,6 +21,8 @@
 /* Root is done here because static only works in html files */
 /* it will apply a different wallpaper if system prefers dark mode*/
 
+/* header icons are always white because of the dark background*/
+
 :root[data-theme="light"]{
     --bg-image: url("{% static '/img/wallpaper/waves_white2.jpg' %}");
     
@@ -42,6 +44,9 @@
     --admin-false: url("{% static 'img/admin_perms/admin_false_dark.svg' %}");
 
     --theme_toggle_icon: url("{% static '/img/header/moon.svg'%}");
+
+    --compass: url("{% static '/img/header/compass.svg'%}");
+    --map-search: url("{% static '/img/header/map_search_light.svg'%}"); 
 
     --paginator-arrow-left: url("{% static '/img/paginator_arrows/left_dark.svg' %}");
     --paginator-arrow-right: url("{% static '/img/paginator_arrows/right_dark.svg' %}");
@@ -70,6 +75,9 @@
     --admin-false: url("{% static 'img/admin_perms/admin_false_light.svg' %}");
 
     --theme_toggle_icon: url("{% static '/img/header/sun.svg'%}");
+
+    --compass: url("{% static '/img/header/compass.svg'%}");
+    --map-search: url("{% static '/img/header/map_search_light.svg'%}");
 
     --paginator-arrow-left: url("{% static '/img/paginator_arrows/left_light.svg' %}");
     --paginator-arrow-right: url("{% static '/img/paginator_arrows/right_light.svg' %}");
