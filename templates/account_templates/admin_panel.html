@@ -117,10 +117,10 @@
                         {% for admin_data in admin_datas%} <!-- Posts -->
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
-                                <td>{{admin_data}}</td>
+                                <td>{{admin_data|safe|truncatechars:50}}</td>
                                 <td><img class="arrow_upvote" alt="Views">{{admin_data.upvotes}}</td>
                                 <td><img class="eye" alt="Views">{{admin_data.post_views}}</td>
-                                <td>#{{admin_data.user.id}} {{admin_data.user.username}}</td>
+                                <td>#{{admin_data.user.id}} {{admin_data.user.username|safe|truncatechars:50}}</td>
                                 <td>
                                     <a href="{{ admin_data.get_absolute_url }}"><img class="eye" alt="View Post"></a>
                                     <a href="{{ admin_data.get_update_url }}"><img class="edit" alt="Edit Post"></a>
@@ -134,12 +134,12 @@
                         {% for admin_data in admin_datas%} <!-- Contact -->
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
-                                <td>{{admin_data.name}}</td>
-                                <td>{{admin_data.surname}}</td>
-                                <td>{{admin_data.adress}}</td>
+                                <td>{{admin_data.name|safe|truncatechars:20}}</td>
+                                <td>{{admin_data.surname|safe|truncatechars:20}}</td>
+                                <td>{{admin_data.adress|safe|truncatechars:70}}</td>
                                 <td>{{admin_data.user_gender}}</td>
-                                <td>{{admin_data.email}}</td>
-                                <td>#{{admin_data.user.id}} {{admin_data.user}}</td>
+                                <td>{{admin_data.email|safe|truncatechars:20}}</td>
+                                <td>#{{admin_data.user.id}} {{admin_data.user|safe|truncatechars:20}}</td>
                                 <td>
                                     <a href="{{ admin_data.get_modify_contact_adminpanel_url }}"><img class="edit_normal" alt="Edit Contact"></a>
                                     <a href="" data-bs-toggle="modal" data-bs-target="#modal_contact{{ admin_data.id }}"><img class="delete" alt="Delete Post"></a>
