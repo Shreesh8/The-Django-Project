@@ -62,8 +62,8 @@
 
                             {% if post.user == request.user %}
                                 <div class="ms-auto">
-                                    <a href="{{ post.get_update_url }}"><img class="paginator-arrows edit"  alt="Edit Post"></a>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ post.id }}"><img class="paginator-arrows delete" alt="Delete Post"></a>
+                                    <a href="{{ post.get_update_url }}"><img class="edit"  alt="Edit Post"></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_delete_{{ post.id }}"><img class="delete" alt="Delete Post"></a>
                                 </div>
                             {% endif %}
                             <div class="ms-auto">
@@ -77,7 +77,7 @@
         </div>
 
             <!-- Modal post delete -->
-            <div class="modal fade" id="modal_{{ post.id }}" tabindex="-1" aria-labelledby="modalLabel_{{ post.id }}" aria-hidden="true">
+            <div class="modal fade" id="modal_delete_{{ post.id }}" tabindex="-1" aria-labelledby="modalLabel_{{ post.id }}" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
