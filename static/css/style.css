@@ -21,7 +21,7 @@
     --button-primary-color-hover: rgb(255, 255, 255);
     --button-primary-color: rgb(245, 245, 245);
 
-    --navbar-gradient: linear-gradient(rgb(45, 45, 45) 80%, #ffffff00 90%);
+    --navbar-gradient: linear-gradient(rgb(45, 45, 45, 0.6) 80%, #ffffff00 90%);
     --paginator-gradient: linear-gradient(#ffffff00, #ffffff);
 
     --bg-txtbox-color: rgb(245, 245, 245);
@@ -29,6 +29,37 @@
     --bg-txtbox-color-focused: rgb(255, 255, 255);
     --txtbox-border-color-focused: rgb(240, 240, 240);
 }
+:root[data-theme="dark"]{
+    --bg-color: rgb(45, 45, 45);
+    --bg-secondary-color: rgb(75, 75, 75,0.3);
+    --bg-border-color: rgb(75, 75, 75);
+    --text-color: rgb(255, 255, 255);
+    
+    --shadow-color-04: rgb(0, 0, 0);
+    --shadow-color-02: rgba(0, 0, 0, 0.5);
+
+    --transparent: rgba(0, 0, 0, 0);
+    
+    --button-disabled: #4a4a4a;
+    --button-disabled-hover: #5a5a5a;
+    --button-disabled-active: #707070;
+    
+    --button-border-color: rgb(80, 80, 80);
+    --button-border-color-hover: rgb(100, 100, 100);
+    
+    --button-primary-color: rgba(45, 45, 45);
+    --button-primary-color-hover: rgb(70, 70, 70);
+
+    --navbar-gradient: linear-gradient(rgb(45, 45, 45) 80%, rgba(0, 0, 0, 0) 90%);
+    --paginator-gradient: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+
+    --bg-txtbox-color: rgba(45, 45, 45);
+    --txtbox-border-color: rgb(70, 70, 70);
+    --bg-txtbox-color-focused: rgba(60,60,60);
+    --txtbox-border-color-focused: rgb(80, 80, 80);
+}
+
+/* Old dark theme
 :root[data-theme="dark"]{
     --bg-color: rgb(25, 25, 25);
     --bg-secondary-color: rgb(35, 35, 35,0.3);
@@ -58,7 +89,7 @@
     --bg-txtbox-color-focused: rgba(40, 40, 40);
     --txtbox-border-color-focused: rgb(70, 70, 70);
 }
-
+*/
 
 body {
     color: var(--text-color);
