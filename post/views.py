@@ -56,7 +56,6 @@ def upvote_post_detail(request, id):
 def post_index(request):
     if request.user.is_authenticated:
         post_list = Post.objects.all()
-
         post_ids = post_list.values_list('id', flat=True)
 
         upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
@@ -71,17 +70,20 @@ def post_index(request):
                 Q(desc__icontains=query)|
                 Q(user__first_name__icontains=query)|
                 Q(user__last_name__icontains=query)).distinct()
-
         paginator = Paginator(post_list, 9)  # Show 9 posts per page.
-
         page = request.GET.get("page")
         posts = paginator.get_page(page)
-
         context = {
             "posts" : posts,
             "upvoted_posts" : upvoted_posts,
         }
-
+        suffix = ""
+        for each_page in range(len(posts)):
+            if len(posts[each_page].title) > 25:
+                suffix = "..."
+            else:
+                suffix = ""
+            posts[each_page].title = posts[each_page].title[:25] + suffix
         return render(request, "post_templates/index.html", context)
     else:
         return redirect('/accounts/login')
