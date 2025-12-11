@@ -8,40 +8,38 @@
     <div class="container">
 
         <img src="{% static 'img/header/boat_sail.svg'%}" alt="Home">
-        <a href="/" class="nav-link navbar-brand text-light" style="color: white !important;"> Home</a>
+        <a href="/" class="nav-link navbar-brand text-light  me-auto" style="color: white !important;"> Home</a>
 
         <button class="navbar-toggler text-light" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
-                aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-            <img src="{% static 'img/header/compas.png' %}" alt="">
+            aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+            <img class="compass" alt="">
         </button>
 
         <!-- Main pages -->
         <div class="collapse navbar-collapse" id="navbarLinks">
-            <div class="d-flex justify-content-end w-100">
-                <ul class="nav" >
-                    {% if request.user.is_authenticated %} <!-- Header is always Dark -->
-                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}" style="color: white !important;">Create</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" style="color: white !important;"
-                             data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'user_profile:test' %}" style="color: white !important;">Profile</a></li>
-                        {% if request.user.is_staff %}
-                            <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:admin_panel' %}" style="color: white !important;">Admin Panel</a></li>
-                        {% endif %}
-                    {% else %}
-                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}" style="color: white !important;">Login</a></li>
-                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}" style="color: white !important;">Sign in</a></li>
+            <ul class="nav d-flex justify-content-end ms-auto">
+                {% if request.user.is_authenticated %} <!-- Header is always Dark -->
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}" style="color: white !important;">Create</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" style="color: white !important;"
+                            data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'user_profile:test' %}" style="color: white !important;">Profile</a></li>
+                    {% if request.user.is_staff %}
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:admin_panel' %}" style="color: white !important;">Admin Panel</a></li>
                     {% endif %}
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}" style="color: white !important;">Blog</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}" style="color: white !important;">About us</a></li>
-                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}" style="color: white !important;">Contact</a></li>
+                {% else %}
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}" style="color: white !important;">Login</a></li>
+                    <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:signin' %}" style="color: white !important;">Sign in</a></li>
+                {% endif %}
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:index' %}" style="color: white !important;">Blog</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:about'%}" style="color: white !important;">About us</a></li>
+                <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:contact'%}" style="color: white !important;">Contact</a></li>
 
-                    <!-- Light and Dark mode -->
-                    <li class="nav-item"><a href=""><img style="margin-top: 50%;" id="theme-toggle" class="scale-hover theme_toggle_icon" alt=""></a></li> 
-                </ul>
-            </div>
+                <!-- Light and Dark mode -->
+                <li class="nav-item"><a href=""><img style="margin-top: 50%;" id="theme-toggle" class="scale-hover theme_toggle_icon" alt=""></a></li> 
+            </ul>
         </div>
 
-                        <!-- Modal user logout -->
+            <!-- Modal user logout -->
             <div class="modal fade" id="modal_1" tabindex="-1" aria-labelledby="modalLabel_1" aria-hidden="true">
                 <div class="modal-dialog">
                     <div class="modal-content">

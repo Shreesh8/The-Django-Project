@@ -5,29 +5,37 @@
     <div class="container">
 
             <img src="{% static 'img/header/boat_sail.svg'%}" alt="Home">
-            <a href="/" class="nav-link navbar-brand " style="color: white !important;"> Home</a>
+            <a href="/" class="nav-link navbar-brand  me-auto" style="color: white !important;"> Home</a>
 
         <div class="d-flex sm-auto me-3">
 
-            <!-- Search bar -->
-        
-            <form class="mt-2" role="search" method="GET" action="">
-                <div class="input-group">
-                <input class="form-control" type="text" name="q" value="{{ request.GET.q }}">
-                <button class="btn btn-primary button_shadow" type="submit">Search</button>
-                </div>
-            </form>
-
-            <button class="navbar-toggler text_color ms-3" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
-                aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
-                <img src="{% static 'img/header/compas.png' %}" alt="">
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#searchbar" 
+                aria-controls="searchbar    " aria-expanded="false" aria-label="Toggle search">
+                <img class="map_search" alt="">
             </button>
+
+            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarLinks" 
+                aria-controls="navbarLinks" aria-expanded="false" aria-label="Toggle navigation">
+                <img class="compass" alt="">
+            </button>
+
 
         </div>
 
+        <div class="collapse navbar-collapse" id="searchbar">
+            <!-- Search bar -->
+        
+            <form class="me-2" role="search" method="GET" action="">
+                <div class="input-group">
+                <input class="form-control" type="text" name="q" value="{{ request.GET.q }}">
+                <button class="btn btn-primary button_shadow" type="submit">Search</button>
+                </div>  
+            </form>
+        </div>
+        
         <!-- Main pages -->
         <div class="collapse navbar-collapse" id="navbarLinks">
-            <ul class="nav d-flex justify-content-start ms-auto">
+            <ul class="nav d-flex justify-content-end ms-auto">
                 {% if request.user.is_authenticated %} <!-- Header is always Dark -->
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'post:create' %}" style="color: white !important;">Create</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:logout' %}" style="color: white !important;"
