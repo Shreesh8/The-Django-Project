@@ -4,14 +4,13 @@
 {% block body %}
 {% load timesince_shortner %}
     <div class="container"> 
-            <div class="col-md-10 mt-4">
                 <div class="card post_body_noscale d-inline-block" >
                     <div class="caption">
                         <div style="position: relative; overflow: hidden; overflow-wrap: break-word;">
                             
                             <div class="card-header mb-2">
                                 <h3 class="post_title">
-                                    {{ post.title }}
+                                    {{ post.title|safe|linebreaks }}
                                 </h3>
                                 <h6 class="post_title">
                                     OP: {{ post.user.username }}
@@ -27,7 +26,7 @@
                             {% endif %}
 
                             <div class="card-header mt-2 mb-2">
-                                {{ post.desc|safe|linebreaks|truncatechars:150 }}
+                                {{ post.desc|safe|linebreaks}}
                             </div>
                             
                         </div>
@@ -57,7 +56,6 @@
                         </div>
                     </div>
                 </div>
-            </div>
             <div>
                 <br>
                 <hr>

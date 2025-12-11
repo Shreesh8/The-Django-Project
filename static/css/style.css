@@ -110,7 +110,7 @@ div{
 }
 
 .post_title{
-    display: inline-block;
+    overflow-wrap: break-word;
     margin-left: 0.5rem;
 }
 .post_body{
@@ -251,6 +251,10 @@ div{
 .btn-primary:active{
     background-color: var(--button-primary-color) !important;
     border-color: var(--button-border-color-hover) !important; 
+}
+
+.card{
+    max-width: 100%;
 }
 
 .card-header{
