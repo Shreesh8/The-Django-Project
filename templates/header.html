@@ -67,11 +67,11 @@
 
 <!-- I cant seem to make this script into a file because static stops working -->
 
-<script>/*
+<script>
     parent = document.querySelectorAll('.bubble_container')
     parent.forEach(function(container) {
     const bubble_image = [
-        "{% static '/img/header/bubble.png' %}",
+        "{% static '/img/header/bubbles/bubble1.png' %}",
     ];
 
     const bubble_count = 18;
@@ -86,13 +86,9 @@
         bubble.style.left = Math.random() * 100 + "%";
 
         bubble.style.scale = (Math.random() + 0.5) * 0.2;
-
-        buuble.style.transform = "scale()"
-        bubble.style.animation = 
-
         
 
         container.appendChild(bubble);
     }
-});*/
+});
 </script>
