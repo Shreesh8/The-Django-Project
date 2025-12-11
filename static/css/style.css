@@ -1,4 +1,79 @@
 
+:root[data-theme="light"]{ /*Handles dark and light mode*/
+    --bg-color: rgb(255, 255, 255);
+    --bg-secondary-color: rgba(230, 230, 230, 0.3);
+    --bg-border-color: rgb(200, 200, 200);
+    --text-color: rgb(5, 5, 5);
+
+    --shadow-color-08: rgba(0, 0, 0, 0.8);
+    --shadow-color-04: rgba(0, 0, 0, 0.4);
+    --shadow-color-02: rgba(0, 0, 0, 0.2);
+
+    --transparent: rgba(0, 0, 0, 0);
+
+    --button-disabled: #8a8a8a;
+    --button-disabled-hover: #7c7c7c;
+    --button-disabled-active: #505050;
+
+    --button-border-color: rgb(180, 180, 180);
+    --button-border-color-hover: rgb(200, 200, 200);
+
+    --button-primary-color-hover: rgb(255, 255, 255);
+    --button-primary-color: rgb(245, 245, 245);
+
+    --navbar-gradient: linear-gradient(rgb(45, 45, 45) 70%, #ffffff00 80%);
+    --paginator-gradient: linear-gradient(#ffffff00, #ffffff);
+
+    --bg-txtbox-color: rgb(245, 245, 245);
+    --txtbox-border-color: rgb(220, 220, 220);
+    --bg-txtbox-color-focused: rgb(255, 255, 255);
+    --txtbox-border-color-focused: rgb(240, 240, 240);
+}
+:root[data-theme="dark"]{
+    --bg-color: rgb(25, 25, 25);
+    --bg-secondary-color: rgb(35, 35, 35,0.3);
+    --bg-border-color: rgb(45, 45, 45);
+    --text-color: rgb(255, 255, 255);
+    
+    --shadow-color-04: rgb(0, 0, 0);
+    --shadow-color-02: rgba(0, 0, 0, 0.5);
+
+    --transparent: rgba(0, 0, 0, 0);
+    
+    --button-disabled: #4a4a4a;
+    --button-disabled-hover: #5a5a5a;
+    --button-disabled-active: #707070;
+    
+    --button-border-color: rgb(60, 60, 60);
+    --button-border-color-hover: rgb(80, 80, 80);
+    
+    --button-primary-color: rgba(30, 30, 30);
+    --button-primary-color-hover: rgb(60, 60, 60);
+
+    --navbar-gradient: linear-gradient(rgb(25, 25, 25) 70%, rgba(0, 0, 0, 0) 80%);
+    --paginator-gradient: linear-gradient(rgba(0, 0, 0, 0), rgb(0, 0, 0));
+
+    --bg-txtbox-color: rgba(30, 30, 30);
+    --txtbox-border-color: rgb(60, 60, 60);
+    --bg-txtbox-color-focused: rgba(40, 40, 40);
+    --txtbox-border-color-focused: rgb(70, 70, 70);
+}
+
+
+body {
+    color: var(--text-color);
+    background-color: var(--bg-color);
+}
+
+div{
+    color: var(--text-color);
+}
+
+.text_color{
+    color: var(--text-color);
+}
+
+
 .cloud_container{
     filter: opacity(25%);
     position: absolute;
@@ -34,20 +109,13 @@
     pointer-events: none;
 }
 
-.card{
-    margin: 10px;
-    padding: 10px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.3);
-}
-    
 .post_title{
-    display: inline-block;
+    overflow-wrap: break-word;
     margin-left: 0.5rem;
 }
-
-.post_body {
-    margin: 5px;
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+.post_body{
+    margin: 5px; 
+    box-shadow: 5px 5px 10px var(--shadow-color-02);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 
@@ -65,14 +133,15 @@
 
 .post_body:hover{
     margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.4);
+    box-shadow: 5px 5px 10px var(--shadow-color-04);
     transition: all 100ms ease-out;
     transform: scale(1.02);
 }
 
 .post_body_noscale{
-    margin: 5px; 
-    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+    margin: 5px;
+    color: var(--text-color);
+    box-shadow: 5px 5px 10px var(--shadow-color-02);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
@@ -104,7 +173,7 @@
     position: fixed;
     bottom: 0;
     left: 0;
-    background: linear-gradient(#ffffff00, #ffffff);
+    background: var(--paginator-gradient);
     width: 100%;
     text-align: center;
 }
@@ -118,7 +187,7 @@
 }
 
 .navbar{
-    background: linear-gradient(#00000083 70%, #ffffff 80%);
+    background: var(--navbar-gradient);
     padding-bottom: 2rem;
 }
 
@@ -135,75 +204,38 @@
 
 
 .button_shadow{
-    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.449);
+    box-shadow: 2px 2px 5px var(--shadow-color-04);
 }
 
 .btn-primary{
-    background-color: rgb(50, 50, 50);
-    border-color: rgb(88, 88, 88);
+    color: var(--text-color);
+    background-color: var(--button-primary-color);
+    border-color: var(--button-border-color);
     transition: all 100ms ease-out;
     transform: scale(1.00);
 }
 
 .btn-primary:hover{
-    background-color: rgb(88, 88, 88);
-    border-color: rgb(100, 100, 100);
-    transition: all 100ms ease-out;
-    transform: scale(1.03);
-}
-
-
-.btn-primary-2{
-    background-color: rgb(255, 210, 112);
-    border-color: rgb(255, 211, 90);
-    transition: all 100ms ease-out;
-    transform: scale(1.00);
-}
-
-.btn-primary-2:hover{
-    background-color: rgb(255, 140, 64);
-    border-color: rgb(255, 211, 90);
-    transition: all 100ms ease-out;
-    transform: scale(1.03);
-}
-
-.btn-primary-success{
-    background-color: #8dff8d;
-    border-color: #6ee06e;
-    transition: all 100ms ease-out;
-    transform: scale(1.00);
-}
-
-.btn-primary-success:hover{
-    background-color: #70e470;
-    border-color: #55c555;
+    color: var(--text-color);
+    background-color: var(--button-primary-color-hover);
+    border-color: var(--button-border-color-hover);
     transition: all 100ms ease-out;
     transform: scale(1.03);
 }
 
 .btn-primary-disabled{
-    background-color: #8a8a8a;
-    border-color: rgb(73, 73, 73);
+    background-color: var(--button-disabled);
+    border-color: var(--main-button-border-color);
 }
 
 .btn-primary-disabled:hover{
-    background-color: #7c7c7c;
-    border-color: rgb(73, 73, 73);
-}
-
-.btn-primary-disabled-light{
-    background-color: #b3b3b3;
-    border-color: rgb(155, 155, 155);
-}
-
-.btn-primary-disabled-light:hover{
-    background-color: rgb(134, 134, 134);
-    border-color: rgb(155, 155, 155);
+    background-color: var(--button-disabled-hover);
+    border-color: var(--button-border-color-hover);
 }
 
 .btn-primary-disabled:active{
-    background-color: #505050 !important;
-    border-color: rgb(73, 73, 73);
+    background-color: var(--button-disabled-active) !important;
+    border-color: var(--main-button-border-color);
 }
 
 .btn-danger{
@@ -217,15 +249,48 @@
 }
 
 .btn-primary:active{
-    background-color: rgb(123, 123, 123) !important;
-    border-color: rgb(145, 145, 145) !important; 
+    background-color: var(--button-primary-color) !important;
+    border-color: var(--button-border-color-hover) !important; 
+}
+
+.card{
+    max-width: 100%;
 }
 
 .card-header{
+    background-color: var(--bg-secondary-color);
+    border-bottom: var(--bs-card-border-width) solid var(--bg-border-color);
     position: relative;
     border-radius: 5px;
 }
 
+.form-control{
+    color: var(--text-color);
+    background-color: var(--bg-txtbox-color);
+    border-color: var(--txtbox-border-color);
+
+    box-shadow: 2px 2px 5px var(--shadow-color-02);
+}
+
+.form-control:focus{
+    color: var(--text-color);
+    background-color: var(--bg-txtbox-color-focused);
+    border-color: var(--txtbox-border-color-focused);
+
+    box-shadow: 2px 2px 15px var(--shadow-color-04);
+}
+
+.form-select{
+    color: var(--text-color);
+    background-color: var(--bg-txtbox-color);
+    border-color: var(--txtbox-border-color);
+}
+
+.form-select:focus{
+    color: var(--text-color);
+    background-color: var(--bg-txtbox-color);
+    border-color: var(--txtbox-border-color);
+}
 
 .div_link{ 
   position:absolute; 

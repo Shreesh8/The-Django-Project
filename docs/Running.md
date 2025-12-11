@@ -18,10 +18,45 @@ And Activate the Virtual Enviorment by running <b>"venv\Scripts\activate"</b>.
 pip install -r /path/to/requirements.txt
 ```
 
-Once it is done you can run, and it will be avaliable on your browser at "http://127.0.0.1:8000".
+Apply database migrations.
+
+```
+python manage.py migrate
+```
+
+Create a superuser. (optional)
+
+```
+python manage.py createsuperuser
+```
+
+When your finished you can run.
 
 ```
 python manage.py runserver
 ```
+
+and it will be avaliable on your browser at "http://127.0.0.1:8000".
+
 <hr>
+
+<h2>Using the sample database</h1>
+
+By default you should get an emty database, but if you want to checkout the project without manually filling up all the data yourself.
+You can use the sample db.
+
+```
+python manage.py loaddata db_sample.json 
+```
+
+And if you want to go back to the emty database you can do this.
+
+```
+python manage.py flush    
+```
+
+<hr>
+
 For more Information about the Contents you can find it <a href="/docs/Contents.md">here</a>.
+<br>
+Feel free to report any issues you have <a href="https://github.com/zekaekop/The-Django-Project/issues/new">here</a>.

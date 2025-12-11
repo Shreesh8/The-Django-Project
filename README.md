@@ -26,16 +26,17 @@ To start testing with this project or perhaps contribute you can follow this <a 
 3. Username: "admin_user" / "123"
 
 <hr>
+<img width="1391" height="731" alt="image" src="https://github.com/user-attachments/assets/51a43125-fb6b-45da-b4f7-0be8c96963f8" />
 
-<img width="1232" height="862" alt="image" src="https://github.com/user-attachments/assets/34db3051-48a2-49c1-8ed8-0dadf69d367e" />
 
-<img width="1268" height="946" alt="image" src="https://github.com/user-attachments/assets/5f41f133-22b5-4569-a9cb-9d90bc6fa046" />
+<img width="1375" height="939" alt="image" src="https://github.com/user-attachments/assets/53503a10-d892-4574-ab8c-49477ca359b3" />
+
 
 Credit:
 clouds: https://www.dreamstime.com/oriental-cloud-japanese-chinese-doodle-hand-drawing-style-set-object-clip-art-white-background-image163025723
 <br>
 bg: https://www.dreamstime.com/japanese-traditional-waves-black-white-vector-art-great-wave-kanagawa-wallpaper-featuring-simplified-line-work-background-image289132540  
-
+bg: https://wallpapercave.com/w/wp12977554
 <hr>
 
 <h3>Reminder</h3>

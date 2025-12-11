@@ -79,36 +79,36 @@
                                 {% if request.user.is_staff %}
                                     {% if request.user.is_superuser %}
 
+                                        <!-- this is for styling when its false or true -->
+                                        <!-- currently i just use it to change icon states-->
                                         {% if admin_data.is_staff %}
-                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_true.svg' %}" alt="Is Staff"></a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}"><img class="admin_true" alt="Is Staff"></a></td>
                                         {% else %}
-                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_false.svg' %}" alt="Not Staff"></a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_staff{{ admin_data.id }}"><img class="admin_false" alt="Not Staff"></a></td>
                                         {% endif %}
-                                        
-                                        <!-- ####### this is for styling when its false or true -->
 
                                         {% if admin_data.is_superuser %}
-                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_true.svg' %}" alt="Is SuperUser"></a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}"><img class="admin_true" alt="Is SuperUser"></a></td>
                                         {% else %}
-                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}"><img src="{% static 'img/admin_perms/admin_false.svg' %}" alt="Not SuperUser"></a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_superuser{{ admin_data.id }}"><img class="admin_false"  alt="Not SuperUser"></a></td>
                                         {% endif %}
 
-                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_password{{ admin_data.id }}"><img src="{% static 'img/admin_perms/edit_normal.svg' %}" alt="Edit Password"></a></td>
+                                        <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_password{{ admin_data.id }}"><img class="edit_normal" alt="Edit Password"></a></td>
 
                                         {% if admin_data.is_active %}
-                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}"><img src="{% static 'img/admin_perms/account_activation_true.svg' %}" alt="Activated"></a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}"><img class="account" alt="Activated"></a></td>
                                         {% else %}
-                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}"><img src="{% static 'img/admin_perms/account_activation_false.svg' %}" alt="Deactive"></a></td>
+                                            <td><a href="" data-bs-toggle="modal" data-bs-target="#modal_active{{ admin_data.id }}"><img class="account_false" alt="Deactive"></a></td>
                                         {% endif %}
                                     {% else %}
-                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
-                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
-                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td> 
-                                        <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
+                                        <td><img class="disabled_eye" alt="Cant view"></td>
+                                        <td><img class="disabled_eye" alt="Cant view"></td> <!-- for people who get into admin panel without access -->
+                                        <td><img class="disabled_eye" alt="Cant view"></td> <!-- it shouldnt show but just in case :) -->
+                                        <td><img class="disabled_eye" alt="Cant view"></td>
                                     {% endif %}
                                 {% else %}
-                                    <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
-                                    <td><img src="{% static 'img/admin_perms/disabled_visible.svg' %}" alt="Cant view"></td>
+                                    <td><img class="disabled_eye" alt="Cant view"></td>
+                                    <td><img class="disabled_eye" alt="Cant view"></td>
                                 {% endif %}
                             </tr>
 
@@ -117,14 +117,14 @@
                         {% for admin_data in admin_datas%} <!-- Posts -->
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
-                                <td>{{admin_data}}</td>
-                                <td><img src="{% static 'img/upvote.svg' %}" alt="Views">{{admin_data.upvotes}}</td>
-                                <td><img src="{% static 'img/eye.svg' %}" alt="Views">{{admin_data.post_views}}</td>
-                                <td>#{{admin_data.user.id}} {{admin_data.user.username}}</td>
+                                <td>{{admin_data|safe|truncatechars:50}}</td>
+                                <td><img class="arrow_upvote" alt="Views">{{admin_data.upvotes}}</td>
+                                <td><img class="eye" alt="Views">{{admin_data.post_views}}</td>
+                                <td>#{{admin_data.user.id}} {{admin_data.user.username|safe|truncatechars:50}}</td>
                                 <td>
-                                    <a href="{{ admin_data.get_absolute_url }}"><img src="{% static 'img/eye.svg' %}" alt="View Post"></a>
-                                    <a href="{{ admin_data.get_update_url }}"><img src="{% static 'img/post_action/edit.svg' %}" alt="Edit Post"></a>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ admin_data.id }}"><img src="{% static 'img/post_action/delete.svg' %}" alt="Delete Post"></a>
+                                    <a href="{{ admin_data.get_absolute_url }}"><img class="eye" alt="View Post"></a>
+                                    <a href="{{ admin_data.get_update_url }}"><img class="edit" alt="Edit Post"></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_{{ admin_data.id }}"><img class="delete" alt="Delete Post"></a>
                                 </td>
                             </tr>
 
@@ -134,15 +134,15 @@
                         {% for admin_data in admin_datas%} <!-- Contact -->
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
-                                <td>{{admin_data.name}}</td>
-                                <td>{{admin_data.surname}}</td>
-                                <td>{{admin_data.adress}}</td>
+                                <td>{{admin_data.name|safe|truncatechars:20}}</td>
+                                <td>{{admin_data.surname|safe|truncatechars:20}}</td>
+                                <td>{{admin_data.adress|safe|truncatechars:70}}</td>
                                 <td>{{admin_data.user_gender}}</td>
-                                <td>{{admin_data.email}}</td>
-                                <td>#{{admin_data.user.id}} {{admin_data.user}}</td>
+                                <td>{{admin_data.email|safe|truncatechars:20}}</td>
+                                <td>#{{admin_data.user.id}} {{admin_data.user|safe|truncatechars:20}}</td>
                                 <td>
-                                    <a href="{{ admin_data.get_modify_contact_adminpanel_url }}"><img src="{% static 'img/post_action/edit.svg' %}" alt="Edit Contact"></a>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_contact{{ admin_data.id }}"><img src="{% static 'img/post_action/delete.svg' %}" alt="Delete Post"></a>
+                                    <a href="{{ admin_data.get_modify_contact_adminpanel_url }}"><img class="edit_normal" alt="Edit Contact"></a>
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_contact{{ admin_data.id }}"><img class="delete" alt="Delete Post"></a>
                                 </td>
                             </tr>
 
@@ -158,38 +158,39 @@
                     <span class="step-links">
 
                         {% if admin_datas.has_previous and admin_datas.has_next %}
-                            <a  href="?page=1"><img class="paginator-arrows" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
-                            <a  href="?page={{ admin_datas.previous_page_number }}"><img class="paginator-arrows"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
                             
+                            <a  href="?page=1"><img class="paginator-arrows paginator-arrow-double-left" alt=""></a>
+                            <a  href="?page={{ admin_datas.previous_page_number }}"><img class="paginator-arrows paginator-arrow-left" alt=""></a>
+
                             <span class="current">
                                 Page {{ admin_datas.number }} of {{ admin_datas.paginator.num_pages }}
                             </span>
 
-                            <a  href="?page={{ admin_datas.next_page_number }}"><img class="paginator-arrows" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
-                            <a   href="?page={{ admin_datas.paginator.num_pages }}"><img class="paginator-arrows" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                            <a  href="?page={{ admin_datas.next_page_number }}"><img class="paginator-arrows paginator-arrow-right" alt=""></a>
+                            <a   href="?page={{ admin_datas.paginator.num_pages }}"><img class="paginator-arrows paginator-arrow-double-right" alt=""></a>
                         {% elif admin_datas.has_previous %}
 
-                            <a  href="?page=1"><img class="paginator-arrows" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
-                            <a  href="?page={{ admin_datas.previous_page_number }}"><img class="paginator-arrows"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                            <a  href="?page=1"><img class="paginator-arrows paginator-arrow-double-left" alt=""></a>
+                            <a  href="?page={{ admin_datas.previous_page_number }}"><img class="paginator-arrows paginator-arrow-left" alt=""></a>
                            
                             <span class="current">
                                 Page {{ admin_datas.number }} of {{ admin_datas.paginator.num_pages }}
                             </span>
 
-                            <a><img class="paginator-arrows-disabled" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
-                            <a><img class="paginator-arrows-disabled" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                            <a><img class="paginator-arrows-disabled paginator-arrow-right" alt=""></a>
+                            <a><img class="paginator-arrows-disabled paginator-arrow-double-right" alt=""></a>
 
                         {% elif admin_datas.has_next %}
 
-                            <a><img class="paginator-arrows-disabled" src="{% static 'img/arrows/double_left.svg' %}" alt=""></a>
-                            <a><img class="paginator-arrows-disabled"  src="{% static '/img/arrows/left.svg' %}" alt=""></a>
+                            <a><img class="paginator-arrows-disabled paginator-arrow-double-left"  alt=""></a>
+                            <a><img class="paginator-arrows-disabled paginator-arrow-left"alt=""></a>
 
                             <span class="current">
                                 Page {{ admin_datas.number }} of {{ admin_datas.paginator.num_pages }}
                             </span>
 
-                            <a  href="?page={{ admin_datas.next_page_number }}"><img class="paginator-arrows" src="{% static '/img/arrows/right.svg' %}" alt=""></a>
-                            <a   href="?page={{ admin_datas.paginator.num_pages }}"><img class="paginator-arrows" src="{% static 'img/arrows/double_right.svg' %}" alt=""></a>
+                            <a  href="?page={{ admin_datas.next_page_number }}"><img class="paginator-arrows paginator-arrow-right" alt=""></a>
+                            <a   href="?page={{ admin_datas.paginator.num_pages }}"><img class="paginator-arrows paginator-arrow-double-right" alt=""></a>
 
 
                         {% endif %}
