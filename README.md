@@ -18,6 +18,8 @@ You can find the Contents <a href = "/docs/Contents.md">here</a>.
 
 To start testing with this project or perhaps contribute you can follow this <a href="/docs/Running.md"><b>guide</b></a>.
 
+Note: The images bellow is the fixture sample db, in the <a href="/docs/Running.md"><b>guide</b></a>. you can find how to set it up.
+
 <h3>Admin Passwords:</h3>
 1. Username: "eko" / Password: "eko"
 <br>
