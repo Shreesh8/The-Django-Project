@@ -18,6 +18,8 @@ You can find the Contents <a href = "/docs/Contents.md">here</a>.
 
 To start testing with this project or perhaps contribute you can follow this <a href="/docs/Running.md"><b>guide</b></a>.
 
+Note: The images bellow is the fixture sample db, in the <a href="/docs/Running.md"><b>guide</b></a>. you can find how to set it up.
+
 <h3>Admin Passwords:</h3>
 1. Username: "eko" / Password: "eko"
 <br>
@@ -26,10 +28,11 @@ To start testing with this project or perhaps contribute you can follow this <a 
 3. Username: "admin_user" / "123"
 
 <hr>
-<img width="1391" height="731" alt="image" src="https://github.com/user-attachments/assets/51a43125-fb6b-45da-b4f7-0be8c96963f8" />
+<img width="1920" height="941" alt="image" src="https://github.com/user-attachments/assets/8358507e-7500-4152-b36a-80f786b9ff40" />
 
+<img width="1920" height="945" alt="image" src="https://github.com/user-attachments/assets/20f75650-66ed-48f4-a280-879ace618801" />
 
-<img width="1375" height="939" alt="image" src="https://github.com/user-attachments/assets/53503a10-d892-4574-ab8c-49477ca359b3" />
+<img width="1920" height="947" alt="image" src="https://github.com/user-attachments/assets/30667a17-a289-490d-93c3-bde7e3013952" />
 
 
 Credit:
