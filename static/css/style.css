@@ -124,32 +124,31 @@ div{
     z-index: 0;
 }
 
-.bubble_container{
-    mix-blend-mode: multiply;
-    position: absolute;
-    border-radius: 5px;
-    height: 100%;
-    left:  0px;
-    top: 0px;
-    pointer-events: none;
+nav {
+    position: relative;
     overflow: hidden;
 }
 
-.bubble{
-    left:  0px;
-    top: 0px;
-    pointer-events: none;
-
-    animation: 3s ease-in 1s infinite reverse both running bubble-float ;
+.container {
+    position: relative;
 }
 
-@keyframes bubble-float{
-    from {
-        transform: translateY(0%);
-    }
+.bubble {
+    position: absolute;
+    width: 50px;
+    height: auto;
+    z-index: -10;
+    animation: bubble-float 3s ease-in infinite;
+}
 
+@keyframes bubble-float {
+    from {
+        transform: translateY(0);
+        opacity: 0;
+    }
     to {
-        transform: translateY(100vh);
+        transform: translateY(-1020px); /* navbar-sized movement */
+        opacity: 1;
     }
 }
 
