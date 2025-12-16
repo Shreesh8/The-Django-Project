@@ -1,4 +1,4 @@
-from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404
+from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
 from django.urls import reverse
 from .models import Post, UserUpvote, ContactInfo
 from django.contrib.auth.models import User
@@ -108,14 +108,37 @@ def post_detail(request, id):
         print("commented")
         return HttpResponseRedirect(post.get_absolute_url())
     
-    context = {
+    content = {
         "post" : post,
         "form" : form,
         "upvoted_posts" : upvoted_posts,
         "post_views": post_views,
     }
     
-    return render(request, "post_templates/detail.html", context)
+    if post.user_html:
+        # Read html content
+        html_path = post.user_html.path
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+
+        final_html = html_content
+
+        if post.user_css: # Adds css and js files straight into one html file so i dont have to bother with multiple files
+            css_path = post.user_css.path
+            with open(css_path, 'r', encoding='utf-8') as f:
+                css_content = f.read()
+            final_html = final_html.replace('</head>', f'<style>{css_content}</style>\n</head>')
+
+        if post.user_js:
+            js_path = post.user_js.path
+            with open(js_path, 'r', encoding='utf-8') as f:
+                js_content = f.read()
+            final_html = final_html.replace('</body>', f'<script>{js_content}</script>\n</body>')
+        
+        # Displays the html page
+        return HttpResponse(final_html, content_type='text/html')
+
+    return render(request, "post_templates/detail.html", content)
 
 def post_create(request):
 
