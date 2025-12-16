@@ -11,9 +11,17 @@ class Post(models.Model):
     title = models.CharField(max_length=200,verbose_name="Title ")
     desc = RichTextField(verbose_name="")
     date = models.DateTimeField(verbose_name="Date/Time ", auto_now_add=True)
-    image = models.ImageField(upload_to='images_uploaded', null=True, blank=True)
-    video = models.FileField(upload_to='videos_uploaded',null=True, blank=True,
-    validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+
+    image = models.ImageField(upload_to='images_uploaded', null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['png','jpg','jpeg','svg','webp'])])
+    video = models.FileField(upload_to='videos_uploaded',null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['MOV','avi','mp4','webm','mkv'])])
+
+
+    user_html = models.FileField(upload_to='html_uploaded',null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['html'])])
+    user_css = models.FileField(upload_to='css_uploaded',null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['css'])])
+    user_js =  models.FileField(upload_to='js_uploaded',null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['js'])])
+
+    site_preview = models.ImageField(upload_to='images_uploaded', null=True, blank=True, validators=[FileExtensionValidator(allowed_extensions=['png','jpg','jpeg','svg','webp'])])
+
     upvotes = models.PositiveIntegerField(default=0)
     post_views = models.PositiveIntegerField(default=0)
 

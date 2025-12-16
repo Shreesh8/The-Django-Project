@@ -14,6 +14,10 @@ class PostForm(forms.ModelForm):
             "desc",
             "image",
             "video",
+            "user_html",
+            "user_css",
+            "user_js",
+            "site_preview",
         ]
 
 class CommentForm(forms.ModelForm):

@@ -4,7 +4,7 @@
   "pk": 1,
   "fields": {
     "password": "pbkdf2_sha256$1000000$MT6h0Rr9W7jfN1x02KTiNc$YXXTdJhPT6MPywAnuz4YuRrz2323MAXYyowApHaSLuY=",
-    "last_login": "2025-12-11T07:43:45.651Z",
+    "last_login": "2025-12-16T22:27:17.345Z",
     "is_superuser": true,
     "username": "eko",
     "first_name": "",
@@ -22,7 +22,7 @@
   "pk": 2,
   "fields": {
     "password": "pbkdf2_sha256$1000000$48GdEOFuNfUU6jkFWWLj9W$NRSY55F8ScjhYH5shBUHvqRtf78CRtzt07T2sSowqGE=",
-    "last_login": "2025-12-05T13:32:05.207Z",
+    "last_login": "2025-12-16T22:27:05.605Z",
     "is_superuser": true,
     "username": "ekola",
     "first_name": "",
@@ -279,6 +279,14 @@
 },
 {
   "model": "sessions.session",
+  "pk": "79q9yc98stqbfdblrawmg5gb72fr8dlx",
+  "fields": {
+    "session_data": ".eJxVjDkOwjAUBe_iGln-AW-U9DmD9RcHB5AjxUmFuDuJlALaNzPvrRKuS0lry3MaRV0VqNPvRsjPXHcgD6z3SfNUl3kkvSv6oE33k-TX7XD_Dgq2stUe8Ow8WKIc4gADClpD3EWIBODAeC8d2xwksDHMJjqDJJfo8uaSqM8X5Qw4gA:1vVdVl:gFJMx3aZUK6yeWBiXj-0w_GxDL3F9uYDLmEQVCm2BRQ",
+    "expire_date": "2025-12-30T22:27:17.355Z"
+  }
+},
+{
+  "model": "sessions.session",
   "pk": "7gsdmmd98ycembfnmnu0p2eax05ke4cf",
   "fields": {
     "session_data": ".eJxVjDkOwjAUBe_iGln-AW-U9DmD9RcHB5AjxUmFuDuJlALaNzPvrRKuS0lry3MaRV0VqNPvRsjPXHcgD6z3SfNUl3kkvSv6oE33k-TX7XD_Dgq2stUe8Ow8WKIc4gADClpD3EWIBODAeC8d2xwksDHMJjqDJJfo8uaSqM8X5Qw4gA:1vObtP:NSPQRhb7gT-K7S7IHN5lVb23xC0avn46WHZbNdGZ1FQ",
@@ -479,6 +487,10 @@
     "date": "2025-10-17T12:16:14.140Z",
     "image": "images_uploaded/vista.jpg",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 6
   }
@@ -493,6 +505,10 @@
     "date": "2025-10-21T20:03:02.303Z",
     "image": "images_uploaded/code.PNG",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 136
   }
@@ -507,6 +523,10 @@
     "date": "2025-10-22T05:49:17.154Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 1
   }
@@ -521,6 +541,10 @@
     "date": "2025-10-22T05:49:28.068Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 0,
     "post_views": 0
   }
@@ -535,6 +559,10 @@
     "date": "2025-11-05T11:52:06.667Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 0
   }
@@ -549,6 +577,10 @@
     "date": "2025-11-05T11:54:03.970Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 0
   }
@@ -563,6 +595,10 @@
     "date": "2025-11-05T11:54:10.233Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 0
   }
@@ -577,6 +613,10 @@
     "date": "2025-11-05T12:29:41.086Z",
     "image": "images_uploaded/bliss_XCqOUL7.webp",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 0,
     "post_views": 2
   }
@@ -591,6 +631,10 @@
     "date": "2025-11-05T13:33:54.932Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 2,
     "post_views": 0
   }
@@ -605,6 +649,10 @@
     "date": "2025-11-06T07:19:18.946Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 3
   }
@@ -619,6 +667,10 @@
     "date": "2025-11-07T09:30:18.401Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 2,
     "post_views": 1
   }
@@ -633,6 +685,10 @@
     "date": "2025-11-07T09:30:22.577Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 1,
     "post_views": 6
   }
@@ -647,6 +703,10 @@
     "date": "2025-11-07T09:30:26.717Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 2,
     "post_views": 7
   }
@@ -661,6 +721,10 @@
     "date": "2025-11-07T09:30:30.712Z",
     "image": "",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 4,
     "post_views": 14
   }
@@ -675,6 +739,10 @@
     "date": "2025-11-07T12:36:19.814Z",
     "image": "images_uploaded/icon-48.png",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 3,
     "post_views": 61
   }
@@ -689,8 +757,12 @@
     "date": "2025-11-12T11:50:46.806Z",
     "image": "images_uploaded/bliss.webp",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 3,
-    "post_views": 167
+    "post_views": 168
   }
 },
 {
@@ -701,10 +773,14 @@
     "title": "test",
     "desc": "<p>test</p>",
     "date": "2025-12-03T09:00:11.973Z",
-    "image": "",
+    "image": "images_uploaded/dusty_motherboard_7vvZWp1.jpg",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 0,
-    "post_views": 7
+    "post_views": 8
   }
 },
 {
@@ -715,10 +791,14 @@
     "title": "today",
     "desc": "<p>1231231</p>",
     "date": "2025-12-04T08:38:18.651Z",
-    "image": "",
-    "video": "",
+    "image": "images_uploaded/dusty_motherboard_U2aM2Lw.jpg",
+    "video": "videos_uploaded/cat_QX7Kxao.webm",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 0,
-    "post_views": 23
+    "post_views": 28
   }
 },
 {
@@ -727,12 +807,16 @@
   "fields": {
     "user": 1,
     "title": "today again",
-    "desc": "<p>1</p>",
+    "desc": "<div>\r\n<div><span style=\"color:#cccccc\">test</span></div>\r\n</div>",
     "date": "2025-12-04T08:54:04.224Z",
-    "image": "",
+    "image": "images_uploaded/bro_shush.webp",
     "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 0,
-    "post_views": 6
+    "post_views": 10
   }
 },
 {
@@ -740,13 +824,71 @@
   "pk": 54,
   "fields": {
     "user": 1,
-    "title": "test",
-    "desc": "<p>13</p>",
+    "title": "Testing fish",
+    "desc": "<div>\r\n<div><span style=\"color:#cccccc\">Lorem ipsum dolor sit amet.</span></div>\r\n</div>",
     "date": "2025-12-04T08:56:29.846Z",
     "image": "",
-    "video": "",
+    "video": "videos_uploaded/fishy_HyYts7e.webm",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
     "upvotes": 0,
-    "post_views": 5
+    "post_views": 9
+  }
+},
+{
+  "model": "post.post",
+  "pk": 55,
+  "fields": {
+    "user": 1,
+    "title": "HTML & CSS",
+    "desc": "<p>testing if this works</p>",
+    "date": "2025-12-16T22:21:33.225Z",
+    "image": "",
+    "video": "",
+    "user_html": "html_uploaded/retro_8ZQIZjM.html",
+    "user_css": "css_uploaded/retro_qUiSqJN.css",
+    "user_js": "",
+    "site_preview": "images_uploaded/Screenshot_20251217_003354_sB5PuRz.png",
+    "upvotes": 0,
+    "post_views": 1
+  }
+},
+{
+  "model": "post.post",
+  "pk": 56,
+  "fields": {
+    "user": 1,
+    "title": "HTML & CSS & JS",
+    "desc": "<p>5 second alert delay test</p>",
+    "date": "2025-12-16T22:22:18.536Z",
+    "image": "",
+    "video": "",
+    "user_html": "html_uploaded/retro_q533sfW.html",
+    "user_css": "css_uploaded/retro_XWqz5Qi.css",
+    "user_js": "js_uploaded/retro.js",
+    "site_preview": "images_uploaded/Screenshot_20251217_003354_EQqEb5n.png",
+    "upvotes": 0,
+    "post_views": 2
+  }
+},
+{
+  "model": "post.post",
+  "pk": 58,
+  "fields": {
+    "user": 1,
+    "title": "test",
+    "desc": "<p>test</p>",
+    "date": "2025-12-16T22:28:53.012Z",
+    "image": "",
+    "video": "",
+    "user_html": "",
+    "user_css": "",
+    "user_js": "",
+    "site_preview": "",
+    "upvotes": 0,
+    "post_views": 1
   }
 },
 {
