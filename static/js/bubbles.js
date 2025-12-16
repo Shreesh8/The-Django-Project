@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
     bubbleContainers.forEach(function(container) {
 
-        const bubble_count = 8;
+        const bubble_count = 16;
     
         for(let i = 0; i < bubble_count; i++) {
         const bubble = document.createElement("img");
