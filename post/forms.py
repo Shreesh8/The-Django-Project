@@ -17,6 +17,7 @@ class PostForm(forms.ModelForm):
             "user_html",
             "user_css",
             "user_js",
+            "site_preview",
         ]
 
 class CommentForm(forms.ModelForm):

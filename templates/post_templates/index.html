@@ -33,17 +33,41 @@
                                 <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 200px;">
                             {% endif %}
                         {% endif %}
+                        
+                        {% if post.video %}
+                            {% if post.image%}
+                                <small class="text_fadded">Show More ...</small>
+                            {% endif %}
+                        {% endif %}
 
                         <div class="card-header mt-2" style="position: relative;">
                             {{ post.desc|safe|linebreaks|truncatechars:150 }}
                         
-                            {% if post.video %}
-                                {% if post.image%}
-                                    <small>Show More</small>
-                                {% endif %}
-                            {% endif %}
+
                         </div>
+
                         
+
+                        {% if post.site_preview %}
+                            <div class="d-flex flex-column">
+                                <img src="{{ post.site_preview.url }}" alt="Post site preview" class="img-thumbnail" style="max-height: 200px;">
+                                <small class="text_fadded">Site preview*</small>
+                            </div>
+                        {% endif %}
+
+                        
+                        
+                        {% if post.user_html %}
+                            <small class="text_fadded">HTML included </small>
+                            {% if post.user_css %}
+                                <small class="text_fadded">CSS included </small>
+                            {% endif %}
+
+                            {% if post.user_js %}
+                                <small class="text_fadded"><b><a href="https://en.wikipedia.org/wiki/Cross-site_scripting" style="color: red; ">js included </a></b></small>
+                            {% endif %}
+                        {% endif %}
+
                         <div class="cloud_container"></div> <!-- creates card clouds -->
 
                     </div>

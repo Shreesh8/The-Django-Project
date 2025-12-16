@@ -4,6 +4,7 @@
     --bg-secondary-color: rgba(230, 230, 230, 0.3);
     --bg-border-color: rgb(200, 200, 200);
     --text-color: rgb(5, 5, 5);
+    --text-color-faded: rgb(5, 5, 5, 0.5);
 
     --shadow-color-08: rgba(0, 0, 0, 0.8);
     --shadow-color-04: rgba(0, 0, 0, 0.4);
@@ -34,6 +35,7 @@
     --bg-secondary-color: rgb(75, 75, 75,0.3);
     --bg-border-color: rgb(75, 75, 75);
     --text-color: rgb(255, 255, 255);
+    --text-color-faded: rgb(255, 255, 255, 0.5);
     
     --shadow-color-04: rgb(0, 0, 0);
     --shadow-color-02: rgba(0, 0, 0, 0.5);
@@ -104,6 +106,9 @@ div{
     color: var(--text-color);
 }
 
+.text_fadded{
+    color: var(--text-color-faded);
+}
 
 .cloud_container{
     filter: opacity(25%);
