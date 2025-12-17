@@ -57,6 +57,19 @@ python manage.py flush
 
 <hr>
 
+<h2>Dumping a database</h1>
+
+This is how i create the db_sample.json files, you can find more info about it <a href="https://docs.djangoproject.com/en/6.0/ref/django-admin/#django-admin-dumpdata">here</a>. <br>
+But i advise using the manage.py file instead of django-admin.
+
+```
+python manage.py dumpdata --exclude=auth --exclude=contenttypes --indent 2 > db_sample.json
+```
+
+This will dump your db data into a json file in your project directory.
+
+<hr>
+
 For more Information about the Contents you can find it <a href="/docs/Contents.md">here</a>.
 <br>
 Feel free to report any issues you have <a href="https://github.com/zekaekop/The-Django-Project/issues/new">here</a>.
