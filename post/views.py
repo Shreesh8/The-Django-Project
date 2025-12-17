@@ -1,8 +1,9 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
 from django.urls import reverse
-from .models import Post, UserUpvote, ContactInfo, UserReport
+from .models import Post, UserUpvote, UserReport
 from django.contrib.auth.models import User
-from .forms import PostForm, CommentForm, ContactusForm
+from .forms import PostForm, CommentForm
+from admin_panel.forms import ContactusForm
 from django.contrib import messages
 from django.db.models import Q
 from django.db.models import F
@@ -177,31 +178,6 @@ def post_create(request):
 
     return render(request, "post_templates/form.html", context)
 
-
-
-def modify_contact_adminpanel(request, id):
-
-    if not request.user.is_authenticated and not request.user.is_staff:
-        raise Http404("not_athenticated")
-
-    contact = get_object_or_404(ContactInfo, id = id)
-
-    if contact.user == request.user or request.user.is_staff: # cant update posts if its a different user ... but if he is staff he can
-        form = ContactusForm(request.POST or None, request.FILES or None, instance=contact)
-        if form.is_valid():
-            form.save()
-            form.save()
-            return  redirect('/accounts/admin_panel/contacts')
-        
-        context = {
-            "title" : "Update Contact",
-            "form" : form,
-        }
-        return render(request, "post_templates/form.html", context)
-    else:
-        raise Http404("cant update wrong user")
-
-
 def post_update(request, id):
 
     if not request.user.is_authenticated:
@@ -254,28 +230,6 @@ def post_delete(request, id):
         return redirect('post:index')
     else:
         raise Http404("cant delete wrong user")
-  
-def delete_post_adminpanel(request, id):
-
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    deleted_post = get_object_or_404(Post, id = id)
-
-    if request.user.is_staff:
-        deleted_post.delete()
-        return redirect('/accounts/admin_panel/posts')
-
-def delete_contact_adminpanel(request, id):
-
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    deleted_contact = get_object_or_404(ContactInfo, id = id)
-
-    if request.user.is_staff:
-        deleted_contact.delete()
-        return redirect('/accounts/admin_panel/contacts')
 
 def contact_us(request):
     form = ContactusForm(request.POST or None)

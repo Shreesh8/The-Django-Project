@@ -25,7 +25,7 @@
                             data-bs-toggle="modal" data-bs-target="#modal_1">Logout</a></li>
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'user_profile:test' %}" style="color: white !important;">Profile</a></li>
                     {% if request.user.is_staff %}
-                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:admin_panel' %}" style="color: white !important;">Admin Panel</a></li>
+                        <li class="nav-item"><a class="nav-link text-light" href="{% url 'admin_panel:admin_panel' %}" style="color: white !important;">Admin Panel</a></li>
                     {% endif %}
                 {% else %}
                     <li class="nav-item"><a class="nav-link text-light" href="{% url 'accounts:login' %}" style="color: white !important;">Login</a></li>

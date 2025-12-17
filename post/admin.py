@@ -1,5 +1,6 @@
 from django.contrib import admin
-from .models import Post, ContactInfo , Comment
+from .models import Post , Comment
+# from admin_panel.models import ContactInfo
 # Register your models here.
 
 class PostAdmin(admin.ModelAdmin):

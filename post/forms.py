@@ -1,5 +1,5 @@
 from django import forms
-from post.models import Post, Comment, ContactInfo
+from post.models import Post, Comment
 
 #from crispy_forms.helper import FormHelper
 #from crispy_forms.layout import Layout, Field, Submit
@@ -26,18 +26,6 @@ class CommentForm(forms.ModelForm):
         fields = [
             'content',
         ]
-
-class ContactusForm(forms.ModelForm):
-    class Meta:
-        model = ContactInfo
-        fields = [
-            'name',
-            'surname',
-            'adress',
-            'user_gender',
-            'email',
-        ]
-
 #    def __init__(self, *args, **kwargs):
 #        super().__init__(*args, **kwargs)
 #        self.helper = FormHelper()
