@@ -41,6 +41,7 @@
                         <tr>
                         <th scope="col">#</th>
                         <th scope="col">Posts</th>
+                        <th scope="col">Files</th>
                         <th scope="col">Upvotes</th>
                         <th scope="col">Views</th>
                         <th scope="col">Reports</th>
@@ -119,6 +120,21 @@
                             <tr>
                                 <th scope="row">{{admin_data.id}}</th>
                                 <td>{{admin_data|safe|truncatechars:50}}</td>
+
+                                <td>
+                                    {% if admin_data.user_html %}
+                                        <small class="text_fadded">HTML </small>
+                                        {% if admin_data.user_css %}
+                                            <small class="text_fadded">+ CSS </small>
+                                        {% endif %}
+                                        {% if admin_data.user_js %}
+                                            <small class="text_fadded"><b>+<a href="https://en.wikipedia.org/wiki/Cross-site_scripting" style="color: red; "> js</a></b></small>
+                                        {% endif %}
+                                    {% else %}
+                                    <small class="text_fadded">None </small>
+                                    {% endif %}
+                                </td>
+
                                 <td><img class="arrow_upvote" alt="Views">{{admin_data.upvotes}}</td>
                                 <td><img class="eye" alt="Views">{{admin_data.post_views}}</td>
                                 <td><img class="flag" alt="Views">{{admin_data.reports}}</td>
