@@ -5,107 +5,126 @@
 {% block body%}
 
 
-
-<div class="container">             
-    <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
-        {% for post in posts %}
-        <div class="col d-flex mt-3">
-            <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;"> 
-                <div class="caption flex-grow-1 d-flex flex-column">
-                    
-                    <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
-                        <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
-
+{% if post %}
+    <div class="container">             
+        <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
+            {% for post in posts %}
+            <div class="col d-flex mt-3">
+                <div class="card post_body w-100 d-flex flex-column justify-content-between" style="height: 100%;"> 
+                    <div class="caption flex-grow-1 d-flex flex-column">
                         
-                        
-                        <div class="card-header mb-2">
-                            <h3 class="post_title">
-                                {{ post.title }}
-                            </h3>
-                            <h6 class="post_title">
-                                OP: {{ post.user.username }}
-                            </h6>
-                        </div>                      
-                        {% if post.video %}
-                            <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls></video>
-                        {% else %}                            
-                            {% if post.image%}
-                                <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 200px;">
+                        <div style="position: relative; flex-grow: 1; overflow: hidden; overflow-wrap: break-word;">
+                            <a href="{{ post.get_absolute_url }}"><span class="div_link"></span></a>
+
+                            
+                            
+                            <div class="card-header mb-2">
+                                <h3 class="post_title">
+                                    {{ post.title }}
+                                </h3>
+                                <h6 class="post_title">
+                                    OP: {{ post.user.username }}
+                                </h6>
+                            </div>                      
+                            {% if post.video %}
+                                <video src="{{ post.video.url }}" alt="Post video" class="img-thumbnail" width="500" controls></video>
+                            {% else %}                            
+                                {% if post.image%}
+                                    <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail" style="max-height: 200px;">
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
-                        
-                        {% if post.video %}
-                            {% if post.image%}
-                                <small class="text_fadded">Show More ...</small>
+                            
+                            {% if post.video %}
+                                {% if post.image%}
+                                    <small class="text_fadded">Show More ...</small>
+                                {% endif %}
                             {% endif %}
-                        {% endif %}
 
-                        <div class="card-header mt-2" style="position: relative;">
-                            {{ post.desc|safe|linebreaks|truncatechars:150 }}
+                            <div class="card-header mt-2" style="position: relative;">
+                                {{ post.desc|safe|linebreaks|truncatechars:150 }}
+                            </div>
+
+                            {% if post.site_preview %}
+                                <div class="d-flex flex-column">
+                                    <img src="{{ post.site_preview.url }}" alt="Post site preview" class="img-thumbnail" style="max-height: 200px;">
+                                    <small class="text_fadded">Site preview*</small>
+                                </div>
+                            {% endif %}
+                            
+                            {% if post.user_html %}
+                                <small class="text_fadded">HTML included </small>
+                                {% if post.user_css %}
+                                    <small class="text_fadded">CSS included </small>
+                                {% endif %}
+
+                                {% if post.user_js %}
+                                    <small class="text_fadded"><b><a href="https://en.wikipedia.org/wiki/Cross-site_scripting" style="color: red; ">js included </a></b></small>
+                                {% endif %}
+                            {% endif %}
+
+                            <div class="cloud_container"></div> <!-- creates card clouds -->
+
                         </div>
 
-                        {% if post.site_preview %}
-                            <div class="d-flex flex-column">
-                                <img src="{{ post.site_preview.url }}" alt="Post site preview" class="img-thumbnail" style="max-height: 200px;">
-                                <small class="text_fadded">Site preview*</small>
-                            </div>
-                        {% endif %}
-                        
-                        {% if post.user_html %}
-                            <small class="text_fadded">HTML included </small>
-                            {% if post.user_css %}
-                                <small class="text_fadded">CSS included </small>
-                            {% endif %}
+                        <div class="d-flex mt-auto card-header" style="margin: 0.2rem;"> <!-- post footer -->
+                            
+                            {% if request.user.is_authenticated %}
 
-                            {% if post.user_js %}
-                                <small class="text_fadded"><b><a href="https://en.wikipedia.org/wiki/Cross-site_scripting" style="color: red; ">js included </a></b></small>
-                            {% endif %}
-                        {% endif %}
-
-                        <div class="cloud_container"></div> <!-- creates card clouds -->
-
-                    </div>
-
-                    <div class="d-flex mt-auto card-header" style="margin: 0.2rem;"> <!-- post footer -->
-                        
-                        {% if request.user.is_authenticated %}
-
-                            {% if post.id in upvoted_posts %}
-                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover arrow_fill_upvote" alt=""></a>{{post.upvotes}} 
-                            {% else %}
-                                <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover arrow_upvote" alt=""></a>{{post.upvotes}} 
-                            {% endif %}
-
-                            <img class="ms-2 eye" alt="">{{ post.post_views }} 
-                            <div class="ms-auto">
-                                {% if post.user == request.user %} <!-- Checks if you are owner of post -->
-                                    <a href="{{ post.get_update_url }}"><img class="edit"  alt="Edit Post"></a>
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_delete_{{ post.id }}"><img class="delete" alt="Delete Post"></a>
-                                {% endif %}
-                            </div>
-
-                            <div class="ms-auto">
-                                {% if post.id in reported_posts %}
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag_fill" alt="Report Post"></a>
+                                {% if post.id in upvoted_posts %}
+                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover arrow_fill_upvote" alt=""></a>{{post.upvotes}} 
                                 {% else %}
-                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag" alt="Report Post"></a>
+                                    <a href="{% url 'post:upvote_post' post.id %}?page={{ posts.number }}" role="button"><img class="scale-hover arrow_upvote" alt=""></a>{{post.upvotes}} 
                                 {% endif %}
-                                <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince_single_unit }} Ago</small>
-                            </div>             
-                        {% endif %}
+
+                                <img class="ms-2 eye" alt="">{{ post.post_views }} 
+                                <div class="ms-auto">
+                                    {% if post.user == request.user %} <!-- Checks if you are owner of post -->
+                                        <a href="{{ post.get_update_url }}"><img class="edit"  alt="Edit Post"></a>
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#modal_delete_{{ post.id }}"><img class="delete" alt="Delete Post"></a>
+                                    {% endif %}
+                                </div>
+
+                                <div class="ms-auto">
+                                    {% if post.id in reported_posts %}
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag_fill" alt="Report Post"></a>
+                                    {% else %}
+                                        <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag" alt="Report Post"></a>
+                                    {% endif %}
+                                    <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince_single_unit }} Ago</small>
+                                </div>             
+                            {% endif %}
+                        </div>
                     </div>
+                    
                 </div>
-                
             </div>
-        </div>
 
-            {% include 'post_templates/modals/modal_delete.html' %}
-            {% include 'post_templates/modals/modal_report.html' %}
+                {% include 'post_templates/modals/modal_delete.html' %}
+                {% include 'post_templates/modals/modal_report.html' %}
 
-            {% endfor %}
-
+                {% endfor %}
         </div>
     </div>
+{% else %}
+    {% if debug %}
+        <div class="mt-4">
+        <div class="img-thumbnail post_body" style="text-align: center; padding: 2rem;">
+            <h4>
+                There seems to be no Posts... Did you forget to load db_sample.json?
+            </h4>
+        </div>
+        </div>
+    {% else %}
+        <div class="mt-4">
+        <div class="img-thumbnail post_body" style="text-align: center; padding: 2rem;">
+            <h4>
+            There seems to be no Popular Posts at the moment!
+            </h4>
+        </div>
+        </div>
+    {% endif %}
+{% endif %}
+
 
         <div class="paginator-blog paginator-fixed">
             <div class="pagination justify-content-center mt-5 m-4">

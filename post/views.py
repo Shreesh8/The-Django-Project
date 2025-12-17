@@ -9,6 +9,7 @@ from django.db.models import Q
 from django.db.models import F
 
 from django.core.paginator import Paginator
+from django.conf import settings
 #from django.utils.text import slugify
 
 def contact_us(request):
@@ -82,6 +83,7 @@ def post_index(request):
             "posts" : posts,
             "upvoted_posts" : upvoted_posts,
             "reported_posts" : reported_posts,
+            "debug": settings.DEBUG,
         }
 
         suffix = ""
