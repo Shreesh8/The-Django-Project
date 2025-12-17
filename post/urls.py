@@ -21,9 +21,4 @@ urlpatterns = [
 
     re_path(r'^(?P<id>\d+)/upvote/$', views.upvote_post, name = "upvote_post"),
     re_path(r'^(?P<id>\d+)/upvote/detail/$', views.upvote_post_detail, name = "upvote_post_detail"),
-    
-    # Admin panel
-    re_path(r'^(?P<id>\d+)/delete_post_adminpanel/$', views.delete_post_adminpanel, name = "delete_post_adminpanel"),
-    re_path(r'^(?P<id>\d+)/delete_contact_adminpanel/$', views.delete_contact_adminpanel, name = "delete_contact_adminpanel"),
-    re_path(r'^(?P<id>\d+)/modify_contact_adminpanel/$', views.modify_contact_adminpanel, name = "modify_contact_adminpanel"),
 ]

@@ -46,6 +46,7 @@ INSTALLED_APPS = [
     'home',
     'user_profile',
     'accounts',
+    'admin_panel',
 ]
 
 MIDDLEWARE = [
