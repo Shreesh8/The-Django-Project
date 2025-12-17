@@ -72,10 +72,10 @@
                                 <th scope="row">{{admin_data.id}}</th>
                                 <td>{{admin_data}}</td>                      
                                       
-                                {% include 'account_templates/modal_user_staff.html' %}
-                                {% include 'account_templates/modal_user_superuser.html' %}
-                                {% include 'account_templates/modal_active.html' %}
-                                {% include 'account_templates/modal_password.html' %}
+                                {% include 'account_templates/modals/modal_user_staff.html' %}
+                                {% include 'account_templates/modals/modal_user_superuser.html' %}
+                                {% include 'account_templates/modals/modal_active.html' %}
+                                {% include 'account_templates/modals/modal_password.html' %}
 
                                 {% if request.user.is_staff %}
                                     {% if request.user.is_superuser %}
@@ -130,7 +130,7 @@
                                 </td>
                             </tr>
 
-                            {% include 'account_templates/modal_post.html' %}
+                            {% include 'account_templates/modals/modal_post.html' %}
                         {% endfor %}
                     {% elif data_category == "contacts" %}
                         {% for admin_data in admin_datas%} <!-- Contact -->
@@ -148,7 +148,7 @@
                                 </td>
                             </tr>
 
-                            {% include 'account_templates/modal_contact.html' %}
+                            {% include 'account_templates/modals/modal_contact.html' %}
                         {% endfor %}
                     {% endif %}
                 </tbody>

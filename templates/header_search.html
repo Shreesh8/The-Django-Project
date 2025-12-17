@@ -57,26 +57,8 @@
             </ul>
         </div>
 
-                        <!-- Modal user logout -->
-            <div class="modal fade" id="modal_1" tabindex="-1" aria-labelledby="modalLabel_1" aria-hidden="true">
-                <div class="modal-dialog">
-                    <div class="modal-content">
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="modalLabel_1">Logout User</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                        </div>
-                        <div class="modal-body">
-                            Are you sure you want to logout on user? <!--{{user.username}}-->
-                        </div>
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-primary button_shadow" data-bs-dismiss="modal">No</button>
-                            {% if request.user.is_authenticated %}
-                                <a href="{% url 'accounts:logout' %}" class="btn btn-danger button_shadow" role="button">Logout</a>
-                            {% endif %}
-                        </div>
-                    </div>
-                </div>
-            </div>
+        {% include 'header_modals/modal_logout.html' %}
+
     </div>
 </nav>
 
