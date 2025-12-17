@@ -42,11 +42,7 @@
 
                         <div class="card-header mt-2" style="position: relative;">
                             {{ post.desc|safe|linebreaks|truncatechars:150 }}
-                        
-
                         </div>
-
-                        
 
                         {% if post.site_preview %}
                             <div class="d-flex flex-column">
@@ -54,8 +50,6 @@
                                 <small class="text_fadded">Site preview*</small>
                             </div>
                         {% endif %}
-
-                        
                         
                         {% if post.user_html %}
                             <small class="text_fadded">HTML included </small>
@@ -91,7 +85,11 @@
                             </div>
 
                             <div class="ms-auto">
-                                <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag" alt="Report Post"></a>
+                                {% if post.id in reported_posts %}
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag_fill" alt="Report Post"></a>
+                                {% else %}
+                                    <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag" alt="Report Post"></a>
+                                {% endif %}
                                 <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince_single_unit }} Ago</small>
                             </div>             
                         {% endif %}

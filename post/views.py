@@ -59,7 +59,10 @@ def post_index(request):
         post_ids = post_list.values_list('id', flat=True)
 
         upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+        reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
+
         upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+        reported_posts = set(reported_qs.values_list('post_id', flat=True))
 
 
         query = request.GET.get("q")
@@ -73,10 +76,13 @@ def post_index(request):
         paginator = Paginator(post_list, 9)  # Show 9 posts per page.
         page = request.GET.get("page")
         posts = paginator.get_page(page)
+
         context = {
             "posts" : posts,
             "upvoted_posts" : upvoted_posts,
+            "reported_posts" : reported_posts,
         }
+
         suffix = ""
         for each_page in range(len(posts)):
             if len(posts[each_page].title) > 25:
@@ -224,9 +230,8 @@ def post_report(request,id):
     already_reported = UserReport.objects.filter(user = request.user,post=post)
 
     if already_reported.exists():
-        pass 
-        #already_reported.delete()
-        #Post.objects.filter(id=post.id).update(reports=F("reports") - 1)
+        already_reported.delete()
+        Post.objects.filter(id=post.id).update(reports=F("reports") - 1)
     else:
         UserReport.objects.create(user = request.user,post=post)
         Post.objects.filter(id=post.id).update(reports=F("reports") + 1)
