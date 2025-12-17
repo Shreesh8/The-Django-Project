@@ -43,6 +43,7 @@
                         <th scope="col">Posts</th>
                         <th scope="col">Upvotes</th>
                         <th scope="col">Views</th>
+                        <th scope="col">Reports</th>
                         <th scope="col">UserIDs/Usernames</th>
                         <th scope="col">Actions</th>
                         </tr>
@@ -120,6 +121,7 @@
                                 <td>{{admin_data|safe|truncatechars:50}}</td>
                                 <td><img class="arrow_upvote" alt="Views">{{admin_data.upvotes}}</td>
                                 <td><img class="eye" alt="Views">{{admin_data.post_views}}</td>
+                                <td><img class="flag" alt="Views">{{admin_data.reports}}</td>
                                 <td>#{{admin_data.user.id}} {{admin_data.user.username|safe|truncatechars:50}}</td>
                                 <td>
                                     <a href="{{ admin_data.get_absolute_url }}"><img class="eye" alt="View Post"></a>

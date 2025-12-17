@@ -1,3 +1,5 @@
+
+/* Background */
 body{
     background-image: var(--bg-image);
     background-size: cover;
@@ -28,6 +30,7 @@ body{
     background-color: var(--bg-color) !important;
 }
 
+/* Modals */
 
 .modal-content{
     background-color: var(--bg-color);
@@ -45,6 +48,7 @@ body{
 /* icons that match the web theme must apply to the img tag. */
 /* ##############################################################*/
 
+/* Posts */
 .arrow_upvote{
     content: var(--arrow);
 }
@@ -61,6 +65,15 @@ body{
     content: var(--edit);
 }
 
+.flag{
+    content: var(--flag);
+}
+
+.flag_fill{
+    content: var(--flag-fill);
+}
+
+/* Admin panel */
 .edit_normal{
     content: var(--edit-normal);
 }
@@ -89,6 +102,8 @@ body{
     content: var(--disabled-eye);
 }
 
+/* Header */
+
 .theme_toggle_icon{
     content: var(--theme_toggle_icon);
 }
@@ -100,6 +115,8 @@ body{
 .map_search{
     content: var(--map-search);
 }
+
+/* Paginator */
 
 .paginator-arrow-left{ content: var(--paginator-arrow-left); }
 .paginator-arrow-right{ content: var(--paginator-arrow-right); }

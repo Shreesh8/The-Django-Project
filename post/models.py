@@ -25,6 +25,8 @@ class Post(models.Model):
     upvotes = models.PositiveIntegerField(default=0)
     post_views = models.PositiveIntegerField(default=0)
 
+    reports = models.PositiveBigIntegerField(default=0)
+
     def __str__(self):
         return self.title
 
@@ -42,6 +44,10 @@ class Post(models.Model):
 
     def get_delete_url(self):
         return reverse('post:delete', kwargs={'id': self.id})
+        #return "/user/{}".format(self.id)
+
+    def get_report_url(self):
+        return reverse('post:report', kwargs={'id': self.id})
         #return "/user/{}".format(self.id)
 
     def get_delete_post_adminpanel_url(self):
@@ -81,6 +87,13 @@ class Post(models.Model):
 class UserUpvote(models.Model):
     user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name="upvotes")
     post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="user_upvotes")
+
+    class Meta:
+        unique_together = ("user","post")
+
+class UserReport(models.Model): # there is probably a way better way of doing these
+    user = models.ForeignKey('auth.User', on_delete=models.CASCADE, related_name="reports")
+    post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name="user_reports")
 
     class Meta:
         unique_together = ("user","post")

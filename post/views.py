@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
 from django.urls import reverse
-from .models import Post, UserUpvote, ContactInfo
+from .models import Post, UserUpvote, ContactInfo, UserReport
 from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm, ContactusForm
 from django.contrib import messages
@@ -59,7 +59,10 @@ def post_index(request):
         post_ids = post_list.values_list('id', flat=True)
 
         upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+        reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
+
         upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+        reported_posts = set(reported_qs.values_list('post_id', flat=True))
 
 
         query = request.GET.get("q")
@@ -73,10 +76,13 @@ def post_index(request):
         paginator = Paginator(post_list, 9)  # Show 9 posts per page.
         page = request.GET.get("page")
         posts = paginator.get_page(page)
+
         context = {
             "posts" : posts,
             "upvoted_posts" : upvoted_posts,
+            "reported_posts" : reported_posts,
         }
+
         suffix = ""
         for each_page in range(len(posts)):
             if len(posts[each_page].title) > 25:
@@ -95,7 +101,10 @@ def post_detail(request, id):
     post_ids = post_list.values_list('id', flat=True)
 
     upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+    reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
+
     upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+    reported_posts = set(reported_qs.values_list('post_id', flat=True))
 
     post_views = Post.objects.filter(id=post.id).update(post_views=F("post_views") + 1)
 
@@ -112,6 +121,7 @@ def post_detail(request, id):
         "post" : post,
         "form" : form,
         "upvoted_posts" : upvoted_posts,
+        "reported_posts" : reported_posts,
         "post_views": post_views,
     }
     
@@ -213,6 +223,24 @@ def post_update(request, id):
         return render(request, "post_templates/form.html", context)
     else:
         raise Http404("cant update wrong user")
+
+def post_report(request,id):
+    if not request.user.is_authenticated:
+        raise Http404()
+
+    post = get_object_or_404(Post, id = id)
+
+
+    already_reported = UserReport.objects.filter(user = request.user,post=post)
+
+    if already_reported.exists():
+        already_reported.delete()
+        Post.objects.filter(id=post.id).update(reports=F("reports") - 1)
+    else:
+        UserReport.objects.create(user = request.user,post=post)
+        Post.objects.filter(id=post.id).update(reports=F("reports") + 1)
+
+    return redirect('post:index')
 
 def post_delete(request, id):
 

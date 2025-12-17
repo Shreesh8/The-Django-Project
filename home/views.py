@@ -1,5 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect,Http404
-from post.models import Post, UserUpvote
+from post.models import Post, UserUpvote, UserReport
 from django.db.models import Count
 from accounts.forms import LoginForm
 from django.db.models import F
@@ -19,8 +19,12 @@ def home_view(request,filter_option = "default"): # Top of all time filter is de
 
         post_ids = post_list.values_list('id', flat=True)
 
+
         upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+        reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
+
         upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+        reported_posts = set(reported_qs.values_list('post_id', flat=True))
 
         if request.user.is_authenticated:
             name = {"name" : request.user.username}
@@ -41,6 +45,7 @@ def home_view(request,filter_option = "default"): # Top of all time filter is de
             "filter_option": filter_option,
             "account": name,
             "upvoted_posts": upvoted_posts,
+            "reported_posts" : reported_posts,
         }
 
         return render(request, "home_templates/home.html",context)
