@@ -1,6 +1,6 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
 from django.urls import reverse
-from .models import Post, UserUpvote, ContactInfo
+from .models import Post, UserUpvote, ContactInfo, UserReport
 from django.contrib.auth.models import User
 from .forms import PostForm, CommentForm, ContactusForm
 from django.contrib import messages
@@ -213,6 +213,25 @@ def post_update(request, id):
         return render(request, "post_templates/form.html", context)
     else:
         raise Http404("cant update wrong user")
+
+def post_report(request,id):
+    if not request.user.is_authenticated:
+        raise Http404()
+
+    post = get_object_or_404(Post, id = id)
+
+
+    already_reported = UserReport.objects.filter(user = request.user,post=post)
+
+    if already_reported.exists():
+        pass 
+        #already_reported.delete()
+        #Post.objects.filter(id=post.id).update(reports=F("reports") - 1)
+    else:
+        UserReport.objects.create(user = request.user,post=post)
+        Post.objects.filter(id=post.id).update(reports=F("reports") + 1)
+
+    return redirect('post:index')
 
 def post_delete(request, id):
 

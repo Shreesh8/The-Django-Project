@@ -83,13 +83,15 @@
                             {% endif %}
 
                             <img class="ms-2 eye" alt="">{{ post.post_views }} 
-
-                            {% if post.user == request.user %}
-                                <div class="ms-auto">
+                            <div class="ms-auto">
+                                {% if post.user == request.user %} <!-- Checks if you are owner of post -->
                                     <a href="{{ post.get_update_url }}"><img class="edit"  alt="Edit Post"></a>
                                     <a href="" data-bs-toggle="modal" data-bs-target="#modal_delete_{{ post.id }}"><img class="delete" alt="Delete Post"></a>
-                                </div>
-                            {% endif %}
+                                {% endif %}
+                            
+                                <a href="" data-bs-toggle="modal" data-bs-target="#modal_report_{{ post.id }}"><img class="flag" alt="Report Post"></a>
+                            </div>
+
                             <div class="ms-auto">
                                 <small data-toggle="tooltip" data-placement="top" title="{{post.date}}">{{ post.date|timesince_single_unit }} Ago</small>
                             </div>             
@@ -115,6 +117,26 @@
                             <button type="button" class="btn btn-primary button_shadow" data-bs-dismiss="modal">No</button>
                             {% if request.user.is_authenticated %}
                                 <a href="{{ post.get_delete_url }}" class="btn btn-danger button_shadow" role="button">Delete</a>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <!-- Modal post report -->
+            <div class="modal fade" id="modal_report_{{ post.id }}" tabindex="-1" aria-labelledby="modalLabel_{{ post.id }}" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="modalLabel_{{ post.id }}">Report Post</h5>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Are you sure you want to Report this post?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-primary button_shadow" data-bs-dismiss="modal">No</button>
+                            {% if request.user.is_authenticated %}
+                                <a href="{{ post.get_report_url }}" class="btn btn-danger button_shadow" role="button">Report</a>
                             {% endif %}
                         </div>
                     </div>
