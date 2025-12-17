@@ -101,7 +101,10 @@ def post_detail(request, id):
     post_ids = post_list.values_list('id', flat=True)
 
     upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
+    reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
+
     upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
+    reported_posts = set(reported_qs.values_list('post_id', flat=True))
 
     post_views = Post.objects.filter(id=post.id).update(post_views=F("post_views") + 1)
 
@@ -118,6 +121,7 @@ def post_detail(request, id):
         "post" : post,
         "form" : form,
         "upvoted_posts" : upvoted_posts,
+        "reported_posts" : reported_posts,
         "post_views": post_views,
     }
     
