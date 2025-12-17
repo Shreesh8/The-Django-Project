@@ -25,7 +25,6 @@
 
 :root[data-theme="light"]{
     /* Background */
-
     --bg-image: url("{% static '/img/wallpaper/waves5_light.jpg' %}");
     
     /* Posts */
@@ -35,6 +34,9 @@
     --edit: url("{% static '/img/post/edit_dark.svg' %}");
     --delete: url("{% static '/img/post/delete_dark.svg' %}");
     --flag: url("{% static '/img/post/flag_dark.svg'%}"); /* report icon */
+    
+    --arrow: url("{% static 'img/arrow_dark.svg' %}"); /* upvotes icon */
+    --arrow-fill: url("{% static 'img/arrow_fill_dark.svg' %}");
 
     /* Admin panel */
     --edit-normal: url("{% static 'img/admin_perms/edit_normal_dark.svg' %}");
@@ -52,14 +54,12 @@
     --compass: url("{% static '/img/header/compass.svg'%}"); /* navbar toggle icon */  
 
     /* Paginator */
-    --arrow: url("{% static 'img/arrow_dark.svg' %}");
-    --arrow-fill: url("{% static 'img/arrow_fill_dark.svg' %}");
+
 
 }
 
 :root[data-theme="dark"]{
     /* Background */
-
     --bg-image: url("{% static '/img/wallpaper/waves5_gray.jpg' %}");
 
     /* Posts */
@@ -69,6 +69,9 @@
     --delete: url("{% static '/img/post/delete_light.svg' %}");
 
     --flag: url("{% static '/img/post/flag_light.svg'%}"); /* report icon */
+
+    --arrow: url("{% static 'img/arrow_light.svg' %}"); /* upvotes icon */
+    --arrow-fill: url("{% static 'img/arrow_fill_light.svg' %}");
 
     /* Admin panel */
     --edit-normal: url("{% static 'img/admin_perms/edit_normal_light.svg' %}");
@@ -85,9 +88,6 @@
     --theme_toggle_icon: url("{% static '/img/header/sun.svg'%}");
     --compass: url("{% static '/img/header/compass.svg'%}"); /* navbar toggle icon */
 
-    /* Paginator */
-    --arrow: url("{% static 'img/arrow_light.svg' %}");
-    --arrow-fill: url("{% static 'img/arrow_fill_light.svg' %}");
 }
 /* ######################################################################*/
 /* All related dark and light mode colors are in theme.css and style.css */
