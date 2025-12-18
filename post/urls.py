@@ -1,10 +1,10 @@
 from django.urls import re_path, path
 from . import views
-from .views import BlogListPosts, PostActions
+from .views import ListPosts, PostActions
 
 app_name = "post"
 
-blog = BlogListPosts()
+posts = ListPosts()
 post_actions = PostActions()
 
 urlpatterns = [
@@ -13,8 +13,8 @@ urlpatterns = [
     path("contact/", views.Info.contact_us, name = "contact"),
 
     # Posts
-    path("index/", blog.list_posts, name = "index"),
-    re_path(r'^(?P<id>\d+)/$', views.post_detail, name = "detail"), 
+    path("index/", posts.list_blog_posts, name = "index"),
+    re_path(r'^(?P<id>\d+)/$', posts.list_post_in_detail, name = "detail"), 
     # r'^(?P<id>\d+)/$' doesnt work with path
     path("create/", views.post_create, name = "create"),
 

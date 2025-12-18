@@ -20,7 +20,7 @@ class Info():
     def about_us(request):
         return render(request, "info/about.html")
 
-class BlogListPosts():
+class ListPosts():
 
     def posts_paginator(self, request):
         post_list = Post.objects.all()
@@ -49,7 +49,7 @@ class BlogListPosts():
     def post_get_reports(self,request):
         return self.fetch_post_data(request,UserReport)
     
-    def list_posts(self,request):
+    def list_blog_posts(self,request):
         posts = self.posts_paginator(request)
         upvotes = self.post_get_upvotes(request)
         reports = self.post_get_reports(request)
@@ -70,6 +70,55 @@ class BlogListPosts():
             posts[each_page].title = posts[each_page].title[:25] + suffix
 
         return render(request, "post_templates/index.html", context)
+    
+    def list_post_in_detail(self, request, id):
+        post = get_object_or_404(Post, id = id)
+
+        upvotes = self.post_get_upvotes(request)
+        reports = self.post_get_reports(request)
+
+        Post.objects.filter(id=post.id).update(post_views=F("post_views") + 1) # increases the post view by 1
+
+        form = CommentForm(request.POST or None) # handles comment logic
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return HttpResponseRedirect(post.get_absolute_url())
+        
+        content = {
+            "post" : post,
+            "form" : form,
+            "upvoted_posts" : upvotes,
+            "reported_posts" : reports,
+        }
+
+        if post.user_html:
+            html_content = self.web_view(post) # Displays the html page with css js if there is
+            return HttpResponse(html_content, content_type='text/html')
+
+        return render(request, "post_templates/detail.html", content)
+    
+    def web_view(self, post):
+        # Read html content
+        html_path = post.user_html.path
+        with open(html_path, 'r', encoding='utf-8') as f:
+            html_content = f.read()
+        
+        html_content = self.web_view_file_includer(post, "user_css", "style","head", html_content)
+        html_content = self.web_view_file_includer(post, "user_js", "script","body", html_content)
+        return html_content
+    
+    def web_view_file_includer(self, post, file_type,file_format, in_element, html_content):
+        
+        if getattr(post,file_type):# checks if it exists
+            path = getattr(post,file_type).path # Adds css and js files straight into one html file so i dont have to bother with multiple files
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read() # adds the js css contents at the end of their element tag ex. body or head
+            return html_content.replace(f'</{in_element}>',f'<{file_format}>{content}</{file_format}>\n</{in_element}>',1)
+        else:
+            return html_content
 
 class PostActions():
 
@@ -99,61 +148,7 @@ class PostActions():
         
         return post
 
-def post_detail(request, id):
-    post = get_object_or_404(Post, id = id)
-    post_list = Post.objects.all()
 
-    post_ids = post_list.values_list('id', flat=True)
-
-    upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
-    reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
-
-    upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
-    reported_posts = set(reported_qs.values_list('post_id', flat=True))
-
-    post_views = Post.objects.filter(id=post.id).update(post_views=F("post_views") + 1)
-
-    form = CommentForm(request.POST or None) # handles comment logic
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.post = post
-        comment.user = request.user
-        comment.save()
-        print("commented")
-        return HttpResponseRedirect(post.get_absolute_url())
-    
-    content = {
-        "post" : post,
-        "form" : form,
-        "upvoted_posts" : upvoted_posts,
-        "reported_posts" : reported_posts,
-        "post_views": post_views,
-    }
-    
-    if post.user_html:
-        # Read html content
-        html_path = post.user_html.path
-        with open(html_path, 'r', encoding='utf-8') as f:
-            html_content = f.read()
-
-        final_html = html_content
-
-        if post.user_css: # Adds css and js files straight into one html file so i dont have to bother with multiple files
-            css_path = post.user_css.path
-            with open(css_path, 'r', encoding='utf-8') as f:
-                css_content = f.read()
-            final_html = final_html.replace('</head>', f'<style>{css_content}</style>\n</head>')
-
-        if post.user_js:
-            js_path = post.user_js.path
-            with open(js_path, 'r', encoding='utf-8') as f:
-                js_content = f.read()
-            final_html = final_html.replace('</body>', f'<script>{js_content}</script>\n</body>')
-        
-        # Displays the html page
-        return HttpResponse(final_html, content_type='text/html')
-
-    return render(request, "post_templates/detail.html", content)
 
 def post_create(request):
 
