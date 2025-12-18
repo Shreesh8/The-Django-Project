@@ -1,15 +1,18 @@
 from django.urls import re_path, path
 from . import views
+from .views import BlogListPosts
 
 app_name = "post"
 
+blog = BlogListPosts()
+
 urlpatterns = [
     # Misc
-    path("about/", views.about_us, name = "about"),
-    path("contact/", views.contact_us, name = "contact"),
+    path("about/", views.Info.about_us, name = "about"),
+    path("contact/", views.Info.contact_us, name = "contact"),
 
     # Posts
-    path("index/", views.post_index, name = "index"),
+    path("index/", blog.list_posts, name = "index"),
     re_path(r'^(?P<id>\d+)/$', views.post_detail, name = "detail"), 
     # r'^(?P<id>\d+)/$' doesnt work with path
     path("create/", views.post_create, name = "create"),

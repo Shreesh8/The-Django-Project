@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.urls import reverse
 from .models import Post, UserUpvote, UserReport
 from django.contrib.auth.models import User
@@ -12,11 +13,63 @@ from django.core.paginator import Paginator
 from django.conf import settings
 #from django.utils.text import slugify
 
-def contact_us(request):
-    return render(request, "info/contact.html")
+class Info():
+    def contact_us(request):
+        return render(request, "info/contact.html")
 
-def about_us(request):
-    return render(request, "info/about.html")
+    def about_us(request):
+        return render(request, "info/about.html")
+
+class BlogListPosts():
+
+    def posts_paginator(self, request):
+        post_list = Post.objects.all()
+        query = request.GET.get("q")
+
+        if query: # Search query in header
+            post_list = post_list.filter(
+                Q(title__icontains=query) |
+                Q(desc__icontains=query)|
+                Q(user__first_name__icontains=query)|
+                Q(user__last_name__icontains=query)).distinct()
+        paginator = Paginator(post_list, 9)  # Show 9 posts per page.
+        page = request.GET.get("page")
+        return paginator.get_page(page)
+        
+    def fetch_post_data(self, request, model): # Fetches upvotes and reports
+        post_list = Post.objects.all()
+        post_ids = post_list.values_list('id', flat=True)
+
+        obj_qs = model.objects.filter(user=request.user, post_id__in=post_ids)
+        return set(obj_qs.values_list('post_id', flat=True))
+
+    def post_get_upvotes(self,request):
+        return self.fetch_post_data( request,UserUpvote)
+    
+    def post_get_reports(self,request):
+        return self.fetch_post_data(request,UserReport)
+    
+    def list_posts(self,request):
+        posts = self.posts_paginator(request)
+        upvotes = self.post_get_upvotes(request)
+        reports = self.post_get_reports(request)
+        
+        context = {
+            "posts" : posts,
+            "upvoted_posts" : upvotes,
+            "reported_posts" : reports,
+            "debug": settings.DEBUG,
+        }
+
+        suffix = ""
+        for each_page in range(len(posts)):
+            if len(posts[each_page].title) > 25:
+                suffix = "..."
+            else:
+                suffix = ""
+            posts[each_page].title = posts[each_page].title[:25] + suffix
+
+        return render(request, "post_templates/index.html", context)
 
 def upvote_post(request, id):
     #posts = Post.objects.get(id=id)
@@ -54,48 +107,6 @@ def upvote_post_detail(request, id):
         Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
 
     return redirect(post.get_absolute_url())
-
-def post_index(request):
-    if request.user.is_authenticated:
-        post_list = Post.objects.all()
-        post_ids = post_list.values_list('id', flat=True)
-
-        upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
-        reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
-
-        upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
-        reported_posts = set(reported_qs.values_list('post_id', flat=True))
-
-
-        query = request.GET.get("q")
-
-        if query:
-            post_list = post_list.filter(
-                Q(title__icontains=query) |
-                Q(desc__icontains=query)|
-                Q(user__first_name__icontains=query)|
-                Q(user__last_name__icontains=query)).distinct()
-        paginator = Paginator(post_list, 9)  # Show 9 posts per page.
-        page = request.GET.get("page")
-        posts = paginator.get_page(page)
-
-        context = {
-            "posts" : posts,
-            "upvoted_posts" : upvoted_posts,
-            "reported_posts" : reported_posts,
-            "debug": settings.DEBUG,
-        }
-
-        suffix = ""
-        for each_page in range(len(posts)):
-            if len(posts[each_page].title) > 25:
-                suffix = "..."
-            else:
-                suffix = ""
-            posts[each_page].title = posts[each_page].title[:25] + suffix
-        return render(request, "post_templates/index.html", context)
-    else:
-        return redirect('/accounts/login')
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id = id)
