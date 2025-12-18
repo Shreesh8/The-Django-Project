@@ -1,10 +1,11 @@
 from django.urls import re_path, path
 from . import views
-from .views import BlogListPosts
+from .views import BlogListPosts, PostActions
 
 app_name = "post"
 
 blog = BlogListPosts()
+post_actions = PostActions()
 
 urlpatterns = [
     # Misc
@@ -22,6 +23,6 @@ urlpatterns = [
     re_path(r'^(?P<id>\d+)/delete/$', views.post_delete, name = "delete"),
     re_path(r'^(?P<id>\d+)/report/$', views.post_report, name = "report"),
 
-    re_path(r'^(?P<id>\d+)/upvote/$', views.upvote_post, name = "upvote_post"),
-    re_path(r'^(?P<id>\d+)/upvote/detail/$', views.upvote_post_detail, name = "upvote_post_detail"),
+    re_path(r'^(?P<id>\d+)/upvote/$', post_actions.upvote_in_blog, name = "upvote_post"),
+    re_path(r'^(?P<id>\d+)/upvote/detail/$', post_actions.upvote_in_detail, name = "upvote_post_detail"),
 ]

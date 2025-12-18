@@ -71,42 +71,33 @@ class BlogListPosts():
 
         return render(request, "post_templates/index.html", context)
 
-def upvote_post(request, id):
-    #posts = Post.objects.get(id=id)
-    post = get_object_or_404(Post, id = id)
+class PostActions():
 
-    if not request.user.is_authenticated:
-        raise Http404()
+    def upvote_in_blog(self, request, id):
+        self.upvote_post(request, id)
+        page = request.GET.get("page", 1)
+        return redirect(f"{reverse('post:index')}?page={page}")
 
-    already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
+    def upvote_in_detail(self, request, id):
+        post = self.upvote_post(request, id)
+        return redirect(post.get_absolute_url())
 
-    if already_upvoted.exists():
-        already_upvoted.delete()
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
-    else:
-        UserUpvote.objects.create(user = request.user,post=post)
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
+    def upvote_post(self, request, id):
+        post = get_object_or_404(Post, id = id)
 
-    page = request.GET.get("page", 1)
-    return redirect(f"{reverse('post:index')}?page={page}")
+        if not request.user.is_authenticated:
+            raise Http404()
 
-def upvote_post_detail(request, id):
-    
-    post = get_object_or_404(Post, id = id)
+        already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
 
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
-
-    if already_upvoted.exists():
-        already_upvoted.delete()
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
-    else:
-        UserUpvote.objects.create(user = request.user,post=post)
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
-
-    return redirect(post.get_absolute_url())
+        if already_upvoted.exists():
+            already_upvoted.delete()
+            Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
+        else:
+            UserUpvote.objects.create(user = request.user,post=post)
+            Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
+        
+        return post
 
 def post_detail(request, id):
     post = get_object_or_404(Post, id = id)
