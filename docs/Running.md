@@ -63,7 +63,7 @@ This is how i create the db_sample.json files, you can find more info about it <
 But i advise using the manage.py file instead of django-admin.
 
 ```
-python manage.py dumpdata --exclude=auth --exclude=contenttypes --indent 2 > db_sample.json
+python manage.py dumpdata --exclude auth.permission --exclude contenttypes > db_sample.json
 ```
 
 This will dump your db data into a json file in your project directory.
