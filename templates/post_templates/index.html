@@ -5,7 +5,7 @@
 {% block body%}
 
 
-{% if post %}
+{% if posts %}
     <div class="container">             
         <div class="row row-cols-1 row-cols-md-3" style="margin-top: 1rem;">
             {% for post in posts %}
@@ -107,19 +107,21 @@
     </div>
 {% else %}
     {% if debug %}
-        <div class="mt-4">
-        <div class="img-thumbnail post_body" style="text-align: center; padding: 2rem;">
+        <div class="d-flex mt-4 justify-content-center"> 
+        <div class="img-thumbnail post_body w-50 " style="text-align: center; padding: 2rem;">
             <h4>
                 There seems to be no Posts... Did you forget to load db_sample.json?
             </h4>
+            <a class="btn btn-primary button_shadow mt-3" href="{% url 'post:create' %}">Create posts</a> <a class="btn btn-primary button_shadow mt-3" href="https://github.com/zekaekop/The-Django-Project/blob/main/docs/Running.md" target="_blank">Fixture guide</a>
         </div>
         </div>
     {% else %}
         <div class="mt-4">
         <div class="img-thumbnail post_body" style="text-align: center; padding: 2rem;">
             <h4>
-            There seems to be no Popular Posts at the moment!
+                Be the first one to make a post!
             </h4>
+            <a class="btn btn-primary button_shadow mt-3" href="{% url 'post:create' %}">Create posts</a>
         </div>
         </div>
     {% endif %}
