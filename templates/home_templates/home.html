@@ -46,7 +46,7 @@
       </ul>
     </div>
 
-    {% if post %}
+    {% if popular_posts %}
       {% for post in popular_posts %}
       <div class="col d-flex mt-3">
         {% include 'home_templates/popular_post.html' with post=post %}
