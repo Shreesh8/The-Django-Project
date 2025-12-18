@@ -13,6 +13,10 @@ from django.core.paginator import Paginator
 from django.conf import settings
 #from django.utils.text import slugify
 
+def authenticate_users(request):
+    if not request.user.is_authenticated:
+        raise Http404()
+
 class Info():
     def contact_us(request):
         return render(request, "info/contact.html")
@@ -132,28 +136,69 @@ class PostActions():
         return redirect(post.get_absolute_url())
 
     def upvote_post(self, request, id):
+        inc_type = "upvotes"
+        self.increament_once_per_account(request, id, inc_type, UserUpvote)
+        return redirect('post:index')
+
+
+    def increament_once_per_account(self, request, id, inc_type, model):
         post = get_object_or_404(Post, id = id)
 
-        if not request.user.is_authenticated:
-            raise Http404()
+        authenticate_users(request)
 
-        already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
+        already_done = model.objects.filter(user = request.user,post=post)
 
-        if already_upvoted.exists():
-            already_upvoted.delete()
-            Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
+        if already_done.exists():
+            already_done.delete()
+            Post.objects.filter(id=post.id).update(**{inc_type: F(inc_type) - 1})
         else:
-            UserUpvote.objects.create(user = request.user,post=post)
-            Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
-        
-        return post
+            model.objects.create(user = request.user,post=post)
+            Post.objects.filter(id=post.id).update(**{inc_type: F(inc_type) + 1})
 
+
+
+    def post_report(self, request, id):
+        inc_type = "reports"
+        self.increament_once_per_account(request, id, inc_type, UserReport)
+        return redirect('post:index')
+
+    def post_delete(self, request, id):
+
+        authenticate_users(request)
+
+        deleted_post = get_object_or_404(Post, id = id)
+
+        if deleted_post.user == request.user:
+            deleted_post.delete()
+            return redirect('post:index')
+        else:
+            raise Http404("cant delete wrong user")
+        
+    def post_update(request, id):
+
+        authenticate_users(request)
+
+        post = get_object_or_404(Post, id = id)
+
+        if post.user == request.user or request.user.is_staff: # cant update posts if its a different user ... but if he is staff he can
+            form = PostForm(request.POST or None, request.FILES or None, instance=post)
+            if form.is_valid():
+                form.save()
+                updated_post = form.save()
+                return HttpResponseRedirect(updated_post.get_absolute_url())
+            
+            context = {
+                "title" : "Update Post",
+                "form" : form,
+            }
+            return render(request, "post_templates/form.html", context)
+        else:
+            raise Http404("cant update wrong user")
 
 
 def post_create(request):
 
-    if not request.user.is_authenticated:
-        raise Http404("not_athenticated")
+    authenticate_users(request)
 
 #    if request.method == "POST":
 #        form = postForm(request.POST)
@@ -176,59 +221,6 @@ def post_create(request):
     }
 
     return render(request, "post_templates/form.html", context)
-
-def post_update(request, id):
-
-    if not request.user.is_authenticated:
-        raise Http404("not_athenticated")
-
-    post = get_object_or_404(Post, id = id)
-
-    if post.user == request.user or request.user.is_staff: # cant update posts if its a different user ... but if he is staff he can
-        form = PostForm(request.POST or None, request.FILES or None, instance=post)
-        if form.is_valid():
-            form.save()
-            updated_post = form.save()
-            return HttpResponseRedirect(updated_post.get_absolute_url())
-        
-        context = {
-            "title" : "Update Post",
-            "form" : form,
-        }
-        return render(request, "post_templates/form.html", context)
-    else:
-        raise Http404("cant update wrong user")
-
-def post_report(request,id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    post = get_object_or_404(Post, id = id)
-
-
-    already_reported = UserReport.objects.filter(user = request.user,post=post)
-
-    if already_reported.exists():
-        already_reported.delete()
-        Post.objects.filter(id=post.id).update(reports=F("reports") - 1)
-    else:
-        UserReport.objects.create(user = request.user,post=post)
-        Post.objects.filter(id=post.id).update(reports=F("reports") + 1)
-
-    return redirect('post:index')
-
-def post_delete(request, id):
-
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    deleted_post = get_object_or_404(Post, id = id)
-
-    if deleted_post.user == request.user:
-        deleted_post.delete()
-        return redirect('post:index')
-    else:
-        raise Http404("cant delete wrong user")
 
 def contact_us(request):
     form = ContactusForm(request.POST or None)
