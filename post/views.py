@@ -1,4 +1,5 @@
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
+from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.urls import reverse
 from .models import Post, UserUpvote, UserReport
 from django.contrib.auth.models import User
@@ -12,64 +13,24 @@ from django.core.paginator import Paginator
 from django.conf import settings
 #from django.utils.text import slugify
 
-def contact_us(request):
-    return render(request, "info/contact.html")
-
-def about_us(request):
-    return render(request, "info/about.html")
-
-def upvote_post(request, id):
-    #posts = Post.objects.get(id=id)
-    post = get_object_or_404(Post, id = id)
-
+def authenticate_users(request):
     if not request.user.is_authenticated:
         raise Http404()
 
-    already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
+class Info():
+    def contact_us(request):
+        return render(request, "info/contact.html")
 
-    if already_upvoted.exists():
-        already_upvoted.delete()
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
-    else:
-        UserUpvote.objects.create(user = request.user,post=post)
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
+    def about_us(request):
+        return render(request, "info/about.html")
 
-    page = request.GET.get("page", 1)
-    return redirect(f"{reverse('post:index')}?page={page}")
+class ListPosts():
 
-def upvote_post_detail(request, id):
-    
-    post = get_object_or_404(Post, id = id)
-
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    already_upvoted = UserUpvote.objects.filter(user = request.user,post=post)
-
-    if already_upvoted.exists():
-        already_upvoted.delete()
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") - 1)
-    else:
-        UserUpvote.objects.create(user = request.user,post=post)
-        Post.objects.filter(id=post.id).update(upvotes=F("upvotes") + 1)
-
-    return redirect(post.get_absolute_url())
-
-def post_index(request):
-    if request.user.is_authenticated:
+    def posts_paginator(self, request):
         post_list = Post.objects.all()
-        post_ids = post_list.values_list('id', flat=True)
-
-        upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
-        reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
-
-        upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
-        reported_posts = set(reported_qs.values_list('post_id', flat=True))
-
-
         query = request.GET.get("q")
 
-        if query:
+        if query: # Search query in header
             post_list = post_list.filter(
                 Q(title__icontains=query) |
                 Q(desc__icontains=query)|
@@ -77,12 +38,30 @@ def post_index(request):
                 Q(user__last_name__icontains=query)).distinct()
         paginator = Paginator(post_list, 9)  # Show 9 posts per page.
         page = request.GET.get("page")
-        posts = paginator.get_page(page)
+        return paginator.get_page(page)
+        
+    def fetch_post_data(self, request, model): # Fetches upvotes and reports
+        post_list = Post.objects.all()
+        post_ids = post_list.values_list('id', flat=True)
 
+        obj_qs = model.objects.filter(user=request.user, post_id__in=post_ids)
+        return set(obj_qs.values_list('post_id', flat=True))
+
+    def post_get_upvotes(self,request):
+        return self.fetch_post_data( request,UserUpvote)
+    
+    def post_get_reports(self,request):
+        return self.fetch_post_data(request,UserReport)
+    
+    def list_blog_posts(self,request):
+        posts = self.posts_paginator(request)
+        upvotes = self.post_get_upvotes(request)
+        reports = self.post_get_reports(request)
+        
         context = {
             "posts" : posts,
-            "upvoted_posts" : upvoted_posts,
-            "reported_posts" : reported_posts,
+            "upvoted_posts" : upvotes,
+            "reported_posts" : reports,
             "debug": settings.DEBUG,
         }
 
@@ -93,70 +72,133 @@ def post_index(request):
             else:
                 suffix = ""
             posts[each_page].title = posts[each_page].title[:25] + suffix
+
         return render(request, "post_templates/index.html", context)
-    else:
-        return redirect('/accounts/login')
-
-def post_detail(request, id):
-    post = get_object_or_404(Post, id = id)
-    post_list = Post.objects.all()
-
-    post_ids = post_list.values_list('id', flat=True)
-
-    upvoted_qs = UserUpvote.objects.filter(user=request.user, post_id__in=post_ids)
-    reported_qs = UserReport.objects.filter(user=request.user, post_id__in=post_ids)
-
-    upvoted_posts = set(upvoted_qs.values_list('post_id', flat=True))
-    reported_posts = set(reported_qs.values_list('post_id', flat=True))
-
-    post_views = Post.objects.filter(id=post.id).update(post_views=F("post_views") + 1)
-
-    form = CommentForm(request.POST or None) # handles comment logic
-    if form.is_valid():
-        comment = form.save(commit=False)
-        comment.post = post
-        comment.user = request.user
-        comment.save()
-        print("commented")
-        return HttpResponseRedirect(post.get_absolute_url())
     
-    content = {
-        "post" : post,
-        "form" : form,
-        "upvoted_posts" : upvoted_posts,
-        "reported_posts" : reported_posts,
-        "post_views": post_views,
-    }
+    def list_post_in_detail(self, request, id):
+        post = get_object_or_404(Post, id = id)
+
+        upvotes = self.post_get_upvotes(request)
+        reports = self.post_get_reports(request)
+
+        Post.objects.filter(id=post.id).update(post_views=F("post_views") + 1) # increases the post view by 1
+
+        form = CommentForm(request.POST or None) # handles comment logic
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.post = post
+            comment.user = request.user
+            comment.save()
+            return HttpResponseRedirect(post.get_absolute_url())
+        
+        content = {
+            "post" : post,
+            "form" : form,
+            "upvoted_posts" : upvotes,
+            "reported_posts" : reports,
+        }
+
+        if post.user_html:
+            html_content = self.web_view(post) # Displays the html page with css js if there is
+            return HttpResponse(html_content, content_type='text/html')
+
+        return render(request, "post_templates/detail.html", content)
     
-    if post.user_html:
+    def web_view(self, post):
         # Read html content
         html_path = post.user_html.path
         with open(html_path, 'r', encoding='utf-8') as f:
             html_content = f.read()
-
-        final_html = html_content
-
-        if post.user_css: # Adds css and js files straight into one html file so i dont have to bother with multiple files
-            css_path = post.user_css.path
-            with open(css_path, 'r', encoding='utf-8') as f:
-                css_content = f.read()
-            final_html = final_html.replace('</head>', f'<style>{css_content}</style>\n</head>')
-
-        if post.user_js:
-            js_path = post.user_js.path
-            with open(js_path, 'r', encoding='utf-8') as f:
-                js_content = f.read()
-            final_html = final_html.replace('</body>', f'<script>{js_content}</script>\n</body>')
         
-        # Displays the html page
-        return HttpResponse(final_html, content_type='text/html')
+        html_content = self.web_view_file_includer(post, "user_css", "style","head", html_content)
+        html_content = self.web_view_file_includer(post, "user_js", "script","body", html_content)
+        return html_content
+    
+    def web_view_file_includer(self, post, file_type,file_format, in_element, html_content):
+        
+        if getattr(post,file_type):# checks if it exists
+            path = getattr(post,file_type).path # Adds css and js files straight into one html file so i dont have to bother with multiple files
+            with open(path, 'r', encoding='utf-8') as f:
+                content = f.read() # adds the js css contents at the end of their element tag ex. body or head
+            return html_content.replace(f'</{in_element}>',f'<{file_format}>{content}</{file_format}>\n</{in_element}>',1)
+        else:
+            return html_content
 
-    return render(request, "post_templates/detail.html", content)
+class PostActions():
+
+    def upvote_in_blog(self, request, id):
+        self.upvote_post(request, id)
+        page = request.GET.get("page", 1)
+        return redirect(f"{reverse('post:index')}?page={page}")
+
+    def upvote_in_detail(self, request, id):
+        post = self.upvote_post(request, id)
+        return redirect(post.get_absolute_url())
+
+    def upvote_post(self, request, id):
+        inc_type = "upvotes"
+        self.increament_once_per_account(request, id, inc_type, UserUpvote)
+        return redirect('post:index')
+
+
+    def increament_once_per_account(self, request, id, inc_type, model):
+        post = get_object_or_404(Post, id = id)
+
+        authenticate_users(request)
+
+        already_done = model.objects.filter(user = request.user,post=post)
+
+        if already_done.exists():
+            already_done.delete()
+            Post.objects.filter(id=post.id).update(**{inc_type: F(inc_type) - 1})
+        else:
+            model.objects.create(user = request.user,post=post)
+            Post.objects.filter(id=post.id).update(**{inc_type: F(inc_type) + 1})
+
+
+
+    def post_report(self, request, id):
+        inc_type = "reports"
+        self.increament_once_per_account(request, id, inc_type, UserReport)
+        return redirect('post:index')
+
+    def post_delete(self, request, id):
+
+        authenticate_users(request)
+
+        deleted_post = get_object_or_404(Post, id = id)
+
+        if deleted_post.user == request.user:
+            deleted_post.delete()
+            return redirect('post:index')
+        else:
+            raise Http404("cant delete wrong user")
+        
+    def post_update(request, id):
+
+        authenticate_users(request)
+
+        post = get_object_or_404(Post, id = id)
+
+        if post.user == request.user or request.user.is_staff: # cant update posts if its a different user ... but if he is staff he can
+            form = PostForm(request.POST or None, request.FILES or None, instance=post)
+            if form.is_valid():
+                form.save()
+                updated_post = form.save()
+                return HttpResponseRedirect(updated_post.get_absolute_url())
+            
+            context = {
+                "title" : "Update Post",
+                "form" : form,
+            }
+            return render(request, "post_templates/form.html", context)
+        else:
+            raise Http404("cant update wrong user")
+
 
 def post_create(request):
 
-    if not request.user.is_authenticated:
-        raise Http404("not_athenticated")
+    authenticate_users(request)
 
 #    if request.method == "POST":
 #        form = postForm(request.POST)
@@ -179,59 +221,6 @@ def post_create(request):
     }
 
     return render(request, "post_templates/form.html", context)
-
-def post_update(request, id):
-
-    if not request.user.is_authenticated:
-        raise Http404("not_athenticated")
-
-    post = get_object_or_404(Post, id = id)
-
-    if post.user == request.user or request.user.is_staff: # cant update posts if its a different user ... but if he is staff he can
-        form = PostForm(request.POST or None, request.FILES or None, instance=post)
-        if form.is_valid():
-            form.save()
-            updated_post = form.save()
-            return HttpResponseRedirect(updated_post.get_absolute_url())
-        
-        context = {
-            "title" : "Update Post",
-            "form" : form,
-        }
-        return render(request, "post_templates/form.html", context)
-    else:
-        raise Http404("cant update wrong user")
-
-def post_report(request,id):
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    post = get_object_or_404(Post, id = id)
-
-
-    already_reported = UserReport.objects.filter(user = request.user,post=post)
-
-    if already_reported.exists():
-        already_reported.delete()
-        Post.objects.filter(id=post.id).update(reports=F("reports") - 1)
-    else:
-        UserReport.objects.create(user = request.user,post=post)
-        Post.objects.filter(id=post.id).update(reports=F("reports") + 1)
-
-    return redirect('post:index')
-
-def post_delete(request, id):
-
-    if not request.user.is_authenticated:
-        raise Http404()
-
-    deleted_post = get_object_or_404(Post, id = id)
-
-    if deleted_post.user == request.user:
-        deleted_post.delete()
-        return redirect('post:index')
-    else:
-        raise Http404("cant delete wrong user")
 
 def contact_us(request):
     form = ContactusForm(request.POST or None)
