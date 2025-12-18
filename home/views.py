@@ -7,6 +7,8 @@ from django.utils import timezone
 from datetime import timedelta
 from calendar import monthrange
 
+from django.conf import settings
+
 def popular_post_filter_top_month(request):
     return home_view(request, "top_month")
 
@@ -46,6 +48,7 @@ def home_view(request,filter_option = "default"): # Top of all time filter is de
             "account": name,
             "upvoted_posts": upvoted_posts,
             "reported_posts" : reported_posts,
+            "debug": settings.DEBUG,
         }
 
         return render(request, "home_templates/home.html",context)
