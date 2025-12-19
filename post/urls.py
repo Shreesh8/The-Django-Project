@@ -25,4 +25,7 @@ urlpatterns = [
 
     re_path(r'^(?P<id>\d+)/upvote/$', post_actions.upvote_in_blog, name = "upvote_post"),
     re_path(r'^(?P<id>\d+)/upvote/detail/$', post_actions.upvote_in_detail, name = "upvote_post_detail"),
+
+    # Web
+    re_path(r'^(?P<id>\d+)/web/$', posts.render_web_view, name = "web"), 
 ]
