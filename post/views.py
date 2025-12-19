@@ -91,18 +91,24 @@ class ListPosts():
             comment.save()
             return HttpResponseRedirect(post.get_absolute_url())
         
+        if post.user_html: has_html = True 
+        else: has_html = False
+
         content = {
             "post" : post,
             "form" : form,
             "upvoted_posts" : upvotes,
             "reported_posts" : reports,
+            "has_html" : has_html,
         }
 
+        return render(request, "post_templates/detail.html", content)
+    
+    def render_web_view(self, id):
+        post = get_object_or_404(Post, id = id)
         if post.user_html:
             html_content = self.web_view(post) # Displays the html page with css js if there is
             return HttpResponse(html_content, content_type='text/html')
-
-        return render(request, "post_templates/detail.html", content)
     
     def web_view(self, post):
         # Read html content

@@ -25,6 +25,10 @@
                                 <img src="{{ post.image.url }}" alt="Post Image" class="img-thumbnail mt-2" style="width: 600px;">
                             {% endif %}
 
+                            {% if has_html %}
+                               <iframe src="{% url 'post:render_web_view' post.id %}" sandbox></iframe>
+                            {% endif %}
+
                             <div class="card-header mt-2 mb-2">
                                 {{ post.desc|safe|linebreaks}}
                             </div>
