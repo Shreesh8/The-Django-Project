@@ -133,6 +133,16 @@ div{
     z-index: 0;
 }
 
+.list-group{
+    box-shadow: 5px 5px 10px var(--shadow-color-02);
+}
+
+.list-group-item{
+    color: var(--text-color);
+    background-color: var(--bg-secondary-color);
+    border-color: var(--bg-border-color);
+}
+
 nav {
     position: relative;
     overflow: hidden;
@@ -166,6 +176,7 @@ nav {
     overflow-wrap: break-word;
     margin-left: 0.5rem;
 }
+
 .post_body{
     margin: 5px; 
     box-shadow: 5px 5px 10px var(--shadow-color-02);
