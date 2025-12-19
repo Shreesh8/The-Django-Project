@@ -1,3 +1,4 @@
+from urllib import request
 from django.shortcuts import render, get_object_or_404, HttpResponseRedirect, redirect, Http404, HttpResponse
 from django.views.generic import (ListView, DetailView, CreateView, UpdateView, DeleteView)
 from django.urls import reverse
@@ -17,19 +18,41 @@ def authenticate_users(request):
     if not request.user.is_authenticated:
         raise Http404()
 
-class Info():
-    
+class Info:
+
     def about_us(request):
         return render(request, "info/about.html")
-    
+
     def contact_us(request):
         form = ContactusForm(request.POST or None)
+
         if form.is_valid():
             contact = form.save(commit=False)
-            contact.user = request.user
+
+            # Attach user only if logged in
+            if request.user.is_authenticated:
+                contact.user = request.user
+
             contact.save()
-            return redirect('/')
-        return render(request, "info/contact.html", {'form':form, 'title':'Info'})
+
+            return render(
+                request,
+                "info/contact.html",
+                {
+                    "form": ContactusForm(),
+                    "title": "Info",
+                    "success": True,
+                }
+            )
+
+        return render(
+            request,
+            "info/contact.html",
+            {
+                "form": form,
+                "title": "Info",
+            }
+        )
 
 class ListPosts():
 
