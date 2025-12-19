@@ -18,11 +18,18 @@ def authenticate_users(request):
         raise Http404()
 
 class Info():
-    def contact_us(request):
-        return render(request, "info/contact.html")
-
+    
     def about_us(request):
         return render(request, "info/about.html")
+    
+    def contact_us(request):
+        form = ContactusForm(request.POST or None)
+        if form.is_valid():
+            contact = form.save(commit=False)
+            contact.user = request.user
+            contact.save()
+            return redirect('/')
+        return render(request, "info/contact.html", {'form':form, 'title':'Info'})
 
 class ListPosts():
 
@@ -222,11 +229,3 @@ def post_create(request):
 
     return render(request, "post_templates/form.html", context)
 
-def contact_us(request):
-    form = ContactusForm(request.POST or None)
-    if form.is_valid():
-        contact = form.save(commit=False)
-        contact.user = request.user
-        contact.save()
-        return redirect('/')
-    return render(request, "info/contact.html", {'form':form, 'title':'Info'})
