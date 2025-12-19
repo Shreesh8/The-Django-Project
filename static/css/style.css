@@ -12,6 +12,8 @@
 
     --transparent: rgba(0, 0, 0, 0);
 
+    --bubble-brightness: 0.5;
+
     --button-disabled: #8a8a8a;
     --button-disabled-hover: #7c7c7c;
     --button-disabled-active: #505050;
@@ -41,6 +43,8 @@
     --shadow-color-02: rgba(0, 0, 0, 0.5);
 
     --transparent: rgba(0, 0, 0, 0);
+
+    --bubble-brightness: 1.0;
     
     --button-disabled: #4a4a4a;
     --button-disabled-hover: #5a5a5a;
@@ -143,6 +147,7 @@ nav {
     width: 50px;
     height: auto;
     z-index: -10;
+    filter: brightness(var(--bubble-brightness));
     animation: bubble-float 3s ease-in infinite;
 }
 
