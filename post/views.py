@@ -104,8 +104,8 @@ class ListPosts():
 
         return render(request, "post_templates/detail.html", content)
     
-    def render_web_view(self, id):
-        post = get_object_or_404(Post, id = id)
+    def render_web_view(self, *args, **kwargs):
+        post = get_object_or_404(Post, id = kwargs.get("id"))
         if post.user_html:
             html_content = self.web_view(post) # Displays the html page with css js if there is
             return HttpResponse(html_content, content_type='text/html')
